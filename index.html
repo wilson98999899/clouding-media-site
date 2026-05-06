@@ -1,191 +1,295 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ALLO2 — 永續未來,從每一份行動開始 | Clouding Media</title>
-  <meta name="description" content="ALLO2 致力於碳權開發、ESG 顧問與綠色科技整合,協助企業邁向淨零未來。" />
+  <meta name="description" content="Clouding Media — 雲端媒體｜用品牌策略、數位行銷與內容製作，幫企業放大影響力。" />
+  <title data-zh="Clouding Media｜雲端媒體 — 品牌策略 × 數位行銷" data-en="Clouding Media — Brand Strategy & Digital Marketing">Clouding Media｜雲端媒體</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="nav-inner">
+  <!-- ======================== HEADER ======================== -->
+  <header class="site-header">
+    <div class="container nav">
       <a href="index.html" class="logo">
-        <span class="logo-mark">A</span>
-        ALLO2
+        <span class="logo-mark"></span>
+        <span>Clouding Media</span>
       </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" class="active">首頁</a></li>
-        <li><a href="services.html">服務</a></li>
-        <li><a href="projects.html">專案案例</a></li>
-        <li><a href="about.html">關於我們</a></li>
-        <li><a href="about.html#contact" class="nav-cta">聯絡我們</a></li>
+      <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active"><span data-lang="zh">首頁</span><span data-lang="en">Home</span></a></li>
+        <li><a href="about.html"><span data-lang="zh">關於我們</span><span data-lang="en">About</span></a></li>
+        <li><a href="services.html"><span data-lang="zh">服務方案</span><span data-lang="en">Services</span></a></li>
+        <li><a href="contact.html"><span data-lang="zh">聯絡我們</span><span data-lang="en">Contact</span></a></li>
       </ul>
-      <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-content">
-      <span class="hero-badge fade-up">ESG · 綠色科技 · 碳中和</span>
-      <h1 class="fade-up">
-        永續未來,<br />
-        從<span class="highlight">每一份行動</span>開始
-      </h1>
-      <p class="fade-up">
-        ALLO2 結合碳權開發、ESG 顧問與綠色科技整合服務,協助企業在淨零轉型的浪潮中,找到屬於自己的永續路徑。
-      </p>
-      <div class="btn-group fade-up">
-        <a href="services.html" class="btn btn-primary">探索服務 →</a>
-        <a href="about.html#contact" class="btn btn-outline">與我們對談</a>
+      <div class="nav-cta">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button data-lang="zh" type="button">中</button>
+          <button data-lang="en" type="button">EN</button>
+        </div>
+        <a class="btn btn-primary" href="contact.html">
+          <span data-lang="zh">立即諮詢</span><span data-lang="en">Get Started</span>
+        </a>
       </div>
+    </div>
+  </header>
 
-      <div class="hero-stats">
-        <div class="stat-card fade-up">
-          <span class="stat-value">10+</span>
-          <span class="stat-label">合作專案</span>
+  <!-- ======================== HERO ======================== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-eyebrow">
+          <span data-lang="zh">品牌 × 媒體 × 數位策略</span>
+          <span data-lang="en">Brand · Media · Digital Strategy</span>
+        </span>
+        <h1>
+          <span data-lang="zh">把品牌的故事，<br /><span class="accent">變成看得見的影響力。</span></span>
+          <span data-lang="en">Turn your brand story into <span class="accent">measurable impact.</span></span>
+        </h1>
+        <p class="lead">
+          <span data-lang="zh">Clouding Media 是一支整合品牌策略、內容製作與成效行銷的團隊。我們陪客戶從定位、設計到數據落地，打造能在數位世界裡被看見、被記住的品牌。</span>
+          <span data-lang="en">Clouding Media is a team that blends brand strategy, content production, and performance marketing — guiding partners from positioning to design to measurable digital growth.</span>
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="services.html">
+            <span data-lang="zh">瀏覽服務方案</span><span data-lang="en">Explore Plans</span>
+          </a>
+          <a class="btn btn-outline" href="about.html">
+            <span data-lang="zh">了解我們</span><span data-lang="en">Who We Are</span>
+          </a>
         </div>
-        <div class="stat-card fade-up">
-          <span class="stat-value">5</span>
-          <span class="stat-label">產業領域</span>
-        </div>
-        <div class="stat-card fade-up">
-          <span class="stat-value">100%</span>
-          <span class="stat-label">客戶承諾</span>
-        </div>
-        <div class="stat-card fade-up">
-          <span class="stat-value">∞</span>
-          <span class="stat-label">永續可能</span>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-content">
+          <div class="stat">10+</div>
+          <div class="stat-label">
+            <span data-lang="zh">年產業經驗</span><span data-lang="en">Years in industry</span>
+          </div>
+          <div style="margin-top:24px; height:1px; background:rgba(255,255,255,0.25);"></div>
+          <div class="stat" style="margin-top:24px;">200+</div>
+          <div class="stat-label">
+            <span data-lang="zh">合作品牌專案</span><span data-lang="en">Brand projects delivered</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Mission Section -->
-  <section>
+  <!-- ======================== FEATURES ======================== -->
+  <section class="section-soft">
     <div class="container">
-      <div class="section-header">
-        <span class="section-eyebrow">Our Mission</span>
-        <h2 class="section-title">用商業的力量,為地球做一件正確的事</h2>
-        <p class="section-subtitle">
-          ALLO2 相信,環境與商業可以同行。我們協助企業導入有效的減碳機制、開發可被驗證的碳權資產,並透過科技與顧問雙軌服務,讓永續從口號變成可量化的成果。
+      <div class="section-head fade-up">
+        <span class="eyebrow">
+          <span data-lang="zh">我們的優勢</span><span data-lang="en">Why Clouding</span>
+        </span>
+        <h2>
+          <span data-lang="zh">不只是執行，更是策略夥伴</span>
+          <span data-lang="en">More than execution — your strategic partner</span>
+        </h2>
+        <p>
+          <span data-lang="zh">從市場洞察、品牌定位到內容產出與媒體投放，一條龍整合流程，讓每一分行銷預算都看得見回報。</span>
+          <span data-lang="en">From market insight to brand positioning, content production, and paid media — every step is integrated so every dollar shows return.</span>
         </p>
       </div>
-
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-icon">🌱</div>
-          <h3>碳權開發</h3>
-          <p>從專案盡職調查、方法學選定到 VCS 認證輔導,提供完整的碳權生成與交易服務。</p>
+      <div class="features">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📊</div>
+          <h3><span data-lang="zh">數據驅動策略</span><span data-lang="en">Data-Driven Strategy</span></h3>
+          <p><span data-lang="zh">用受眾分析、競品研究與成效數據,讓決策有依據,不靠感覺。</span>
+             <span data-lang="en">Audience analysis, competitive research, and performance data drive every decision — not gut feeling.</span></p>
         </div>
-        <div class="card">
-          <div class="card-icon">📊</div>
-          <h3>ESG 顧問</h3>
-          <p>依據 GRI、SASB、TCFD 標準,協助企業建構永續報告與內部減碳策略。</p>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🎯</div>
+          <h3><span data-lang="zh">創意與成效兼顧</span><span data-lang="en">Creative meets Performance</span></h3>
+          <p><span data-lang="zh">創意要打動人,成效要回得來。我們不在兩者之間妥協。</span>
+             <span data-lang="en">Creative that resonates, performance that delivers — we refuse to compromise either.</span></p>
         </div>
-        <div class="card">
-          <div class="card-icon">⚡</div>
-          <h3>綠色科技整合</h3>
-          <p>導入再生能源、節能方案、智慧監控,讓企業營運與淨零目標真正接軌。</p>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🤝</div>
+          <h3><span data-lang="zh">長期夥伴關係</span><span data-lang="en">Long-Term Partnership</span></h3>
+          <p><span data-lang="zh">不只是接案,更陪你從第一天到下一個里程碑,把品牌做深做久。</span>
+             <span data-lang="en">Not project-by-project — we walk with you from day one to the next milestone, building brands that last.</span></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why Us -->
-  <section class="section-alt">
+  <!-- ======================== STATS ======================== -->
+  <section>
     <div class="container">
-      <div class="section-header">
-        <span class="section-eyebrow">Why ALLO2</span>
-        <h2 class="section-title">為什麼選擇 ALLO2</h2>
-        <p class="section-subtitle">不只是顧問,而是與你並肩作戰的長期夥伴</p>
-      </div>
-
-      <div class="grid grid-2">
-        <div class="card">
-          <h3>🎯 跨領域實戰經驗</h3>
-          <p>累積跨越農林、能源、製造、金融的多元專案經驗,理解不同產業的減碳痛點與機會。</p>
+      <div class="stats-bar fade-up">
+        <div class="stat-item">
+          <div class="num">200+</div>
+          <div class="label"><span data-lang="zh">完成專案</span><span data-lang="en">Projects Delivered</span></div>
         </div>
-        <div class="card">
-          <h3>🔍 數據驅動的決策</h3>
-          <p>所有建議都有量化基礎與第三方驗證機制支持,確保每一個碳權資產都禁得起檢驗。</p>
+        <div class="stat-item">
+          <div class="num">85%</div>
+          <div class="label"><span data-lang="zh">客戶留任率</span><span data-lang="en">Client Retention</span></div>
         </div>
-        <div class="card">
-          <h3>🤝 客製化服務</h3>
-          <p>沒有套版方案。從盤查、規劃到執行,我們依照你的產業特性與目標量身打造路徑。</p>
+        <div class="stat-item">
+          <div class="num">12</div>
+          <div class="label"><span data-lang="zh">產業領域</span><span data-lang="en">Industries Served</span></div>
         </div>
-        <div class="card">
-          <h3>🌍 國際視野</h3>
-          <p>緊跟 VCS、Gold Standard、ISO 14064 等國際標準動態,確保專案符合全球市場要求。</p>
+        <div class="stat-item">
+          <div class="num">3.2x</div>
+          <div class="label"><span data-lang="zh">平均 ROAS</span><span data-lang="en">Average ROAS</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section">
+  <!-- ======================== SERVICE PREVIEW ======================== -->
+  <section class="section-section">
     <div class="container">
-      <h2>準備好開啟永續轉型了嗎?</h2>
-      <p>從一場 30 分鐘的免費諮詢開始,讓我們一起為你的企業描繪屬於自己的淨零藍圖。</p>
-      <div class="btn-group">
-        <a href="about.html#contact" class="btn btn-primary">預約諮詢 →</a>
-        <a href="projects.html" class="btn btn-outline">看看我們做過什麼</a>
+      <div class="section-head fade-up">
+        <span class="eyebrow">
+          <span data-lang="zh">服務方案</span><span data-lang="en">Our Plans</span>
+        </span>
+        <h2>
+          <span data-lang="zh">三種合作模式,對應不同品牌階段</span>
+          <span data-lang="en">Three engagement models for every stage of your brand</span>
+        </h2>
+        <p>
+          <span data-lang="zh">無論你正在啟動新品牌、想擴大數位聲量,或要深耕長期經營,我們都有對應的合作方式。</span>
+          <span data-lang="en">Whether you're launching, scaling, or growing for the long run — there's a plan that fits.</span>
+        </p>
+      </div>
+      <div class="plans">
+        <div class="plan-card fade-up">
+          <h3><span data-lang="zh">啟動方案</span><span data-lang="en">Starter</span></h3>
+          <p class="plan-tagline">
+            <span data-lang="zh">適合新品牌、小型專案啟動</span>
+            <span data-lang="en">For new brands and pilot projects</span>
+          </p>
+          <div class="price">$ <span data-lang="zh">面議</span><span data-lang="en">On Request</span></div>
+          <span class="price-period">
+            <span data-lang="zh">單次專案制</span><span data-lang="en">Single project</span>
+          </span>
+          <ul class="plan-features">
+            <li><span data-lang="zh">品牌定位諮詢</span><span data-lang="en">Brand positioning</span></li>
+            <li><span data-lang="zh">視覺識別建議</span><span data-lang="en">Visual identity guidance</span></li>
+            <li><span data-lang="zh">基本內容產製</span><span data-lang="en">Core content production</span></li>
+            <li><span data-lang="zh">月度成效報告</span><span data-lang="en">Monthly performance report</span></li>
+          </ul>
+          <a class="btn btn-outline" href="services.html">
+            <span data-lang="zh">查看詳情</span><span data-lang="en">Learn more</span>
+          </a>
+        </div>
+        <div class="plan-card featured fade-up">
+          <span class="plan-badge"><span data-lang="zh">最受歡迎</span><span data-lang="en">Most Popular</span></span>
+          <h3><span data-lang="zh">成長方案</span><span data-lang="en">Growth</span></h3>
+          <p class="plan-tagline">
+            <span data-lang="zh">適合需要長期內容與媒體投放的品牌</span>
+            <span data-lang="en">For brands ready to scale content + media</span>
+          </p>
+          <div class="price">$ <span data-lang="zh">面議</span><span data-lang="en">On Request</span></div>
+          <span class="price-period">
+            <span data-lang="zh">月度合約</span><span data-lang="en">Monthly retainer</span>
+          </span>
+          <ul class="plan-features">
+            <li><span data-lang="zh">完整品牌策略規劃</span><span data-lang="en">Full brand strategy</span></li>
+            <li><span data-lang="zh">每月內容企劃 / 製作</span><span data-lang="en">Monthly content plan & production</span></li>
+            <li><span data-lang="zh">多平台媒體投放</span><span data-lang="en">Multi-platform paid media</span></li>
+            <li><span data-lang="zh">雙週成效會議</span><span data-lang="en">Bi-weekly review meetings</span></li>
+            <li><span data-lang="zh">專屬客戶經理</span><span data-lang="en">Dedicated account manager</span></li>
+          </ul>
+          <a class="btn btn-accent" href="services.html">
+            <span data-lang="zh">查看詳情</span><span data-lang="en">Learn more</span>
+          </a>
+        </div>
+        <div class="plan-card fade-up">
+          <h3><span data-lang="zh">企業方案</span><span data-lang="en">Enterprise</span></h3>
+          <p class="plan-tagline">
+            <span data-lang="zh">適合跨部門整合需求的中大型企業</span>
+            <span data-lang="en">For mid-large organizations with cross-team needs</span>
+          </p>
+          <div class="price">$ <span data-lang="zh">客製報價</span><span data-lang="en">Custom</span></div>
+          <span class="price-period">
+            <span data-lang="zh">年度框架合約</span><span data-lang="en">Annual contract</span>
+          </span>
+          <ul class="plan-features">
+            <li><span data-lang="zh">全方位品牌與通路整合</span><span data-lang="en">End-to-end brand integration</span></li>
+            <li><span data-lang="zh">公關 / 媒體合作關係</span><span data-lang="en">PR & media partnerships</span></li>
+            <li><span data-lang="zh">深度數據顧問服務</span><span data-lang="en">Senior data advisory</span></li>
+            <li><span data-lang="zh">高階教練 / 內訓</span><span data-lang="en">Executive coaching & training</span></li>
+            <li><span data-lang="zh">SLA 保證回應時間</span><span data-lang="en">Guaranteed SLA response</span></li>
+          </ul>
+          <a class="btn btn-outline" href="services.html">
+            <span data-lang="zh">查看詳情</span><span data-lang="en">Learn more</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
+  <!-- ======================== CTA ======================== -->
+  <section>
+    <div class="container">
+      <div class="cta-banner fade-up">
+        <h2>
+          <span data-lang="zh">準備好讓品牌被看見了嗎？</span>
+          <span data-lang="en">Ready to make your brand heard?</span>
+        </h2>
+        <p>
+          <span data-lang="zh">讓我們用 30 分鐘的免費諮詢,幫你釐清下一步。</span>
+          <span data-lang="en">Book a free 30-min consultation — let's map your next move.</span>
+        </p>
+        <a class="btn btn-accent" href="contact.html">
+          <span data-lang="zh">預約免費諮詢</span><span data-lang="en">Book a Free Call</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <div class="logo" style="color: white;">
-            <span class="logo-mark">A</span>
-            ALLO2
+        <div class="footer-brand">
+          <div class="logo" style="color:#fff;">
+            <span class="logo-mark"></span>
+            <span>Clouding Media</span>
           </div>
-          <p class="footer-brand-text">
-            ALLO2 是專注於碳權、ESG 與綠色科技整合的永續顧問品牌,協助企業以可驗證的方式實踐淨零承諾。
+          <p>
+            <span data-lang="zh">用品牌策略 × 數位行銷,讓每一個故事被看見。</span>
+            <span data-lang="en">Brand strategy × digital marketing — every story heard.</span>
           </p>
         </div>
         <div>
-          <h4>網站導覽</h4>
+          <h4><span data-lang="zh">公司</span><span data-lang="en">Company</span></h4>
           <ul>
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="services.html">服務項目</a></li>
-            <li><a href="projects.html">專案案例</a></li>
-            <li><a href="about.html">關於我們</a></li>
+            <li><a href="about.html"><span data-lang="zh">關於我們</span><span data-lang="en">About</span></a></li>
+            <li><a href="services.html"><span data-lang="zh">服務方案</span><span data-lang="en">Services</span></a></li>
+            <li><a href="contact.html"><span data-lang="zh">聯絡我們</span><span data-lang="en">Contact</span></a></li>
           </ul>
         </div>
         <div>
-          <h4>核心業務</h4>
+          <h4><span data-lang="zh">服務</span><span data-lang="en">Services</span></h4>
           <ul>
-            <li><a href="services.html">碳權開發</a></li>
-            <li><a href="services.html">ESG 顧問</a></li>
-            <li><a href="services.html">綠色科技</a></li>
-            <li><a href="services.html">永續培訓</a></li>
+            <li><a href="services.html#brand"><span data-lang="zh">品牌策略</span><span data-lang="en">Brand Strategy</span></a></li>
+            <li><a href="services.html#content"><span data-lang="zh">內容製作</span><span data-lang="en">Content Production</span></a></li>
+            <li><a href="services.html#media"><span data-lang="zh">媒體投放</span><span data-lang="en">Paid Media</span></a></li>
           </ul>
         </div>
         <div>
-          <h4>聯絡資訊</h4>
+          <h4><span data-lang="zh">聯絡</span><span data-lang="en">Get in touch</span></h4>
           <ul>
-            <li><a href="about.html#contact">合作洽詢</a></li>
-            <li><a href="about.html#contact">媒體聯繫</a></li>
-            <li><a href="mailto:hello@clouding-media.com">Email</a></li>
+            <li><a href="mailto:hello@clouding-media.com">hello@clouding-media.com</a></li>
+            <li><span data-lang="zh">台北市</span><span data-lang="en">Taipei, Taiwan</span></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 ALLO2 · Clouding Media. All rights reserved.</span>
-        <span>www.clouding-media.com</span>
+        <span>© <span id="footer-year">2026</span> Clouding Media. <span data-lang="zh">版權所有</span><span data-lang="en">All rights reserved.</span></span>
+        <span><a href="#" style="color:rgba(255,255,255,0.6);"><span data-lang="zh">隱私政策</span><span data-lang="en">Privacy</span></a> · <a href="#" style="color:rgba(255,255,255,0.6);"><span data-lang="zh">服務條款</span><span data-lang="en">Terms</span></a></span>
       </div>
     </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
