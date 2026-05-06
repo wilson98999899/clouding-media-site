@@ -80,8 +80,8 @@
           </div>
         </div>
 
-        <!-- Form -->
-        <form class="contact-form fade-up" onsubmit="event.preventDefault(); alert(document.documentElement.lang==='en' ? 'Thanks! We will get back to you within 1 business day.' : '感謝您的訊息,我們會在一個工作天內回覆。');">
+        <!-- Form (Formspree) -->
+        <form id="contactForm" class="contact-form fade-up" action="https://formspree.io/f/xjglrpel" method="POST">
           <h2><span data-lang="zh">送出訊息</span><span data-lang="en">Send a message</span></h2>
           <div class="form-row">
             <label for="name"><span data-lang="zh">姓名</span><span data-lang="en">Name</span></label>
@@ -108,14 +108,65 @@
             <label for="message"><span data-lang="zh">想聊什麼？</span><span data-lang="en">What would you like to discuss?</span></label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-          <button class="btn btn-primary" type="submit" style="width:100%;">
+          <!-- Formspree meta -->
+          <input type="hidden" name="_subject" value="Clouding Media 網站聯絡訊息" />
+          <input type="hidden" name="_language" value="zh" />
+          <!-- Honeypot for spam bots -->
+          <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" />
+          <button id="contactSubmit" class="btn btn-primary" type="submit" style="width:100%;">
             <span data-lang="zh">送出訊息</span><span data-lang="en">Send Message</span>
           </button>
+          <div id="contactStatus" style="margin-top:14px; font-size:0.92rem;"></div>
           <p style="font-size:0.82rem; color:var(--color-text-muted); margin-top:14px;">
             <span data-lang="zh">送出表示同意我們依個資法保管您的聯絡資訊,僅用於回覆本次需求。</span>
             <span data-lang="en">By submitting, you agree we may store your contact details only to respond to this inquiry.</span>
           </p>
         </form>
+
+        <script>
+          (function () {
+            var form = document.getElementById('contactForm');
+            var statusEl = document.getElementById('contactStatus');
+            var submitBtn = document.getElementById('contactSubmit');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+              e.preventDefault();
+              var lang = document.documentElement.lang || 'zh';
+              var sending = lang === 'en' ? 'Sending…' : '送出中…';
+              var ok = lang === 'en'
+                ? 'Thanks! We received your message and will reply within one business day.'
+                : '感謝您的訊息！我們會在一個工作天內回覆您。';
+              var fail = lang === 'en'
+                ? 'Something went wrong. Please email hello@clouding-media.com directly.'
+                : '送出失敗,請改寫信到 hello@clouding-media.com。';
+              statusEl.style.color = '';
+              statusEl.textContent = sending;
+              submitBtn.disabled = true;
+              var data = new FormData(form);
+              fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+              }).then(function (r) {
+                if (r.ok) {
+                  statusEl.style.color = '#0d8c7e';
+                  statusEl.textContent = ok;
+                  form.reset();
+                } else {
+                  return r.json().then(function (d) {
+                    statusEl.style.color = '#b91c1c';
+                    statusEl.textContent = (d && d.errors && d.errors.map(function(x){return x.message;}).join(', ')) || fail;
+                  });
+                }
+              }).catch(function () {
+                statusEl.style.color = '#b91c1c';
+                statusEl.textContent = fail;
+              }).finally(function () {
+                submitBtn.disabled = false;
+              });
+            });
+          })();
+        </script>
       </div>
     </div>
   </section>
