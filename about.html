@@ -1,205 +1,171 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="關於 Clouding Media — 我們的故事、團隊與價值觀。" />
-  <title data-zh="關於我們｜Clouding Media" data-en="About — Clouding Media">關於我們｜Clouding Media</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>關於｜Clouding Media</title>
+<meta name="description" content="專業領域、作業紀律與獨立性聲明。">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container nav">
-      <a href="index.html" class="logo">
-        <span class="logo-mark"></span><span>Clouding Media</span>
-      </a>
-      <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      <ul class="nav-links">
-        <li><a href="index.html"><span data-lang="zh">首頁</span><span data-lang="en">Home</span></a></li>
-        <li><a href="about.html" class="active"><span data-lang="zh">關於我們</span><span data-lang="en">About</span></a></li>
-        <li><a href="services.html"><span data-lang="zh">服務方案</span><span data-lang="en">Services</span></a></li>
-        <li><a href="contact.html"><span data-lang="zh">聯絡我們</span><span data-lang="en">Contact</span></a></li>
+<header>
+<div class="wrap">
+  <nav class="nav" id="nav">
+    <a class="brand" href="index.html">Clouding<span>.</span>Media</a>
+    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">選單</button>
+    <span class="sp"></span>
+    <a class="lk" href="index.html">首頁</a>
+    <a class="lk" href="services.html">服務</a>
+    <a class="lk on" href="about.html">關於</a>
+    <a class="lk" href="contact.html">聯絡</a>
+    <a class="cta" href="contact.html">聯絡我們</a>
+  </nav>
+</div>
+</header>
+
+<div class="hero">
+<div class="wrap">
+  <div class="rule"></div>
+  <div class="eyebrow">About</div>
+  <h1>關於我們<span class="en">About</span></h1>
+  <p class="lead">專注於碳權採購治理、合規減量與自然碳匯專案評估之顧問團隊。
+    作業涵蓋東南亞與非洲法域。</p>
+</div>
+</div>
+
+<section>
+<div class="wrap">
+  <div class="eyebrow">Capabilities</div>
+  <h2>專業領域<span class="en">Capabilities</span></h2>
+
+  <div class="rows" style="margin-top:28px">
+    <div class="row">
+      <div class="t">方法學與標準<span class="en">Methodologies &amp; standards</span></div>
+      <div class="d">自然碳匯（AFOLU）方法學之適用性判讀與版本追蹤，涵蓋造林再造林、
+        改良農業土地管理、潮汐濕地與海草復育、改善森林經營等類別；
+        各碳權標準間之取捨、轉換與相容性分析。</div>
+    </div>
+    <div class="row">
+      <div class="t">法域與權屬<span class="en">Jurisdiction &amp; tenure</span></div>
+      <div class="d">所在國碳市場法制、授權路徑與相應調整程序；土地與海域權利之法律基礎、
+        可取得性與年限；社區同意程序之法定要件與可執行性。</div>
+    </div>
+    <div class="row">
+      <div class="t">遙測與空間分析<span class="en">Remote sensing &amp; GIS</span></div>
+      <div class="d">地表覆蓋分類、紅樹林與森林時序變遷偵測、邊界與面積獨立核算、
+        精度評估與判讀限制揭露。以公開資料集為主，可重現。</div>
+    </div>
+    <div class="row">
+      <div class="t">宣稱與揭露<span class="en">Claims &amp; disclosure</span></div>
+      <div class="d">各市場對碳相關宣稱之管制差異、宣稱架構之法律風險、
+        永續報告與財報揭露之對應要求。</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="alt">
+<div class="wrap">
+  <div class="eyebrow">Working disciplines</div>
+  <h2>作業紀律<span class="en">Working disciplines</span></h2>
+  <p class="lead">以下為所有交付成果一致適用之規則。</p>
+
+  <div class="grid g2" style="margin-top:28px">
+    <div class="card">
+      <h3>來源分級<span class="en">Source grading</span></h3>
+      <p class="small muted">每項結論標示來源等級：一手文件、第三方報導、口述、推論、查無。
+        口述不列為事實；資料不足者揭露為「查無」，不以推測補足。
+        對外可引用者限標示為一手文件之項目。</p>
+    </div>
+    <div class="card">
+      <h3>獨立查核<span class="en">Independent verification</span></h3>
+      <p class="small muted">委託方提供之數據均經查核，不直接引用。
+        以公開衛星影像、登記處紀錄與規則原文交叉比對；
+        查核結果與委託方陳述不符者，於報告中併同揭露。</p>
+    </div>
+    <div class="card">
+      <h3>限制揭露<span class="en">Disclosure of limitations</span></h3>
+      <p class="small muted">所有估算列明假設條件與適用範圍；
+        未經現地驗證之數值明確標示；
+        報告中附列資料缺口清單與後續查證建議。</p>
+    </div>
+    <div class="card">
+      <h3>紀錄保存<span class="en">Record retention</span></h3>
+      <p class="small muted">評估依據、往來紀錄與拒絕事項之理由均予留存，
+        以備日後查考。否決建議與其依據同樣納入紀錄。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <div class="eyebrow">Independence</div>
+  <h2>獨立性聲明<span class="en">Statement of independence</span></h2>
+
+  <div class="rows" style="margin-top:26px">
+    <div class="row">
+      <div class="t">不持有額度</div>
+      <div class="d">不進行碳權之本金交易或庫存持有。額度所有權由供應商直接移轉予客戶，
+        成本資訊透明過手。</div>
+    </div>
+    <div class="row">
+      <div class="t">不收成交佣金</div>
+      <div class="d">顧問報酬與交易金額脫鉤，且不收受供應商、開發商或交易平台之任何對價。</div>
+    </div>
+    <div class="row">
+      <div class="t">利益衝突揭露</div>
+      <div class="d">如於任一環節同時具開發方或關係方身分，於委任前書面揭露並取得同意，
+        必要時採人員與資訊隔離。</div>
+    </div>
+    <div class="row">
+      <div class="t">宣稱限制</div>
+      <div class="d">經評估於現行規則下不可辯護之宣稱，以書面說明不予執行。</div>
+    </div>
+  </div>
+
+  <div class="notebox" style="margin-top:32px">
+    本公司提供之服務為專業顧問意見，非法律、稅務或投資意見。
+    涉及法律效果、稅務處理或投資決策之事項，應另行取得律師、會計師或稅務顧問之意見。
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div class="ft">
+    <div>
+      <div class="brand" style="color:#fff;display:block;margin-bottom:10px">Clouding<span style="color:#7fc4a4">.</span>Media</div>
+      <p>碳權採購治理、合規減量輔導與專案可行性評估。<br>
+        <span class="small">Carbon procurement governance, compliance advisory and project feasibility.</span></p>
+    </div>
+    <div>
+      <h4>服務</h4>
+      <ul>
+        <li><a href="services.html#esg">ESG 套組</a></li>
+        <li><a href="services.html#compliance">合規減量輔導</a></li>
+        <li><a href="services.html#feasibility">專案可行性評估</a></li>
       </ul>
-      <div class="nav-cta">
-        <div class="lang-toggle"><button data-lang="zh">中</button><button data-lang="en">EN</button></div>
-        <a class="btn btn-primary" href="contact.html">
-          <span data-lang="zh">立即諮詢</span><span data-lang="en">Get Started</span>
-        </a>
-      </div>
     </div>
-  </header>
-
-  <!-- HERO (smaller variant) -->
-  <section class="hero" style="padding-bottom:48px;">
-    <div class="container" style="text-align:center; max-width:780px;">
-      <span class="hero-eyebrow">
-        <span data-lang="zh">關於 Clouding Media</span><span data-lang="en">About Us</span>
-      </span>
-      <h1>
-        <span data-lang="zh">我們相信，<span class="accent">好的品牌會自己說話。</span></span>
-        <span data-lang="en">We believe great brands <span class="accent">speak for themselves.</span></span>
-      </h1>
-      <p class="lead" style="margin-left:auto; margin-right:auto;">
-        <span data-lang="zh">Clouding Media 由一群來自媒體、廣告與科技產業的夥伴組成。我們把多年在前線累積的洞察,化為陪伴品牌成長的策略與作品。</span>
-        <span data-lang="en">Clouding Media brings together professionals from media, advertising, and tech. We turn years of frontline insight into strategies and work that help brands grow.</span>
-      </p>
+    <div>
+      <h4>公司</h4>
+      <ul>
+        <li><a href="about.html">關於我們</a></li>
+        <li><a href="contact.html">聯絡我們</a></li>
+      </ul>
     </div>
-  </section>
-
-  <!-- STORY -->
-  <section>
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-img"></div>
-        <div>
-          <span class="eyebrow" style="display:inline-block; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-accent-dark); margin-bottom:12px;">
-            <span data-lang="zh">我們的故事</span><span data-lang="en">Our Story</span>
-          </span>
-          <h2><span data-lang="zh">從一個簡單的相信開始</span><span data-lang="en">It started with a simple belief</span></h2>
-          <p>
-            <span data-lang="zh">十多年前,我們在大型媒體與代理商裡見證了無數品牌的起落。我們發現：真正能成功的品牌,不是預算最多的,而是說故事最真誠的。</span>
-            <span data-lang="en">Over a decade in big agencies and media houses, we watched countless brands rise and fall. The pattern was clear — the brands that succeeded weren't the ones with the biggest budgets, but the ones who told their story most honestly.</span>
-          </p>
-          <p>
-            <span data-lang="zh">於是 Clouding Media 誕生了。我們想做一個更貼近品牌、更敢直白給建議、更願意陪客戶走長路的團隊。</span>
-            <span data-lang="en">That's why Clouding Media exists — a team built to stay close to brands, give honest advice, and walk the long road together.</span>
-          </p>
-        </div>
-      </div>
+    <div>
+      <h4>聯絡</h4>
+      <ul><li><a href="mailto:hello@clouding-media.com">hello@clouding-media.com</a></li></ul>
     </div>
-  </section>
+  </div>
+  <div class="copy">
+    <span>© 2026 Clouding Media</span><span class="sp"></span>
+    <span>本網站所載內容為一般性資訊，非法律、稅務或投資意見。</span>
+  </div>
+</div>
+</footer>
 
-  <!-- VALUES -->
-  <section class="section-soft">
-    <div class="container">
-      <div class="section-head fade-up">
-        <span class="eyebrow">
-          <span data-lang="zh">我們的價值觀</span><span data-lang="en">Our Values</span>
-        </span>
-        <h2><span data-lang="zh">三件事,我們從不妥協</span><span data-lang="en">Three things we never compromise</span></h2>
-      </div>
-      <div class="values-grid">
-        <div class="value-card fade-up">
-          <span class="num">01</span>
-          <h3><span data-lang="zh">誠實大於漂亮</span><span data-lang="en">Honesty over polish</span></h3>
-          <p><span data-lang="zh">寧願給你不好聽但對的建議,也不做表面討好的提案。</span>
-             <span data-lang="en">We'd rather give you tough but right advice than a polished pitch that wastes your time.</span></p>
-        </div>
-        <div class="value-card fade-up">
-          <span class="num">02</span>
-          <h3><span data-lang="zh">數據說話</span><span data-lang="en">Let the data speak</span></h3>
-          <p><span data-lang="zh">直覺是起點,但最後決定的,是受眾、市場和成效數字。</span>
-             <span data-lang="en">Intuition starts the conversation. Audience, market, and performance data finish it.</span></p>
-        </div>
-        <div class="value-card fade-up">
-          <span class="num">03</span>
-          <h3><span data-lang="zh">把客戶當夥伴</span><span data-lang="en">Clients as partners</span></h3>
-          <p><span data-lang="zh">我們不接「打雜」案,只接「能一起變強」的合作。</span>
-             <span data-lang="en">We don't do task work. We do partnerships where both sides grow stronger.</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMELINE / PROCESS -->
-  <section>
-    <div class="container">
-      <div class="section-head fade-up">
-        <span class="eyebrow"><span data-lang="zh">合作流程</span><span data-lang="en">How we work</span></span>
-        <h2><span data-lang="zh">從第一通電話到上線,四個關鍵階段</span><span data-lang="en">Four phases — from first call to launch</span></h2>
-      </div>
-      <div class="process-grid">
-        <div class="process-step fade-up">
-          <div class="step-num">1</div>
-          <h3><span data-lang="zh">傾聽 Discover</span><span data-lang="en">Discover</span></h3>
-          <p><span data-lang="zh">深入了解你的品牌、市場、痛點與目標。</span>
-             <span data-lang="en">We dig into your brand, market, pain points, and goals.</span></p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">2</div>
-          <h3><span data-lang="zh">策略 Strategy</span><span data-lang="en">Strategy</span></h3>
-          <p><span data-lang="zh">用洞察與數據,設計清楚的品牌路線圖。</span>
-             <span data-lang="en">Insight + data shape a clear brand roadmap.</span></p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">3</div>
-          <h3><span data-lang="zh">執行 Execute</span><span data-lang="en">Execute</span></h3>
-          <p><span data-lang="zh">內容製作、媒體投放、優化迭代,專人專責。</span>
-             <span data-lang="en">Content, paid media, and iteration — all owned by a senior lead.</span></p>
-        </div>
-        <div class="process-step fade-up">
-          <div class="step-num">4</div>
-          <h3><span data-lang="zh">回饋 Iterate</span><span data-lang="en">Iterate</span></h3>
-          <p><span data-lang="zh">每月成效檢視,把學到的東西放回下一輪。</span>
-             <span data-lang="en">Monthly reviews feed insights back into the next cycle.</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section-soft">
-    <div class="container">
-      <div class="cta-banner fade-up">
-        <h2>
-          <span data-lang="zh">想多了解我們嗎？</span>
-          <span data-lang="en">Want to know us better?</span>
-        </h2>
-        <p>
-          <span data-lang="zh">先聊聊,沒有壓力。</span>
-          <span data-lang="en">Let's grab a no-pressure chat first.</span>
-        </p>
-        <a class="btn btn-accent" href="contact.html">
-          <span data-lang="zh">與我們聯絡</span><span data-lang="en">Contact Us</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo" style="color:#fff;"><span class="logo-mark"></span><span>Clouding Media</span></div>
-          <p><span data-lang="zh">用品牌策略 × 數位行銷,讓每一個故事被看見。</span>
-             <span data-lang="en">Brand strategy × digital marketing — every story heard.</span></p>
-        </div>
-        <div>
-          <h4><span data-lang="zh">公司</span><span data-lang="en">Company</span></h4>
-          <ul>
-            <li><a href="about.html"><span data-lang="zh">關於我們</span><span data-lang="en">About</span></a></li>
-            <li><a href="services.html"><span data-lang="zh">服務方案</span><span data-lang="en">Services</span></a></li>
-            <li><a href="contact.html"><span data-lang="zh">聯絡我們</span><span data-lang="en">Contact</span></a></li>
-          </ul>
-        </div>
-        <div>
-          <h4><span data-lang="zh">服務</span><span data-lang="en">Services</span></h4>
-          <ul>
-            <li><a href="services.html#brand"><span data-lang="zh">品牌策略</span><span data-lang="en">Brand Strategy</span></a></li>
-            <li><a href="services.html#content"><span data-lang="zh">內容製作</span><span data-lang="en">Content Production</span></a></li>
-            <li><a href="services.html#media"><span data-lang="zh">媒體投放</span><span data-lang="en">Paid Media</span></a></li>
-          </ul>
-        </div>
-        <div>
-          <h4><span data-lang="zh">聯絡</span><span data-lang="en">Get in touch</span></h4>
-          <ul>
-            <li><a href="mailto:hello@clouding-media.com">hello@clouding-media.com</a></li>
-            <li><span data-lang="zh">台北市</span><span data-lang="en">Taipei, Taiwan</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© <span id="footer-year">2026</span> Clouding Media. <span data-lang="zh">版權所有</span><span data-lang="en">All rights reserved.</span></span>
-        <span><a href="#" style="color:rgba(255,255,255,0.6);"><span data-lang="zh">隱私政策</span><span data-lang="en">Privacy</span></a> · <a href="#" style="color:rgba(255,255,255,0.6);"><span data-lang="zh">服務條款</span><span data-lang="en">Terms</span></a></span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
