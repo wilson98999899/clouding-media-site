@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f3864">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLO2">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADxUlEQVR4nO3dUU5bQQyF4VCxj3oZ7X7KqlhQt+Gl9KESioATZZKbie3zf4/Qh7nJPzYtVLz8/PXnBHznx7cfBYgDlzA5IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjWceTf90P+zFSvJ2//3/v4/aY+5ezF9ne8fX3vPxK58Ckr7pPjHKPiE9OvOVY7SMsVYxoHrkEckBzjuG1HpN9mcYwDV7KL454BkGbDwy4OXM8rjvuvfjoND684sIQ4IBnFcdRGSJvNYhQHVrnEcex1T4/h4RIHbkAc8I7jEVsgDTaLRRy4zfw4HnfFc/rwmB/HEs+fFTWN49GXO0cPj+Fx4B7E8XmnsFks4tgz83PuZpkcx5LzgcHwGB7HzgudQ4fH2DiWfB0Vwd9piQN2k2P/nM+Jm2VmHEvUBgn7zTIwjmdd4hw3PAbGseTyeAjv4eEeB4zieO5sz1mbZVocS67ZGmG8WUbFUeHiZoEzHGVUHEuuHwnhOjzmxFHnymaZk9xpThw4nGkcq5siLDfLkDiqTfIsdh7rODaMgfAbHhPiqHlNs+Sp7OLYNgDCbHjYxQGjOCpP7yx8Nos4Nu+FcNosveOofzWz/AnHxvGUSx82w6NxHF0uZTY556g48GgucRy7C8Jjs3T9BYDtZnU07MllcsAljnZj49TzzC3jwB7EgUFxdJzPTU/eLw5s0yyOdpev9fmbxYGdiAMj4ug1kwc8Rac4sFmb762sXrjN38vI2se7zczJsf+ljw5v9sw4Gu3pSU/UIw48xcA4njXhY9xmaRBHiwk88rkaxNHo+sas4VE9jvrXa/DTVY+j3cWNAmc4yqg4YBRH8ak7/hlLx9F0nkeZk4yNo/KVMnnSunG0vqxR7Dyj4ih7mayet2gcqGBCHDVneJQ8Vfs4as5Yw6euGMeYCxqFz9YyjoIXyPbZy8Ux7GpG+RNe8Hoq+WpWu0OeGZWLwzCRqJdFm/+aoBIp+5qOeYSik2P8FInaWbSZHOc+Emnx4nY/eYPJMWaKRJ8sWk4O7NT73znwUMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiThwUv4BZYby9acAB3gAAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADxUlEQVR4nO3dUU5bQQyF4VCxj3oZ7X7KqlhQt+Gl9KESioATZZKbie3zf4/Qh7nJPzYtVLz8/PXnBHznx7cfBYgDlzA5IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjWceTf90P+zFSvJ2//3/v4/aY+5ezF9ne8fX3vPxK58Ckr7pPjHKPiE9OvOVY7SMsVYxoHrkEckBzjuG1HpN9mcYwDV7KL454BkGbDwy4OXM8rjvuvfjoND684sIQ4IBnFcdRGSJvNYhQHVrnEcex1T4/h4RIHbkAc8I7jEVsgDTaLRRy4zfw4HnfFc/rwmB/HEs+fFTWN49GXO0cPj+Fx4B7E8XmnsFks4tgz83PuZpkcx5LzgcHwGB7HzgudQ4fH2DiWfB0Vwd9piQN2k2P/nM+Jm2VmHEvUBgn7zTIwjmdd4hw3PAbGseTyeAjv4eEeB4zieO5sz1mbZVocS67ZGmG8WUbFUeHiZoEzHGVUHEuuHwnhOjzmxFHnymaZk9xpThw4nGkcq5siLDfLkDiqTfIsdh7rODaMgfAbHhPiqHlNs+Sp7OLYNgDCbHjYxQGjOCpP7yx8Nos4Nu+FcNosveOofzWz/AnHxvGUSx82w6NxHF0uZTY556g48GgucRy7C8Jjs3T9BYDtZnU07MllcsAljnZj49TzzC3jwB7EgUFxdJzPTU/eLw5s0yyOdpev9fmbxYGdiAMj4ug1kwc8Rac4sFmb762sXrjN38vI2se7zczJsf+ljw5v9sw4Gu3pSU/UIw48xcA4njXhY9xmaRBHiwk88rkaxNHo+sas4VE9jvrXa/DTVY+j3cWNAmc4yqg4YBRH8ak7/hlLx9F0nkeZk4yNo/KVMnnSunG0vqxR7Dyj4ih7mayet2gcqGBCHDVneJQ8Vfs4as5Yw6euGMeYCxqFz9YyjoIXyPbZy8Ux7GpG+RNe8Hoq+WpWu0OeGZWLwzCRqJdFm/+aoBIp+5qOeYSik2P8FInaWbSZHOc+Emnx4nY/eYPJMWaKRJ8sWk4O7NT73znwUMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiTggEQck4oBEHJCIAxJxQCIOSMQBiThwUv4BZYby9acAB3gAAAAASUVORK5CYII=">
+<title>ALLO2 專案管理</title>
+<style>
+:root{
+  --bg:#f5f6f8;--panel:#fff;--ink:#1b2430;--muted:#5d6b7a;--line:#dde3ea;
+  --navy:#1f3864;--accent:#2f6fb0;
+  --red:#c0392b;--redbg:#fdecea;--amber:#b7791f;--amberbg:#fff6e0;
+  --green:#1e7e4f;--greenbg:#e6f4ec;--grey:#7a8694;--greybg:#eef1f4;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121619;--panel:#1a2026;--ink:#e7edf3;--muted:#9aa8b6;--line:#2b343d;
+  --navy:#8fb3e8;--accent:#5b9bd5;--redbg:#3a1f1d;--amberbg:#352a14;
+  --greenbg:#15301f;--greybg:#232a31;--shadow:0 1px 3px rgba(0,0,0,.4);}}
+:root[data-theme="dark"]{
+  --bg:#121619;--panel:#1a2026;--ink:#e7edf3;--muted:#9aa8b6;--line:#2b343d;
+  --navy:#8fb3e8;--accent:#5b9bd5;--redbg:#3a1f1d;--amberbg:#352a14;
+  --greenbg:#15301f;--greybg:#232a31;--shadow:0 1px 3px rgba(0,0,0,.4);}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 "Microsoft JhengHei","PingFang TC","Noto Sans TC",system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:12px 14px;position:sticky;top:0;z-index:40;
+ display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:max(12px,env(safe-area-inset-top))}
+header h1{margin:0;font-size:16px;font-weight:700}
+header .tag{font-size:10.5px;background:rgba(255,255,255,.18);padding:3px 7px;border-radius:4px}
+header .sp{flex:1}
+header button{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}
+nav{display:flex;gap:2px;background:var(--panel);border-bottom:1px solid var(--line);
+ padding:0 6px;overflow-x:auto;position:sticky;top:48px;z-index:30;-webkit-overflow-scrolling:touch}
+nav button{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);
+ padding:12px 13px;font-size:14px;cursor:pointer;white-space:nowrap;font-weight:600}
+nav button.on{color:var(--accent);border-bottom-color:var(--accent)}
+nav button .n{display:inline-block;min-width:18px;padding:0 5px;margin-left:5px;border-radius:9px;
+ background:var(--red);color:#fff;font-size:11px;line-height:17px;text-align:center}
+main{padding:14px;max-width:1500px;margin:0 auto;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;
+ margin-bottom:13px;box-shadow:var(--shadow)}
+.card h2{margin:0 0 10px;font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h2 .sp{flex:1}
+button{font:inherit;padding:8px 13px;border-radius:7px;border:1px solid var(--line);
+ background:var(--panel);color:var(--ink);cursor:pointer;min-height:38px}
+button.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+button.sm{padding:5px 10px;font-size:12.5px;min-height:32px}
+button.danger{color:var(--red);border-color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--greybg);text-align:left;padding:8px;border-bottom:2px solid var(--line);
+ font-weight:700;font-size:12px;color:var(--muted);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pill{display:inline-block;padding:2px 8px;border-radius:11px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.p-red{background:var(--redbg);color:var(--red)}.p-amber{background:var(--amberbg);color:var(--amber)}
+.p-green{background:var(--greenbg);color:var(--green)}.p-grey{background:var(--greybg);color:var(--grey)}
+.alert{border-left:4px solid var(--red);background:var(--redbg);padding:10px 12px;border-radius:7px;margin-bottom:8px}
+.alert.amber{border-left-color:var(--amber);background:var(--amberbg)}
+.alert b{display:block;margin-bottom:2px}.alert .why{font-size:12.5px;color:var(--muted)}
+.grid{display:grid;gap:11px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-size:26px;font-weight:700;margin-top:2px;color:var(--navy)}
+.stat .v.bad{color:var(--red)}
+label{display:block;font-size:12.5px;color:var(--muted);margin:9px 0 3px;font-weight:600}
+input,select,textarea{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;
+ background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
+textarea{min-height:66px;resize:vertical}
+dialog{border:none;border-radius:12px;padding:0;max-width:720px;width:94%;
+ background:var(--panel);color:var(--ink);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(10,15,20,.6)}
+dialog .hd{padding:13px 16px;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy)}
+dialog .bd{padding:16px;max-height:66vh;overflow:auto}
+dialog .ft{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+.muted{color:var(--muted);font-size:12.5px}.sm{font-size:12.5px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gate{display:flex;gap:8px;padding:9px;border:1px solid var(--line);border-radius:7px;margin-bottom:6px;align-items:flex-start;flex-wrap:wrap}
+.gate .q{flex:1;min-width:200px}.gate select{width:auto;min-width:98px}
+.q-no{font-weight:700;color:var(--muted);min-width:22px}
+.note{background:var(--amberbg);border-left:4px solid var(--amber);padding:10px 12px;
+ border-radius:7px;font-size:12.5px;margin-bottom:12px}
+.empty{text-align:center;padding:26px;color:var(--muted);font-size:13px}
+/* 鎖定畫面 */
+#lock{position:fixed;inset:0;background:var(--navy);color:#fff;z-index:200;
+ display:flex;align-items:center;justify-content:center;padding:20px}
+#lock .box{background:var(--panel);color:var(--ink);border-radius:14px;padding:26px;
+ width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+#lock h2{margin:0 0 4px;color:var(--navy);font-size:19px}
+#lock .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+#lock input{font-size:16px;padding:11px}
+#lock button{width:100%;margin-top:12px;padding:12px;font-size:15px;font-weight:700}
+#lock .err{color:var(--red);font-size:13px;margin-top:9px;min-height:19px}
+#lock .warn{background:var(--amberbg);color:var(--amber);padding:9px 11px;border-radius:7px;
+ font-size:12px;margin-top:14px;line-height:1.5}
+.hide{display:none!important}
+@media print{header,nav,button,.noprint,#lock{display:none!important}
+ body{background:#fff}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="box">
+    <h2 id="lkTitle">解鎖</h2>
+    <div class="sub" id="lkSub">請輸入密碼</div>
+    <input type="password" id="lkPw" autocomplete="current-password" placeholder="密碼"
+      onkeydown="if(event.key==='Enter')lkGo()">
+    <input type="password" id="lkPw2" class="hide" autocomplete="new-password" placeholder="再輸入一次"
+      style="margin-top:8px" onkeydown="if(event.key==='Enter')lkGo()">
+    <button class="pri" onclick="lkGo()" id="lkBtn">解鎖</button>
+    <div class="err" id="lkErr"></div>
+    <div class="warn">
+      <b>資料以 AES-256-GCM 加密後才寫入裝置。</b><br>
+      密碼不會被儲存、也無法找回——<b>忘記密碼＝資料永久無法還原</b>。
+      請把密碼另外記在安全的地方。
+    </div>
+  </div>
+</div>
+
+<header class="hide" id="hdr">
+  <h1>ALLO2 專案管理</h1>
+  <span class="tag">🔒 加密</span>
+  <span class="sp"></span>
+  <button onclick="exportEnc()" title="加密備份，可放雲端">匯出</button>
+  <button onclick="document.getElementById('imp').click()">匯入</button>
+  <input type="file" id="imp" accept=".json,.enc" style="display:none" onchange="importFile(this)">
+  <button onclick="lockNow()" title="鎖定">🔒</button>
+  <button onclick="toggleTheme()">☾</button>
+</header>
+
+<nav id="nav" class="hide"></nav>
+<main id="main" class="hide"></main>
+
+<dialog id="dlg">
+  <div class="hd" id="dlgTitle"></div>
+  <div class="bd" id="dlgBody"></div>
+  <div class="ft">
+    <button onclick="document.getElementById('dlg').close()">取消</button>
+    <button class="pri" id="dlgSave">儲存</button>
+  </div>
+</dialog>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   ALLO2 專案管理｜加密版
+   · 資料以 AES-256-GCM 加密，金鑰由密碼經 PBKDF2-SHA256 推導
+   · 迭代 310,000 次、每次加密使用隨機 salt 與 IV
+   · 密碼不儲存、不傳送。無法找回
+   · 完全離線：無 CDN、無外部資源、無任何網路請求
+   · 程式碼本身不含任何客戶資料，可安全放置於雲端
+   ════════════════════════════════════════════════════════════════ */
+
+const KEY='allo2pm_enc_v2', ITER=310000, IDLE_MIN=15;
+const enc=new TextEncoder(), dec=new TextDecoder();
+const today=()=>new Date().toISOString().slice(0,10);
+const days=d=>d?Math.round((new Date(d)-new Date(today()))/864e5):null;
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
+const ub64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+
+let CKEY=null, DB=null, idleTimer=null;
+
+/* ── 加密層 ── */
+async function deriveKey(pw,salt){
+  const base=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey(
+    {name:'PBKDF2',salt,iterations:ITER,hash:'SHA-256'},
+    base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+async function encryptDB(obj,key){
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(JSON.stringify(obj)));
+  return {v:2,iv:b64(iv),ct:b64(ct)};
+}
+async function decryptDB(pkg,key){
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(pkg.iv)},key,ub64(pkg.ct));
+  return JSON.parse(dec.decode(pt));
+}
+function getStore(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+async function save(){
+  if(!CKEY||!DB)return;
+  const st=getStore();
+  const pkg=await encryptDB(DB,CKEY);
+  localStorage.setItem(KEY,JSON.stringify({salt:st.salt,...pkg}));
+}
+
+/* ── 鎖定／解鎖 ── */
+function lkMsg(t){document.getElementById('lkErr').textContent=t}
+async function lkGo(){
+  const pw=document.getElementById('lkPw').value;
+  if(pw.length<8)return lkMsg('密碼至少 8 個字元');
+  const st=getStore();
+  document.getElementById('lkBtn').disabled=true; lkMsg('處理中…');
+  try{
+    if(!st){
+      const pw2=document.getElementById('lkPw2').value;
+      if(pw!==pw2){document.getElementById('lkBtn').disabled=false;return lkMsg('兩次輸入的密碼不一致')}
+      const salt=crypto.getRandomValues(new Uint8Array(16));
+      CKEY=await deriveKey(pw,salt);
+      DB={projects:[],contracts:[],evidence:[],decisions:[],watch:[],dd:[]};
+      const pkg=await encryptDB(DB,CKEY);
+      localStorage.setItem(KEY,JSON.stringify({salt:b64(salt),...pkg}));
+      unlock(); dlgFirstRun();
+    }else{
+      CKEY=await deriveKey(pw,ub64(st.salt));
+      DB=await decryptDB(st,CKEY);
+      unlock();
+    }
+  }catch(e){
+    CKEY=null;DB=null;
+    lkMsg('密碼錯誤，或資料已損毀');
+  }
+  document.getElementById('lkBtn').disabled=false;
+}
+function unlock(){
+  document.getElementById('lkPw').value='';
+  document.getElementById('lkPw2').value='';
+  lkMsg('');
+  ['lock'].forEach(i=>document.getElementById(i).classList.add('hide'));
+  ['hdr','nav','main'].forEach(i=>document.getElementById(i).classList.remove('hide'));
+  resetIdle(); render();
+}
+function lockNow(){
+  CKEY=null;DB=null;
+  ['hdr','nav','main'].forEach(i=>document.getElementById(i).classList.add('hide'));
+  document.getElementById('lock').classList.remove('hide');
+  document.getElementById('lkPw').focus();
+}
+function resetIdle(){
+  clearTimeout(idleTimer);
+  idleTimer=setTimeout(()=>{if(CKEY){alert('閒置超過 '+IDLE_MIN+' 分鐘，已自動鎖定。');lockNow()}},IDLE_MIN*60000);
+}
+['click','keydown','touchstart'].forEach(e=>document.addEventListener(e,()=>{if(CKEY)resetIdle()},{passive:true}));
+
+function initLock(){
+  const st=getStore();
+  if(!st){
+    document.getElementById('lkTitle').textContent='設定密碼';
+    document.getElementById('lkSub').textContent='第一次使用，請設定一組密碼（至少 8 字元）';
+    document.getElementById('lkPw2').classList.remove('hide');
+    document.getElementById('lkBtn').textContent='建立';
+  }
+  document.getElementById('lkPw').focus();
+}
+
+function dlgFirstRun(){
+  dlg('資料庫已建立',`
+   <p>目前是空的資料庫。你可以：</p>
+   <ul style="padding-left:20px;line-height:2">
+     <li><b>匯入既有資料</b>：點右上角「匯入」，載入 <code>初始資料.json</code> 或先前的加密備份</li>
+     <li><b>從頭建立</b>：到各分頁逐筆新增</li>
+   </ul>
+   <div class="note" style="margin-top:12px">
+     <b>請立刻做一件事：</b>把密碼記在密碼管理器或其他安全位置。
+     本程式不儲存密碼，<b>遺失即無法還原</b>。</div>`,
+   ()=>{});
+  document.getElementById('dlgSave').textContent='知道了';
+}
+
+/* 題庫改由資料檔提供——線上這份程式碼不含任何題目內容 */
+const GATE_OPT=['未評','通過','有條件','不通過'];
+const GATES=()=>(DB&&DB.gatesDef)||[];
+const DDQ=()=>(DB&&DB.ddqDef)||[];
+
+/* ── 警示引擎 ── */
+function alerts(){
+  const out=[];
+  (DB.contracts||[]).forEach(c=>{
+    const p=(DB.projects||[]).find(x=>x.id===c.pid), pn=p?p.name:'（未指定專案）';
+    if(!c.signed)out.push({lv:'red',t:`${c.title}｜尚未簽署`,w:`${pn}　${c.extNote||''}`});
+    if(c.end){const d=days(c.end);
+      if(d<0&&!c.extWritten)out.push({lv:'red',t:`${c.title}｜合約已於 ${c.end} 到期，且無書面展延`,
+        w:`${pn}　逾期 ${-d} 天。展延未以書面確認者，法律上不生效力。`});
+      else if(d<0)out.push({lv:'amber',t:`${c.title}｜已過原到期日 ${c.end}（已有書面展延）`,w:pn});
+      else if(d<=30)out.push({lv:'amber',t:`${c.title}｜${d} 天後到期（${c.end}）`,w:pn});}
+    (c.ms||[]).forEach(m=>{
+      if(m.st==='未付'&&m.due&&m.due!=='—'&&days(m.due)<0)
+        out.push({lv:'red',t:`${c.title}｜${m.n} 逾期未付`,
+          w:`${pn}　應付日 ${m.due}（逾期 ${-days(m.due)} 天）　${m.amt}　條件：${m.cond}`});});
+  });
+  (DB.watch||[]).forEach(w=>{
+    const due=w.last?new Date(new Date(w.last).getTime()+w.freq*864e5).toISOString().slice(0,10):null;
+    if(due&&days(due)<0)out.push({lv:'amber',t:`監看逾期：${w.label}`,
+      w:`上次檢查 ${w.last}，每 ${w.freq} 天應複查一次`});});
+  const o={red:0,amber:1};return out.sort((a,b)=>o[a.lv]-o[b.lv]);
+}
+
+const TABS=[['dash','總覽'],['proj','專案'],['contract','合約與期限'],['gate','法域閘門'],
+ ['dd','盡職調查'],['ev','證據登錄'],['dec','決策紀錄'],['watch','監看清單'],['help','說明']];
+let tab='dash';
+
+function render(){
+  if(!DB)return;
+  const a=alerts(),nRed=a.filter(x=>x.lv==='red').length;
+  document.getElementById('nav').innerHTML=TABS.map(([k,l])=>
+    `<button class="${k===tab?'on':''}" onclick="go('${k}')">${l}${k==='dash'&&nRed?`<span class="n">${nRed}</span>`:''}</button>`).join('');
+  document.getElementById('main').innerHTML=({dash:vDash,proj:vProj,contract:vContract,gate:vGate,
+    dd:vDD,ev:vEv,dec:vDec,watch:vWatch,help:vHelp}[tab]||vDash)();
+}
+function go(k){tab=k;render();window.scrollTo(0,0)}
+
+function vDash(){
+  const a=alerts(),red=a.filter(x=>x.lv==='red'),amb=a.filter(x=>x.lv==='amber');
+  const act=(DB.projects||[]).filter(p=>!['不推進','已結案'].includes(p.stage)).length;
+  return `<div class="grid g4" style="margin-bottom:13px">
+    <div class="stat"><div class="k">需立即處理</div><div class="v ${red.length?'bad':''}">${red.length}</div></div>
+    <div class="stat"><div class="k">需注意</div><div class="v">${amb.length}</div></div>
+    <div class="stat"><div class="k">進行中專案</div><div class="v">${act}</div></div>
+    <div class="stat"><div class="k">合約筆數</div><div class="v">${(DB.contracts||[]).length}</div></div></div>
+  <div class="card"><h2>⚠ 警示<span class="sp"></span><span class="muted sm">自動計算</span></h2>
+    ${a.length?a.map(x=>`<div class="alert ${x.lv==='amber'?'amber':''}">
+      <b>${esc(x.t)}</b><div class="why">${esc(x.w)}</div></div>`).join(''):
+      '<div class="empty">目前沒有警示。</div>'}</div>
+  <div class="card"><h2>專案下一步</h2><div class="wrap">
+    <table><thead><tr><th>專案</th><th>線</th><th>階段</th><th>下一個動作</th></tr></thead><tbody>
+    ${(DB.projects||[]).filter(p=>p.stage!=='不推進').map(p=>`<tr>
+      <td><b>${esc(p.name)}</b><div class="muted sm">${esc(p.country)}</div></td>
+      <td>${esc(p.line)}</td><td>${stagePill(p.stage)}</td><td>${esc(p.next)}</td></tr>`).join('')
+      ||'<tr><td colspan="4" class="empty">尚無專案</td></tr>'}
+    </tbody></table></div></div>`;
+}
+function stagePill(s){const m={'執行中':'p-green','規劃中':'p-grey','停滯':'p-amber','受阻':'p-red',
+ '不推進':'p-grey','待決':'p-amber','擬稿中':'p-amber','已結案':'p-grey'};
+ return `<span class="pill ${m[s]||'p-grey'}">${esc(s)}</span>`}
+
+function vProj(){
+  return `<div class="card"><h2>專案<span class="sp"></span>
+   <button class="pri sm" onclick="edProj()">＋ 新增</button></h2><div class="wrap">
+  <table><thead><tr><th>名稱</th><th>國家</th><th>線</th><th>階段</th><th>負責</th><th>下一個動作</th><th></th></tr></thead><tbody>
+  ${(DB.projects||[]).map(p=>`<tr>
+    <td><b>${esc(p.name)}</b>${p.note?`<div class="muted sm">${esc(p.note)}</div>`:''}</td>
+    <td>${esc(p.country)}</td><td>${esc(p.line)}</td><td>${stagePill(p.stage)}</td>
+    <td>${esc(p.owner)}</td><td class="sm">${esc(p.next)}</td>
+    <td class="noprint"><button class="sm" onclick="edProj('${p.id}')">編輯</button></td></tr>`).join('')
+    ||'<tr><td colspan="7" class="empty">尚無專案</td></tr>'}
+  </tbody></table></div></div>`;
+}
+function edProj(id){
+  const p=id?DB.projects.find(x=>x.id===id):{id:uid(),name:'',country:'',line:'A 診斷',stage:'規劃中',owner:'',next:'',note:''};
+  dlg(id?'編輯專案':'新增專案',`
+   <label>名稱</label><input id="f_name" value="${esc(p.name)}">
+   <label>國家／地區</label><input id="f_country" value="${esc(p.country)}">
+   <label>業務線</label><select id="f_line">${['A 診斷','B 採購','C 合規','開發','其他'].map(x=>`<option ${x===p.line?'selected':''}>${x}</option>`).join('')}</select>
+   <label>階段</label><select id="f_stage">${['規劃中','執行中','待決','擬稿中','停滯','受阻','不推進','已結案'].map(x=>`<option ${x===p.stage?'selected':''}>${x}</option>`).join('')}</select>
+   <label>負責人</label><input id="f_owner" value="${esc(p.owner)}">
+   <label>下一個動作</label><input id="f_next" value="${esc(p.next)}">
+   <label>備註</label><textarea id="f_note">${esc(p.note)}</textarea>
+   ${id?`<div style="margin-top:14px"><button class="danger sm" onclick="delItem('projects','${id}')">刪除此專案</button></div>`:''}`,
+   ()=>{Object.assign(p,{name:v('f_name'),country:v('f_country'),line:v('f_line'),stage:v('f_stage'),
+     owner:v('f_owner'),next:v('f_next'),note:v('f_note')});
+     if(!id)(DB.projects=DB.projects||[]).push(p);save();render()});
+}
+
+function vContract(){
+  return `<div class="note"><b>展延必須有書面才生效。</b>未簽署之合約永遠列為紅色。</div>
+  <div class="card"><h2>合約<span class="sp"></span>
+   <button class="pri sm" onclick="edCon()">＋ 新增</button></h2>
+  ${(DB.contracts||[]).map(c=>{
+    const p=(DB.projects||[]).find(x=>x.id===c.pid),d=c.end?days(c.end):null;
+    let st=`<span class="pill p-grey">未簽署</span>`;
+    if(c.signed){
+      if(d===null)st=`<span class="pill p-grey">無到期日</span>`;
+      else if(d<0&&!c.extWritten)st=`<span class="pill p-red">逾期 ${-d} 天·無書面展延</span>`;
+      else if(d<0)st=`<span class="pill p-amber">已展延</span>`;
+      else if(d<=30)st=`<span class="pill p-amber">${d} 天後到期</span>`;
+      else st=`<span class="pill p-green">有效</span>`;}
+    return `<div style="border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:10px">
+     <div class="row"><b>${esc(c.title)}</b>${st}<span class="sp"></span>
+       <button class="sm noprint" onclick="edCon('${c.id}')">編輯</button></div>
+     <div class="muted sm" style="margin:4px 0">${p?esc(p.name):'—'}　|　甲：${esc(c.a)}　乙：${esc(c.b)}</div>
+     <div class="sm">期間 ${esc(c.start||'—')} ～ ${esc(c.end||'—')}　|　金額 ${esc(c.value)}　|
+       書面展延：${c.extWritten?'<b style="color:var(--green)">有</b>':'<b style="color:var(--red)">無</b>'}</div>
+     ${c.extNote?`<div class="muted sm" style="margin-top:6px">${esc(c.extNote)}</div>`:''}
+     ${(c.ms||[]).length?`<div class="wrap"><table style="margin-top:8px"><thead><tr><th>里程碑</th><th>條件</th><th>應付日</th><th>金額</th><th>狀態</th></tr></thead><tbody>
+       ${c.ms.map(m=>{const od=m.st==='未付'&&m.due&&m.due!=='—'&&days(m.due)<0;
+        return `<tr><td>${esc(m.n)}</td><td class="sm">${esc(m.cond)}</td>
+         <td${od?' style="color:var(--red);font-weight:700"':''}>${esc(m.due)}</td>
+         <td>${esc(m.amt)}</td><td>${esc(m.st)}${od?' <span class="pill p-red">逾期</span>':''}</td></tr>`}).join('')}
+       </tbody></table></div>`:''}</div>`}).join('')
+    ||'<div class="empty">尚無合約</div>'}</div>`;
+}
+function edCon(id){
+  const c=id?DB.contracts.find(x=>x.id===id):{id:uid(),pid:'',title:'',a:'',b:'',signed:'',start:'',end:'',value:'',extWritten:false,extNote:'',ms:[]};
+  dlg(id?'編輯合約':'新增合約',`
+   <label>合約名稱</label><input id="f_title" value="${esc(c.title)}">
+   <label>所屬專案</label><select id="f_pid"><option value="">—</option>
+     ${(DB.projects||[]).map(p=>`<option value="${p.id}" ${p.id===c.pid?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+   <label>甲方</label><input id="f_a" value="${esc(c.a)}">
+   <label>乙方</label><input id="f_b" value="${esc(c.b)}">
+   <div class="grid g2">
+    <div><label>簽署日</label><input type="date" id="f_signed" value="${esc(c.signed)}"></div>
+    <div><label>生效日</label><input type="date" id="f_start" value="${esc(c.start)}"></div>
+    <div><label>到期日</label><input type="date" id="f_end" value="${esc(c.end)}"></div>
+    <div><label>金額</label><input id="f_value" value="${esc(c.value)}"></div></div>
+   <label><input type="checkbox" id="f_ext" ${c.extWritten?'checked':''} style="width:auto"> 展延已取得書面確認</label>
+   <label>備註／風險</label><textarea id="f_extNote">${esc(c.extNote)}</textarea>
+   <label>里程碑（每行：名稱 | 條件 | 應付日 | 金額 | 狀態）</label>
+   <textarea id="f_ms" style="min-height:90px">${(c.ms||[]).map(m=>[m.n,m.cond,m.due,m.amt,m.st].join(' | ')).join('\n')}</textarea>
+   ${id?`<div style="margin-top:14px"><button class="danger sm" onclick="delItem('contracts','${id}')">刪除此合約</button></div>`:''}`,
+   ()=>{const ms=v('f_ms').split('\n').filter(x=>x.trim()).map(l=>{
+      const [n,cond,due,amt,st]=l.split('|').map(s=>s.trim());
+      return {n:n||'',cond:cond||'',due:due||'',amt:amt||'',st:st||''}});
+     Object.assign(c,{pid:v('f_pid'),title:v('f_title'),a:v('f_a'),b:v('f_b'),signed:v('f_signed'),
+       start:v('f_start'),end:v('f_end'),value:v('f_value'),
+       extWritten:document.getElementById('f_ext').checked,extNote:v('f_extNote'),ms});
+     if(!id)(DB.contracts=DB.contracts||[]).push(c);save();render()});
+}
+
+function vGate(){
+  const sel=DB._gateP||(DB.projects||[])[0]?.id;
+  const p=(DB.projects||[]).find(x=>x.id===sel);
+  if(!p)return '<div class="empty">請先建立專案。</div>';
+  if(!GATES().length)return '<div class="empty">尚未載入閘門題庫。<br>請用右上角「匯入」載入設定檔。</div>';
+  p.gates=p.gates||{};
+  return `<div class="note">任一題為「不通過」即應停損。<b>否決也要留紀錄。</b></div>
+  <div class="card"><h2>法域閘門<span class="sp"></span>
+   <select style="width:auto" onchange="DB._gateP=this.value;save();render()">
+   ${DB.projects.map(x=>`<option value="${x.id}" ${x.id===sel?'selected':''}>${esc(x.name)}</option>`).join('')}</select></h2>
+  ${GATES().map((q,i)=>{const g=p.gates[i]||{v:'未評',n:''};
+   const cls={'通過':'p-green','有條件':'p-amber','不通過':'p-red','未評':'p-grey'}[g.v];
+   return `<div class="gate"><span class="q-no">${i+1}</span>
+    <div class="q"><div>${esc(q)}</div>
+     <input class="sm" style="margin-top:5px" placeholder="依據／備註" value="${esc(g.n)}"
+      onchange="setGate('${p.id}',${i},null,this.value)"></div>
+    <select onchange="setGate('${p.id}',${i},this.value,null)">
+     ${GATE_OPT.map(o=>`<option ${o===g.v?'selected':''}>${o}</option>`).join('')}</select>
+    <span class="pill ${cls}">${esc(g.v)}</span></div>`}).join('')}</div>`;
+}
+function setGate(pid,i,val,note){
+  const p=DB.projects.find(x=>x.id===pid);p.gates=p.gates||{};
+  p.gates[i]=p.gates[i]||{v:'未評',n:''};
+  if(val!==null)p.gates[i].v=val;
+  if(note!==null)p.gates[i].n=note;
+  save();if(val!==null)render();
+}
+
+function vDD(){
+  DB.dd=DB.dd||[];const sel=DB._ddId,rec=DB.dd.find(x=>x.id===sel);
+  if(!DDQ().length)return '<div class="empty">尚未載入盡調題庫。<br>請用右上角「匯入」載入設定檔。</div>';
+  return `<div class="note">全部要求<b>書面回覆</b>。第 12、13、14 題答不出來，本身就是最有價值的資訊。</div>
+  <div class="card"><h2>盡職調查問卷<span class="sp"></span>
+   <select style="width:auto" onchange="DB._ddId=this.value;save();render()">
+    <option value="">— 選擇 —</option>
+    ${DB.dd.map(d=>`<option value="${d.id}" ${d.id===sel?'selected':''}>${esc(d.cp)}</option>`).join('')}</select>
+   <button class="pri sm" onclick="newDD()">＋ 新增對象</button></h2>
+  ${rec?`<div class="sm muted" style="margin-bottom:8px">對象：<b>${esc(rec.cp)}</b>　建立 ${esc(rec.date)}</div>
+   <div class="wrap"><table><thead><tr><th style="width:56px">類別</th><th>問題</th><th style="width:36%">回覆（逐字）</th></tr></thead><tbody>
+   ${DDQ().map(([cat,q],i)=>`<tr><td class="sm">${cat}</td><td class="sm">${esc(q)}</td>
+    <td><textarea style="min-height:46px" onchange="setDD('${rec.id}',${i},this.value)">${esc(rec.ans?.[i]||'')}</textarea></td></tr>`).join('')}
+   </tbody></table></div>
+   <div style="margin-top:10px" class="noprint"><button class="danger sm" onclick="delItem('dd','${rec.id}')">刪除此筆</button></div>`
+   :'<div class="empty">請選擇或新增一個盡調對象。</div>'}</div>`;
+}
+function newDD(){const cp=prompt('對象名稱（開發商／專案／交易對手）');if(!cp)return;
+ DB.dd=DB.dd||[];const r={id:uid(),cp,date:today(),ans:{}};DB.dd.push(r);DB._ddId=r.id;save();render()}
+function setDD(id,i,val){const r=DB.dd.find(x=>x.id===id);r.ans=r.ans||{};r.ans[i]=val;save()}
+
+function vEv(){
+  const gp={'一手':'p-green','口述':'p-amber','推論':'p-amber','查無':'p-grey','衝突':'p-red'};
+  return `<div class="note"><b>寫入前須標來源等級。口述不得升格為事實。</b>對外引用前，只有「一手」可直接使用。</div>
+  <div class="card"><h2>證據登錄<span class="sp"></span>
+   <button class="pri sm" onclick="edEv()">＋ 新增</button></h2><div class="wrap">
+  <table><thead><tr><th style="width:62px">等級</th><th>結論／主張</th><th>來源</th><th>專案</th><th>日期</th><th></th></tr></thead><tbody>
+  ${(DB.evidence||[]).map(e=>{const p=(DB.projects||[]).find(x=>x.id===e.pid);
+   return `<tr><td><span class="pill ${gp[e.grade]||'p-grey'}">${esc(e.grade)}</span></td>
+   <td>${esc(e.claim)}</td><td class="sm muted">${esc(e.src)}</td>
+   <td class="sm">${p?esc(p.name):'—'}</td><td class="sm">${esc(e.date)}</td>
+   <td class="noprint"><button class="sm" onclick="edEv('${e.id}')">編輯</button></td></tr>`}).join('')
+   ||'<tr><td colspan="6" class="empty">尚無紀錄</td></tr>'}
+  </tbody></table></div></div>`;
+}
+function edEv(id){
+  const e=id?DB.evidence.find(x=>x.id===id):{id:uid(),pid:'',claim:'',grade:'一手',src:'',date:today()};
+  dlg(id?'編輯證據':'新增證據',`
+   <label>結論／主張</label><textarea id="f_claim">${esc(e.claim)}</textarea>
+   <label>來源等級</label><select id="f_grade">${['一手','口述','推論','查無','衝突'].map(x=>`<option ${x===e.grade?'selected':''}>${x}</option>`).join('')}</select>
+   <label>來源（文件、網址、對話、日期）</label><textarea id="f_src">${esc(e.src)}</textarea>
+   <label>所屬專案</label><select id="f_pid"><option value="">—</option>
+     ${(DB.projects||[]).map(p=>`<option value="${p.id}" ${p.id===e.pid?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+   <label>查證日期</label><input type="date" id="f_date" value="${esc(e.date)}">
+   ${id?`<div style="margin-top:14px"><button class="danger sm" onclick="delItem('evidence','${id}')">刪除</button></div>`:''}`,
+   ()=>{Object.assign(e,{claim:v('f_claim'),grade:v('f_grade'),src:v('f_src'),pid:v('f_pid'),date:v('f_date')});
+     if(!id)(DB.evidence=DB.evidence||[]).push(e);save();render()});
+}
+
+function vDec(){
+  return `<div class="note"><b>否決也要留紀錄。</b>三年後被問起時，能拿出當初的書面判斷與理由，是唯一有效的辯護。</div>
+  <div class="card"><h2>決策紀錄<span class="sp"></span>
+   <button class="pri sm" onclick="edDec()">＋ 新增</button></h2><div class="wrap">
+  <table><thead><tr><th>日期</th><th>專案</th><th>決定</th><th>理由</th><th>決定者</th><th></th></tr></thead><tbody>
+  ${(DB.decisions||[]).map(d=>{const p=(DB.projects||[]).find(x=>x.id===d.pid);
+   return `<tr><td class="sm">${esc(d.date)}</td><td class="sm">${p?esc(p.name):'—'}</td>
+   <td><b>${esc(d.dec)}</b></td><td class="sm">${esc(d.reason)}</td><td class="sm">${esc(d.by)}</td>
+   <td class="noprint"><button class="sm" onclick="edDec('${d.id}')">編輯</button></td></tr>`}).join('')
+   ||'<tr><td colspan="6" class="empty">尚無紀錄</td></tr>'}
+  </tbody></table></div></div>`;
+}
+function edDec(id){
+  const d=id?DB.decisions.find(x=>x.id===id):{id:uid(),pid:'',date:today(),dec:'',reason:'',by:''};
+  dlg(id?'編輯決策':'新增決策',`
+   <label>日期</label><input type="date" id="f_date" value="${esc(d.date)}">
+   <label>專案</label><select id="f_pid"><option value="">—</option>
+     ${(DB.projects||[]).map(p=>`<option value="${p.id}" ${p.id===d.pid?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+   <label>決定</label><input id="f_dec" value="${esc(d.dec)}" placeholder="推進／不推進／有條件推進／暫緩">
+   <label>理由</label><textarea id="f_reason">${esc(d.reason)}</textarea>
+   <label>決定者</label><input id="f_by" value="${esc(d.by)}">
+   ${id?`<div style="margin-top:14px"><button class="danger sm" onclick="delItem('decisions','${id}')">刪除</button></div>`:''}`,
+   ()=>{Object.assign(d,{date:v('f_date'),pid:v('f_pid'),dec:v('f_dec'),reason:v('f_reason'),by:v('f_by')});
+     if(!id)(DB.decisions=DB.decisions||[]).push(d);save();render()});
+}
+
+function vWatch(){
+  return `<div class="card"><h2>監看清單<span class="sp"></span>
+   <button class="pri sm" onclick="edWatch()">＋ 新增</button></h2><div class="wrap">
+  <table><thead><tr><th>項目</th><th>頻率</th><th>上次</th><th>下次應查</th><th>備註</th><th></th></tr></thead><tbody>
+  ${(DB.watch||[]).map(w=>{
+   const due=w.last?new Date(new Date(w.last).getTime()+w.freq*864e5).toISOString().slice(0,10):'—';
+   const od=due!=='—'&&days(due)<0;
+   return `<tr><td><b>${esc(w.label)}</b></td><td class="sm">${w.freq} 天</td>
+   <td class="sm">${esc(w.last||'—')}</td>
+   <td class="sm"${od?' style="color:var(--red);font-weight:700"':''}>${esc(due)}${od?' 逾期':''}</td>
+   <td class="sm muted">${esc(w.note)}</td>
+   <td class="noprint"><button class="sm" onclick="tick('${w.id}')">今日已查</button>
+    <button class="sm" onclick="edWatch('${w.id}')">編輯</button></td></tr>`}).join('')
+   ||'<tr><td colspan="6" class="empty">尚無項目</td></tr>'}
+  </tbody></table></div></div>`;
+}
+function tick(id){const w=DB.watch.find(x=>x.id===id);w.last=today();save();render()}
+function edWatch(id){
+  const w=id?DB.watch.find(x=>x.id===id):{id:uid(),label:'',freq:30,last:today(),note:''};
+  dlg(id?'編輯監看項':'新增監看項',`
+   <label>項目</label><input id="f_label" value="${esc(w.label)}">
+   <label>頻率（天）</label><input type="number" id="f_freq" value="${w.freq}">
+   <label>上次檢查</label><input type="date" id="f_last" value="${esc(w.last)}">
+   <label>備註</label><textarea id="f_note">${esc(w.note)}</textarea>
+   ${id?`<div style="margin-top:14px"><button class="danger sm" onclick="delItem('watch','${id}')">刪除</button></div>`:''}`,
+   ()=>{Object.assign(w,{label:v('f_label'),freq:+v('f_freq')||30,last:v('f_last'),note:v('f_note')});
+     if(!id)(DB.watch=DB.watch||[]).push(w);save();render()});
+}
+
+function vHelp(){
+  return `<div class="card"><h2>加密與安全</h2>
+  <table><tbody>
+   <tr><th>加密演算法</th><td>AES-256-GCM（含完整性驗證）</td></tr>
+   <tr><th>金鑰推導</th><td>PBKDF2-SHA256，${ITER.toLocaleString()} 次迭代，16 位元組隨機 salt</td></tr>
+   <tr><th>密碼儲存</th><td><b>不儲存</b>。僅在解鎖期間存在於記憶體</td></tr>
+   <tr><th>自動鎖定</th><td>閒置 ${IDLE_MIN} 分鐘</td></tr>
+   <tr><th>網路行為</th><td><b>無</b>。無 CDN、無外部字型、無追蹤、無任何請求</td></tr>
+   <tr><th>程式碼內容</th><td><b>不含任何客戶資料</b>，可安全放置於雲端或自行架設</td></tr>
+  </tbody></table>
+  <div class="note" style="margin-top:14px"><b>忘記密碼無法還原。</b>
+   本程式不保留密碼、不保留提示、沒有後門。請把密碼存進密碼管理器。</div>
+
+  <h2 style="margin-top:18px">放雲端安全嗎</h2>
+  <p><b>匯出的備份檔是密文。</b>雲端服務商、以及任何取得該檔案的人，看到的都是加密後的亂碼。
+   沒有你的密碼就無法還原。這就是為什麼不需要解除保密規則——<b>上去的不是資料，是密文</b>。</p>
+  <p class="muted sm">但仍須注意：解鎖後的裝置上，資料是明文可見的。
+   手機請設定螢幕鎖定；共用電腦請用完按右上角 🔒。</p>
+
+  <h2 style="margin-top:18px">手機使用</h2>
+  <ol style="padding-left:20px;line-height:1.9">
+   <li><b>Android</b>：用 Chrome 開啟本檔，選單 →「加到主畫面」，即可像 App 一樣使用。</li>
+   <li><b>iPhone</b>：Safari 無法穩定開啟本機 HTML。
+    需把本檔放到可用網址存取的位置（自架或私有空間），再用 Safari 開啟 → 分享 →「加入主畫面」。</li>
+   <li><b>資料同步</b>：各裝置的資料是獨立的。用「匯出」產生加密備份，
+    放進雲端硬碟，另一台裝置用「匯入」載入。</li>
+  </ol>
+
+  <h2 style="margin-top:18px">備份紀律</h2>
+  <ol style="padding-left:20px;line-height:1.9">
+   <li><b>每週按一次「匯出」</b>。清除瀏覽器資料會連同加密資料一起刪除。</li>
+   <li>備份檔是密文，可放雲端硬碟。<b>但密碼不要跟備份檔放在一起。</b></li>
+   <li>換裝置或重灌後，用「匯入」還原。</li>
+  </ol>
+  <div style="margin-top:16px" class="noprint">
+   <button onclick="changePw()">變更密碼</button>
+   <button onclick="exportPlain()">匯出未加密版（謹慎）</button>
+   <button class="danger" onclick="wipe()">清除本機所有資料</button></div>
+  </div>`;
+}
+
+function v(id){return document.getElementById(id).value}
+function dlg(title,body,onSave){
+  document.getElementById('dlgTitle').textContent=title;
+  document.getElementById('dlgBody').innerHTML=body;
+  const s=document.getElementById('dlgSave');
+  const n=s.cloneNode(true);n.textContent='儲存';s.parentNode.replaceChild(n,s);
+  n.onclick=()=>{onSave();document.getElementById('dlg').close()};
+  document.getElementById('dlg').showModal();
+}
+function delItem(coll,id){
+  if(!confirm('確定刪除？此動作無法復原。'))return;
+  DB[coll]=DB[coll].filter(x=>x.id!==id);save();
+  document.getElementById('dlg').close();render();
+}
+async function exportEnc(){
+  const st=getStore();const pkg=await encryptDB(DB,CKEY);
+  const out={app:'ALLO2PM',v:2,enc:true,salt:st.salt,iv:pkg.iv,ct:pkg.ct,at:new Date().toISOString()};
+  dl(JSON.stringify(out,null,2),`ALLO2專案管理_加密備份_${today()}.json`);
+}
+function exportPlain(){
+  if(!confirm('未加密版為明文，任何人取得即可閱讀全部內容。\n僅在確有必要時使用。確定匯出？'))return;
+  dl(JSON.stringify(DB,null,2),`ALLO2專案管理_明文_${today()}.json`);
+}
+function dl(text,name){
+  const b=new Blob([text],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function importFile(inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(d.enc){
+        const pw=prompt('此為加密備份。請輸入該備份的密碼：');
+        if(!pw){inp.value='';return}
+        const k=await deriveKey(pw,ub64(d.salt));
+        const obj=await decryptDB({iv:d.iv,ct:d.ct},k);
+        if(!confirm('匯入將覆蓋目前所有資料，確定？')){inp.value='';return}
+        DB=obj;await save();render();alert('已匯入。');
+      }else{
+        if(!d.projects)throw new Error('檔案格式不符');
+        if(!confirm('此為未加密檔案。匯入將覆蓋目前所有資料，確定？')){inp.value='';return}
+        DB=d;await save();render();alert('已匯入，並已以你目前的密碼加密儲存。');
+      }
+    }catch(e){alert('匯入失敗：'+(e.message||'密碼錯誤或檔案損毀'))}
+    inp.value='';
+  };
+  r.readAsText(f);
+}
+async function changePw(){
+  const a=prompt('請輸入新密碼（至少 8 字元）');if(!a)return;
+  if(a.length<8)return alert('密碼至少 8 個字元');
+  const b=prompt('請再輸入一次新密碼');if(a!==b)return alert('兩次輸入不一致');
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  CKEY=await deriveKey(a,salt);
+  const pkg=await encryptDB(DB,CKEY);
+  localStorage.setItem(KEY,JSON.stringify({salt:b64(salt),...pkg}));
+  alert('密碼已變更。請重新做一次備份——舊的備份檔仍須用舊密碼開啟。');
+}
+function wipe(){
+  if(!confirm('將清除本機全部資料與密碼設定，且無法復原。確定？'))return;
+  if(!confirm('再次確認：所有專案、合約、證據、決策紀錄都會消失。'))return;
+  localStorage.removeItem(KEY);location.reload();
+}
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('allo2pm_theme',next)}catch(e){}
+}
+try{const t=localStorage.getItem('allo2pm_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}
+if(!crypto?.subtle){
+  document.getElementById('lock').innerHTML=
+   '<div class="box"><h2>無法執行</h2><p>本程式需要瀏覽器的 Web Crypto API。'+
+   '請改用 Chrome、Edge 或 Safari，並確認是以 <code>file://</code> 或 <code>https://</code> 開啟'+
+   '（<code>http://</code> 非本機來源不支援加密）。</p></div>';
+}else{initLock()}
+</script>
+</body>
+</html>
