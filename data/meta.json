@@ -15,10 +15,10 @@
  ],
  "geo": {
   "site": 964,
-  "country": 15722,
+  "country": 14306,
   "place": 144,
-  "admin": 1169,
-  "name": 5457,
+  "admin": 3028,
+  "name": 5014,
   "reg": 1533,
   "null": 28
  },
@@ -35,7 +35,7 @@
   "Engineered Removal": 19,
   "Other": 45
  },
- "psize": 4463881,
- "devs": 4017,
- "vrfs": 107
+ "psize": 4523762,
+ "devs": 4023,
+ "vrfs": 163
 }

@@ -4,6 +4,11 @@
    註：緬甸文為機器輔助撰寫，尚未經母語者校讀。 */
 window.PAGE_I18N = {
 en: {
+ 'Gold Standard 公開 API':'Gold Standard public API',
+ '（public-api.goldstandard.org）。 用於補齊該標準專案的座標與開發方，共取得 1,533 個由登記處自報的座標。':' (public-api.goldstandard.org), used to fill in coordinates and project developers for that standard. It supplied 1,533 registry-reported coordinates.',
+ 'Verra 登記處':'Verra Registry',
+ 'VCS 專案公開匯出（registry.verra.org）。 用於補齊州／省、查證機構與最新狀態。':' public export of VCS projects (registry.verra.org), used to fill in state/province, verification body and current status.',
+ 'Verra Registry Terms of Use 就登記處內容之重製設有限制， 本站之使用係依該條款取得同意或另行確認後為之。原始紀錄以 Verra 公告為準。':'The Verra Registry Terms of Use place restrictions on reproducing registry content; our use is made on the basis of consent obtained or separately confirmed under those terms. Verra’s own published records govern.',
  '衛星影像':'Satellite imagery',
  '，EOX IT Services GmbH 製作，授權':', produced by EOX IT Services GmbH, licensed ',
  '， 含經處理的 Copernicus Sentinel 資料。僅於專案已定位到具體地點時顯示縮圖； 僅能對應到國家層級者，改以色塊與國別代碼表示，不以國家中央的影像充當案場。':', containing modified Copernicus Sentinel data. Thumbnails appear only where a project is geocoded to a specific place. Where the match is country-level only, we show a colour block and country code rather than passing off an image of the country’s centre as the site.',
@@ -172,6 +177,11 @@ en: {
  '聯絡方式與合作流程。初步討論不收費。':'How to reach us and how an engagement runs. The first conversation is free.'
 },
 my: {
+ 'Gold Standard 公開 API':'Gold Standard အများသုံး API',
+ '（public-api.goldstandard.org）。 用於補齊該標準專案的座標與開發方，共取得 1,533 個由登記處自報的座標。':' (public-api.goldstandard.org)။ ထိုစံနှုန်းအောက်ရှိ စီမံကိန်းများ၏ ကိုဩဒိနိတ်နှင့် ဖွံ့ဖြိုးသူကို ဖြည့်စွက်ရန် အသုံးပြုသည်။ ကိုဩဒိနိတ် ၁,၅၃၃ ခု ရရှိသည်။',
+ 'Verra 登記處':'Verra မှတ်ပုံတင်အဖွဲ့',
+ 'VCS 專案公開匯出（registry.verra.org）。 用於補齊州／省、查證機構與最新狀態。':' VCS စီမံကိန်းများ၏ အများသုံး ထုတ်ယူမှု (registry.verra.org)။ ပြည်နယ်၊ စစ်ဆေးအတည်ပြုရေးအဖွဲ့နှင့် လက်ရှိအခြေအနေ ဖြည့်စွက်ရန် အသုံးပြုသည်။',
+ 'Verra Registry Terms of Use 就登記處內容之重製設有限制， 本站之使用係依該條款取得同意或另行確認後為之。原始紀錄以 Verra 公告為準。':'Verra Registry Terms of Use တွင် မှတ်တမ်းအကြောင်းအရာ ပြန်လည်ထုတ်ဝေမှုအပေါ် ကန့်သတ်ချက်များ ရှိသည်။ မူရင်းမှတ်တမ်းကို Verra ၏ တရားဝင်ထုတ်ပြန်ချက်အတိုင်း အတည်ယူပါ။',
  '衛星影像':'ဂြိုဟ်တုပုံရိပ်',
  '，EOX IT Services GmbH 製作，授權':'၊ EOX IT Services GmbH မှ ထုတ်လုပ်၊ လိုင်စင် ',
  '， 含經處理的 Copernicus Sentinel 資料。僅於專案已定位到具體地點時顯示縮圖； 僅能對應到國家層級者，改以色塊與國別代碼表示，不以國家中央的影像充當案場。':'။ ပြုပြင်ထားသော Copernicus Sentinel ဒေတာ ပါဝင်သည်။ တိကျသောနေရာ သတ်မှတ်နိုင်သော စီမံကိန်းများတွင်သာ ပုံငယ် ပြသသည်။',
