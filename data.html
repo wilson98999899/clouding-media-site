@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>碳市場資料庫｜Clouding Media</title>
+<meta name="description" content="全球自願碳市場登記處資料與每日情報。專案、國家、開發商、交付率分析。">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── 資料庫專屬 ── */
+.db{display:grid;grid-template-columns:186px 1fr;gap:34px;align-items:start}
+@media(max-width:900px){.db{grid-template-columns:1fr;gap:20px}}
+.dbnav{position:sticky;top:94px}
+@media(max-width:900px){.dbnav{position:static;display:flex;flex-wrap:wrap;gap:6px}}
+.dbnav .grp{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin:20px 0 8px}
+@media(max-width:900px){.dbnav .grp{width:100%;margin:8px 0 2px}}
+.dbnav a{display:block;padding:7px 11px;font-size:14.5px;color:var(--muted);
+  text-decoration:none;border-left:2px solid transparent;cursor:pointer;border-radius:0 4px 4px 0}
+.dbnav a:hover{color:var(--ink);background:var(--paper)}
+.dbnav a.on{color:var(--ink);font-weight:600;border-left-color:var(--accent);background:var(--paper)}
+@media(max-width:900px){.dbnav a{border:1px solid var(--line);border-radius:4px;padding:6px 12px}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin:4px 0 30px}
+.kpi{border-left:3px solid var(--accent);padding-left:16px}
+.kpi .v{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1.18;letter-spacing:-.5px}
+.kpi .k{font-size:13.5px;color:var(--muted);margin-top:3px}
+.kpi.hl{border-left-color:var(--warn)}
+.kpi.hl .v{color:var(--warn)}
+
+.block{background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:22px 24px;margin-bottom:22px}
+.block h3{font-size:16px;margin:0 0 14px}
+.block .note{font-size:13.5px;color:var(--muted);line-height:1.65;margin-top:12px}
+
+table.dt{width:100%;border-collapse:collapse;font-size:14px}
+table.dt th{text-align:left;font-weight:700;color:var(--muted);font-size:12.5px;
+  letter-spacing:.4px;padding:8px 10px;border-bottom:1px solid var(--line);
+  white-space:nowrap;cursor:pointer;user-select:none}
+table.dt th:hover{color:var(--ink)}
+table.dt td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+table.dt tr:last-child td{border-bottom:none}
+table.dt tbody tr:hover td{background:var(--sand)}
+.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;padding:1px 8px;border-radius:3px;font-size:11.5px;
+  background:var(--accent-soft);color:var(--accent);font-weight:600;white-space:nowrap}
+.pct{font-weight:700}
+.pct.lo{color:#a83232}.pct.md{color:var(--warn)}.pct.hi{color:var(--accent)}
+.clickrow{cursor:pointer}
+
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.ctl input,.ctl select{font:14.5px var(--sans);padding:8px 12px;border:1px solid var(--line);
+  border-radius:4px;background:var(--paper);color:var(--ink)}
+.ctl input[type=search]{min-width:260px;flex:1;max-width:380px}
+
+.spark{display:flex;align-items:flex-end;gap:2px;height:52px}
+.spark i{flex:1;background:var(--accent);opacity:.8;border-radius:2px 2px 0 0;min-height:1px}
+.spark i:hover{opacity:1}
+.sparkx{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:5px}
+
+.bars b{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:14px;font-weight:400}
+.bars .l{width:190px;flex:0 0 190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bars .tr{flex:1;height:8px;background:var(--sand);border-radius:4px;overflow:hidden}
+.bars .fl{height:100%;background:var(--accent);border-radius:4px}
+.bars .nn{width:70px;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+
+.news{border-top:1px solid var(--line)}
+.news article{padding:16px 0;border-bottom:1px solid var(--line)}
+.news h4{margin:0 0 5px;font-size:15.5px;font-weight:600;line-height:1.5}
+.news h4 a{text-decoration:none}
+.news h4 a:hover{color:var(--accent)}
+.news .meta{font-size:12.5px;color:var(--muted);display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.news .d{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.6}
+.cat{display:inline-block;padding:1px 8px;border-radius:3px;font-size:11.5px;font-weight:600}
+.cat-標準{background:var(--accent-soft);color:var(--accent)}
+.cat-市場{background:#eaf0f7;color:var(--navy)}
+.cat-法規{background:#f0ecf7;color:#5a4a8a}
+.cat-完整性{background:var(--warn-soft);color:var(--warn)}
+.cat-專案{background:#eaf1ed;color:#2d6a4f}
+.cat-科學{background:#eef1f3;color:#4a5a68}
+.cat-其他,.cat-一般{background:var(--sand);color:var(--muted)}
+.tg{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11px;
+  border:1px solid var(--line);color:var(--muted)}
+.more{display:inline-block;margin-top:14px;font-size:14.5px;color:var(--accent);
+  cursor:pointer;font-weight:600}
+.more:hover{text-decoration:underline}
+.loading{color:var(--muted);padding:50px 0;text-align:center}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
+.crumb a{color:var(--accent);cursor:pointer;text-decoration:none}
+.src{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:28px;
+  padding-top:16px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap">
+  <nav class="nav" id="nav">
+    <a class="brand" href="index.html">Clouding<span>.</span>Media</a>
+    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">選單</button>
+    <span class="sp"></span>
+    <a class="lk" href="index.html">首頁</a>
+    <a class="lk" href="services.html">服務</a>
+    <a class="lk on" href="data.html">資料庫</a>
+    <a class="lk" href="about.html">關於</a>
+    <a class="lk" href="contact.html">聯絡</a>
+    <a class="cta" href="contact.html">聯絡我們</a>
+  </nav>
+</div>
+</header>
+
+<div class="hero" style="padding:62px 0 42px">
+<div class="wrap">
+  <div class="rule"></div>
+  <div class="eyebrow">Carbon Market Database</div>
+  <h1 style="font-size:clamp(26px,4vw,40px);margin-bottom:12px">碳市場資料庫</h1>
+  <p class="lead" style="margin-bottom:0">
+    全球自願碳市場的登記處資料與每日情報。可依國家、專案類型、開發商翻閱，
+    並檢視我們自行計算的交付率——事前預估與實際核發之間的落差。
+  </p>
+</div>
+</div>
+
+<section class="tight">
+<div class="wrap">
+<div class="db">
+
+  <aside class="dbnav">
+    <div class="grp">瀏覽</div>
+    <a data-v="dash" class="on">總覽</a>
+    <a data-v="countries">國家</a>
+    <a data-v="projects">專案</a>
+    <a data-v="devs">開發商</a>
+    <div class="grp">分析</div>
+    <a data-v="delivery">交付率</a>
+    <div class="grp">情報</div>
+    <a data-v="pulse">每日動態</a>
+  </aside>
+
+  <div id="view"><div class="loading">載入資料中…</div></div>
+
+</div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div class="small muted">
+    © <span id="yr"></span> 奧森氧整合科技國際股份有限公司 ｜ Clouding Media
+  </div>
+</div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+const S={p:[],c:[],meta:null,news:null,view:'dash',sel:null,q:'',fr:'',fs:'',fc:'',
+         sort:{k:'i',d:-1},lim:60};
+const $=s=>document.querySelector(s);
+const fmt=n=>n==null?'—':Math.round(n).toLocaleString('en-US');
+const big=n=>n==null?'—':n>=1e9?(n/1e9).toFixed(2)+'B':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(0)+'K':Math.round(n);
+const esc=s=>(s==null?'':String(s)).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const pc=v=>v==null?'':v<25?'lo':v<60?'md':'hi';
+const ago=ts=>{if(!ts)return'';const h=(Date.now()/1000-ts)/3600;
+  return h<1?'剛剛':h<24?Math.round(h)+' 小時前':Math.round(h/24)+' 天前'};
+
+function spark(sr){
+  if(!sr||!sr.length)return'<div class="note">無年度資料</div>';
+  const mx=Math.max(...sr.map(x=>x[1]))||1;
+  return'<div class="spark">'+sr.map(x=>`<i style="height:${Math.max(1,x[1]/mx*100)}%" title="${x[0]}：${fmt(x[1])}"></i>`).join('')
+    +`</div><div class="sparkx"><span>${sr[0][0]}</span><span>${sr[sr.length-1][0]}</span></div>`;
+}
+function bars(o,m){
+  const e=Object.entries(o).sort((a,b)=>b[1]-a[1]).slice(0,m||8);
+  if(!e.length)return'<div class="note">—</div>';
+  const mx=e[0][1];
+  return'<div class="bars">'+e.map(([k,v])=>`<b><span class="l" title="${esc(k)}">${esc(k)}</span>
+    <span class="tr"><span class="fl" style="width:${v/mx*100}%"></span></span>
+    <span class="nn">${fmt(v)}</span></b>`).join('')+'</div>';
+}
+
+const V={};
+
+V.dash=()=>{
+  const m=S.meta,reg={},typ={},vint={};
+  S.p.forEach(p=>{if(p.r)reg[p.r]=(reg[p.r]||0)+p.i;if(p.t)typ[p.t]=(typ[p.t]||0)+p.i;
+    (p.v||[]).forEach(([y,q])=>vint[y]=(vint[y]||0)+q)});
+  const nw=(S.news?.items||[]).filter(x=>x.rel).slice(0,5);
+  return `<div class="kpis">
+    <div class="kpi"><div class="v">${m.projects.toLocaleString()}</div><div class="k">專案</div></div>
+    <div class="kpi"><div class="v">${m.countries}</div><div class="k">國家</div></div>
+    <div class="kpi"><div class="v">${big(m.issued)}</div><div class="k">已核發 tCO₂e</div></div>
+    <div class="kpi"><div class="v">${m.registries.length}</div><div class="k">登記處</div></div>
+  </div>
+  <div class="block"><h3>逐年核發量</h3>${spark(Object.entries(vint).map(([y,q])=>[+y,q]).sort((a,b)=>a[0]-b[0]))}</div>
+  <div class="block"><h3>登記處（依已核發量）</h3>${bars(reg)}</div>
+  <div class="block"><h3>專案類型（依已核發量）</h3>${bars(typ,10)}</div>
+  <div class="block"><h3>核發量前 12 國</h3>
+    <table class="dt"><thead><tr><th>國家</th><th>地區</th><th class="n">專案</th><th class="n">已核發</th><th class="n">交付率</th></tr></thead>
+    <tbody>${S.c.slice(0,12).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
+      <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
+      <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.issued)}</td>
+      <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table></div>
+  ${nw.length?`<div class="block"><h3>最新動態</h3><div class="news">${nw.map(newsCard).join('')}</div>
+    <span class="more" onclick="go('pulse')">看全部動態 →</span></div>`:''}`;
+};
+
+V.countries=()=>{
+  const q=S.q.toLowerCase();
+  const rows=S.c.filter(c=>!q||c.name.toLowerCase().includes(q)||(c.region||'').toLowerCase().includes(q));
+  return `<div class="crumb">國家</div>
+  <div class="ctl"><input type="search" id="q" placeholder="搜尋國家或地區…" value="${esc(S.q)}">
+    <span class="muted small">${rows.length} 個國家</span></div>
+  <div class="block"><table class="dt"><thead><tr>
+    <th>國家</th><th>地區</th><th class="n">專案</th><th class="n">開發商</th>
+    <th class="n">已核發</th><th class="n">已註銷</th><th class="n">交付率</th></tr></thead>
+  <tbody>${rows.slice(0,S.lim).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
+    <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
+    <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.devs)}</td>
+    <td class="n">${fmt(c.issued)}</td><td class="n">${fmt(c.retired)}</td>
+    <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table>
+  ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆（共 ${rows.length}）</span>`:''}</div>`;
+};
+
+V.country=()=>{
+  const c=S.c.find(x=>x.name===S.sel);
+  if(!c)return'<div class="loading">找不到該國家</div>';
+  const ps=S.p.filter(p=>p.c===c.name).sort((a,b)=>b.i-a.i);
+  return `<div class="crumb"><a onclick="go('countries')">國家</a> / ${esc(c.region)||'—'} / ${esc(c.name)}</div>
+  <h2 style="font-size:28px;margin-bottom:6px">${esc(c.name)}</h2>
+  <p class="muted small" style="margin-bottom:22px">${c.n} 個專案，橫跨 ${Object.keys(c.regs).length} 個登記處</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">${fmt(c.n)}</div><div class="k">專案</div></div>
+    <div class="kpi"><div class="v">${fmt(c.devs)}</div><div class="k">開發商</div></div>
+    <div class="kpi"><div class="v">${big(c.issued)}</div><div class="k">已核發 tCO₂e</div></div>
+    ${c.delivery!=null?`<div class="kpi hl"><div class="v">${c.delivery}%</div><div class="k">交付率（${c.cmp_n} 案）</div></div>`:''}
+  </div>
+  ${c.delivery!=null?`<div class="block"><h3>交付率：事前預估 vs 實際核發</h3>
+    <table class="dt"><tbody>
+      <tr><td>事前預估累計（年預估 × 運行年數）</td><td class="n">${fmt(c.cmp_exp)}</td></tr>
+      <tr><td>實際已核發</td><td class="n">${fmt(c.cmp_act)}</td></tr>
+      <tr><td><strong>達成率</strong></td><td class="n pct ${pc(c.delivery)}"><strong>${c.delivery}%</strong></td></tr>
+    </tbody></table>
+    <div class="note">樣本：${c.cmp_n} 個同時具備「事前年預估」與「起始年」、且已運行滿 3 年的專案。
+      此指標為本站自行計算，登記處不直接提供。會低估仍在爬坡期的專案，應作量級比較而非個案評價。</div></div>`:''}
+  <div class="block"><h3>逐年核發量</h3>${spark(c.vint)}</div>
+  <div class="block"><h3>登記處</h3>${bars(c.regs)}</div>
+  <div class="block"><h3>專案類型</h3>${bars(c.types,10)}</div>
+  <div class="block"><h3>專案（${ps.length}）</h3>
+    <table class="dt"><thead><tr><th>ID</th><th>名稱</th><th>登記處</th><th>類型</th>
+      <th class="n">年預估</th><th class="n">已核發</th><th class="n">達成率</th></tr></thead>
+    <tbody>${ps.slice(0,S.lim).map(p=>{
+      const yr=p.fy?2026-p.fy:null,exp=(p.e&&yr&&yr>=3)?p.e*yr:null,d=exp?Math.round(1000*p.i/exp)/10:null;
+      return `<tr><td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
+      <td>${esc(p.r)}</td><td>${esc(p.t)||'—'}</td>
+      <td class="n">${fmt(p.e)}</td><td class="n">${fmt(p.i)}</td>
+      <td class="n pct ${pc(d)}">${d==null?'—':d+'%'}</td></tr>`}).join('')}</tbody></table>
+    ${ps.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+};
+
+V.projects=()=>{
+  const q=S.q.toLowerCase();
+  let rows=S.p;
+  if(q)rows=rows.filter(p=>(p.n||'').toLowerCase().includes(q)||(p.id||'').toLowerCase().includes(q)
+    ||(p.c||'').toLowerCase().includes(q)||(p.d||'').toLowerCase().includes(q)||(p.t||'').toLowerCase().includes(q));
+  if(S.fr)rows=rows.filter(p=>p.r===S.fr);
+  if(S.fs)rows=rows.filter(p=>p.sc===S.fs);
+  const k=S.sort.k,d=S.sort.d;
+  rows=[...rows].sort((a,b)=>{const x=a[k],y=b[k];
+    if(typeof x==='number'||typeof y==='number')return((y||0)-(x||0))*(d<0?1:-1);
+    return String(x||'').localeCompare(String(y||''))*(d<0?-1:1)});
+  const regs=[...new Set(S.p.map(p=>p.r).filter(Boolean))].sort();
+  const scs=[...new Set(S.p.map(p=>p.sc).filter(Boolean))].sort();
+  return `<div class="crumb">專案</div>
+  <div class="ctl">
+    <input type="search" id="q" placeholder="搜尋名稱、ID、國家、開發商、類型…" value="${esc(S.q)}">
+    <select id="fr"><option value="">全部登記處</option>${regs.map(r=>`<option${S.fr===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    <select id="fs"><option value="">全部範疇</option>${scs.map(r=>`<option${S.fs===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    <span class="muted small">${rows.length.toLocaleString()} 筆</span>
+  </div>
+  <div class="block"><table class="dt"><thead><tr>
+    <th data-s="id">ID</th><th data-s="n">名稱</th><th data-s="c">國家</th>
+    <th data-s="r">登記處</th><th data-s="t">類型</th>
+    <th class="n" data-s="e">年預估</th><th class="n" data-s="i">已核發</th></tr></thead>
+  <tbody>${rows.slice(0,S.lim).map(p=>`<tr>
+    <td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
+    <td style="cursor:pointer;color:var(--accent)" onclick="go('country','${esc(p.c)}')">${esc(p.c)||'—'}</td>
+    <td>${esc(p.r)}</td><td>${esc(p.t)||'—'}</td>
+    <td class="n">${fmt(p.e)}</td><td class="n">${fmt(p.i)}</td></tr>`).join('')}</tbody></table>
+  ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+};
+
+V.devs=()=>{
+  const m={};
+  S.p.forEach(p=>{if(!p.d)return;const a=m[p.d]||(m[p.d]={n:0,i:0,cs:new Set()});
+    a.n++;a.i+=p.i;if(p.c)a.cs.add(p.c)});
+  const q=S.q.toLowerCase();
+  const rows=Object.entries(m).filter(([k])=>!q||k.toLowerCase().includes(q)).sort((a,b)=>b[1].i-a[1].i);
+  return `<div class="crumb">開發商</div>
+  <div class="ctl"><input type="search" id="q" placeholder="搜尋開發商…" value="${esc(S.q)}">
+    <span class="muted small">${rows.length.toLocaleString()} 家</span></div>
+  <div class="block"><table class="dt"><thead><tr><th>開發商</th><th class="n">專案</th><th class="n">國家數</th><th class="n">已核發</th></tr></thead>
+  <tbody>${rows.slice(0,S.lim).map(([k,v])=>`<tr><td>${esc(k)}</td>
+    <td class="n">${fmt(v.n)}</td><td class="n">${v.cs.size}</td><td class="n">${fmt(v.i)}</td></tr>`).join('')}</tbody></table>
+  ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+};
+
+V.delivery=()=>{
+  const rows=S.c.filter(c=>c.cmp_n>=3&&c.delivery!=null).sort((a,b)=>a.delivery-b.delivery);
+  const bt={};
+  S.p.forEach(p=>{if(!p.t||!p.e||!p.fy)return;const yr=2026-p.fy;if(yr<3)return;
+    const a=bt[p.t]||(bt[p.t]={e:0,i:0,n:0});a.e+=p.e*yr;a.i+=p.i;a.n++});
+  const tr=Object.entries(bt).filter(([,v])=>v.n>=10)
+    .map(([k,v])=>[k,v.n,Math.round(1000*v.i/v.e)/10]).sort((a,b)=>a[2]-b[2]);
+  return `<div class="crumb">分析</div>
+  <h2 style="font-size:26px;margin-bottom:6px">交付率</h2>
+  <p class="muted small" style="margin-bottom:22px">事前預估與實際核發之間的落差。本站自行計算，登記處不直接提供。</p>
+  <div class="block"><h3>計算方式</h3>
+    <div class="note">以登記處所載 <em>Estimated Annual Emission Reductions</em> 乘以運行年數（2026 − 起始年）
+      作為事前預估累計，對照 <em>Total Credits Issued</em>。僅納入兩者皆有、且已運行滿 3 年的專案。<br><br>
+      <strong>限制：</strong>此指標會低估仍在爬坡期的專案，亦受計入期設計與查證節奏影響。
+      應作為<strong>量級比較</strong>，不作為個案評價。</div></div>
+  <div class="block"><h3>依專案類型（樣本 ≥10 案）</h3>
+    <table class="dt"><thead><tr><th>類型</th><th class="n">案數</th><th class="n">交付率</th></tr></thead>
+    <tbody>${tr.map(([k,n,d])=>`<tr><td>${esc(k)}</td><td class="n">${n}</td>
+      <td class="n pct ${pc(d)}">${d}%</td></tr>`).join('')}</tbody></table></div>
+  <div class="block"><h3>依國家（樣本 ≥3 案）</h3>
+    <table class="dt"><thead><tr><th>國家</th><th class="n">案數</th><th class="n">預估累計</th><th class="n">實際核發</th><th class="n">交付率</th></tr></thead>
+    <tbody>${rows.map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
+      <td>${esc(c.name)}</td><td class="n">${c.cmp_n}</td><td class="n">${fmt(c.cmp_exp)}</td>
+      <td class="n">${fmt(c.cmp_act)}</td><td class="n pct ${pc(c.delivery)}">${c.delivery}%</td></tr>`).join('')}</tbody></table></div>`;
+};
+
+const newsCard=i=>`<article>
+  <h4><a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.t)}</a></h4>
+  <div class="meta"><span class="cat cat-${esc(i.c)}">${esc(i.c)}</span>
+    <span>${esc(i.s)}</span><span>${ago(i.ts)}</span>
+    ${(i.g||[]).map(g=>`<span class="tg">${esc(g)}</span>`).join('')}</div>
+  ${i.d?`<div class="d">${esc(i.d).slice(0,190)}${i.d.length>190?'…':''}</div>`:''}
+</article>`;
+
+V.pulse=()=>{
+  if(!S.news)return'<div class="loading">情報載入中…</div>';
+  let it=S.news.items;
+  if(S.fc)it=it.filter(x=>x.c===S.fc);
+  if(S.q){const q=S.q.toLowerCase();it=it.filter(x=>(x.t+' '+x.d).toLowerCase().includes(q))}
+  const cats=[...new Set(S.news.items.map(x=>x.c))];
+  const cnt={};S.news.items.forEach(x=>cnt[x.c]=(cnt[x.c]||0)+1);
+  return `<div class="crumb">情報</div>
+  <h2 style="font-size:26px;margin-bottom:6px">每日動態</h2>
+  <p class="muted small" style="margin-bottom:20px">
+    自 ${S.news.sources.length} 個公開來源聚合，依碳市場相關性分類。更新於 ${esc(S.news.built)}。</p>
+  <div class="ctl">
+    <input type="search" id="q" placeholder="搜尋標題或摘要…" value="${esc(S.q)}">
+    <select id="fc"><option value="">全部分類</option>${cats.map(c=>
+      `<option value="${esc(c)}"${S.fc===c?' selected':''}>${esc(c)}（${cnt[c]}）</option>`).join('')}</select>
+    <span class="muted small">${it.length} 則</span>
+  </div>
+  <div class="block"><div class="news">${it.slice(0,S.lim).map(newsCard).join('')||'<div class="loading">無符合項目</div>'}</div>
+  ${it.length>S.lim?`<span class="more" onclick="S.lim+=40;render()">再顯示 40 則</span>`:''}</div>
+  <div class="src">來源：${S.news.sources.map(esc).join('、')}。
+    本頁僅聚合公開 RSS 之標題與摘要並連回原文，不轉載全文。分類由關鍵字規則自動產生，可能有誤。</div>`;
+};
+
+function go(v,sel){S.view=v;S.sel=sel||null;S.q='';S.lim=60;render();window.scrollTo(0,0)}
+window.go=go;
+
+function render(){
+  $('#view').innerHTML=(V[S.view]||V.dash)();
+  document.querySelectorAll('.dbnav a').forEach(a=>
+    a.classList.toggle('on',a.dataset.v===S.view||(S.view==='country'&&a.dataset.v==='countries')));
+  const q=$('#q');
+  if(q)q.oninput=e=>{S.q=e.target.value;S.lim=60;render();
+    const n=$('#q');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}};
+  ['fr','fs','fc'].forEach(id=>{const el=$('#'+id);
+    if(el)el.onchange=e=>{S[id]=e.target.value;S.lim=60;render()}});
+  document.querySelectorAll('th[data-s]').forEach(th=>th.onclick=()=>{
+    const k=th.dataset.s;S.sort.d=(S.sort.k===k)?-S.sort.d:-1;S.sort.k=k;render()});
+}
+document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
+
+Promise.all(['data/projects.json','data/countries.json','data/meta.json']
+  .map(u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()})))
+ .then(([p,c,m])=>{S.p=p;S.c=c;S.meta=m;render();
+   return fetch('data/news.json').then(r=>r.ok?r.json():null)})
+ .then(n=>{if(n){S.news=n;if(S.view==='dash'||S.view==='pulse')render()}})
+ .catch(e=>$('#view').innerHTML=`<div class="loading">資料載入失敗：${esc(e.message)}<br><br>
+   本頁需以 HTTP 開啟（瀏覽器會阻擋 file:// 的 fetch）。</div>`);
+</script>
+</body>
+</html>

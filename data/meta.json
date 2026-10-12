@@ -1,0 +1,15 @@
+{
+ "source": "Berkeley Carbon Trading Project — Voluntary Registry Offsets Database v2026-08 (CC BY 4.0)",
+ "built": "2026-10-12",
+ "projects": 11856,
+ "countries": 155,
+ "issued": 2704143472.766,
+ "registries": [
+  "ACR",
+  "ART",
+  "CAR",
+  "GOLD",
+  "ISO",
+  "VCS"
+ ]
+}
