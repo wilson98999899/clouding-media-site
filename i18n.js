@@ -86,6 +86,10 @@ zh:{
   wiki_disc:'本條目為一般性說明，非法律意見。涉及法律效果或投資決策時，請另行取得專業意見。',
   wiki_my:'百科條目目前備有中文與英文，緬甸文版本尚在整理中，以下顯示英文。',
   tile_attr:'縮圖衛星影像：Sentinel-2 cloudless（EOX IT Services GmbH，CC BY 4.0），含經處理的 Copernicus Sentinel 資料。僅在專案已定位到具體地點時顯示；僅有國家層級座標者改以色塊與國別代碼表示。',
+  q_head:'想先了解什麼？', h_bycat:'核發量（依分類）',
+  q_where:'哪些國家的專案最多', q_forest:'林業與土地利用專案', q_deliver:'預估與實際差多少',
+  q_who:'誰在開發這些專案', q_method:'哪些方法學用得最多', q_map:'在地圖上看分布',
+  q_learn:'碳權的基本概念', q_news:'今天的市場動態',
   seeall:'看全部動態 →'
 },
 en:{
@@ -172,6 +176,10 @@ en:{
   wiki_disc:'General information only, not legal advice. Take professional advice where legal effect or an investment decision is involved.',
   wiki_my:'Wiki entries are currently available in Chinese and English; the Burmese edition is in preparation, so English is shown below.',
   tile_attr:'Thumbnail imagery: Sentinel-2 cloudless by EOX IT Services GmbH (CC BY 4.0), containing modified Copernicus Sentinel data. Shown only where a project is geocoded to a specific place; country-level matches show a colour block and country code instead.',
+  q_head:'What would you like to look at?', h_bycat:'Issuance by category',
+  q_where:'Which countries have the most', q_forest:'Forestry and land-use projects', q_deliver:'Estimate versus actual',
+  q_who:'Who develops these projects', q_method:'Most-used methodologies', q_map:'See them on a map',
+  q_learn:'How carbon credits work', q_news:'Today in the market',
   seeall:'See all →'
 },
 my:{
@@ -261,6 +269,10 @@ my:{
   wiki_disc:'အထွေထွေအချက်အလက်သာဖြစ်ပြီး ဥပဒေအကြံဉာဏ် မဟုတ်ပါ။',
   wiki_my:'ဝီကီခေါင်းစဉ်များကို လက်ရှိတွင် တရုတ်နှင့် အင်္ဂလိပ်ဘာသာဖြင့်သာ ရရှိနိုင်ပါသည်။ အောက်တွင် အင်္ဂလိပ်ဘာသာဖြင့် ပြသထားသည်။',
   tile_attr:'ဂြိုဟ်တုပုံရိပ် — Sentinel-2 cloudless (EOX IT Services GmbH, CC BY 4.0)။ တိကျသောနေရာ သတ်မှတ်နိုင်သော စီမံကိန်းများတွင်သာ ပြသသည်။',
+  q_head:'ဘာကို အရင်ကြည့်ချင်ပါသလဲ။', h_bycat:'အမျိုးအစားအလိုက် ထုတ်ပေးမှု',
+  q_where:'မည်သည့်နိုင်ငံတွင် အများဆုံးရှိသနည်း', q_forest:'သစ်တောနှင့် မြေအသုံးချမှု စီမံကိန်းများ', q_deliver:'ခန့်မှန်းချက်နှင့် အမှန်တကယ်',
+  q_who:'မည်သူက ဤစီမံကိန်းများကို ဖွံ့ဖြိုးစေသနည်း', q_method:'အသုံးအများဆုံး နည်းစနစ်များ', q_map:'မြေပုံပေါ်တွင် ကြည့်ရန်',
+  q_learn:'ကာဗွန်ခရက်ဒစ် အခြေခံ', q_news:'ယနေ့ စျေးကွက်သတင်း',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };

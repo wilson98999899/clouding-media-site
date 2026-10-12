@@ -33,5 +33,7 @@
   "Engineered Removal": 19,
   "Other": 45
  },
- "psize": 4465439
+ "psize": 4465439,
+ "devs": 4019,
+ "vrfs": 107
 }

@@ -120,6 +120,37 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 儀表板 ── */
+.kpis2{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:4px 0 24px}
+.kpi2{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:10px;
+  background:var(--paper);padding:17px 19px 16px;display:flex;flex-direction:column;gap:3px}
+.kpi2 .kv{font-family:var(--serif);font-size:27px;font-weight:600;line-height:1.15;
+  color:var(--brand);letter-spacing:-.3px}
+.kpi2 .kk{font-size:13px;color:var(--muted)}
+.kpi2 .kb{position:absolute;left:0;top:0;bottom:0;width:4px}
+
+.qpanel{border:1px solid var(--line);border-radius:10px;background:var(--sand);
+  padding:22px 24px;margin-bottom:24px}
+.qh{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:14px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:9px}
+.qbtn{display:flex;align-items:center;gap:9px;text-align:left;cursor:pointer;
+  border:1px solid var(--line);border-radius:7px;background:var(--paper);
+  padding:11px 13px;font:600 13.5px/1.5 var(--sans);color:var(--ink);
+  transition:box-shadow .16s,border-color .16s}
+.qbtn:hover{box-shadow:0 3px 12px rgba(0,109,167,.1);border-color:#cfe0e9;color:var(--brand)}
+.qbtn .qd{width:9px;height:9px;border-radius:3px;flex:0 0 auto}
+
+.nlead .nlt{font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.45;margin:0 0 8px}
+.nlead .nlt a{color:var(--ink);text-decoration:none}
+.nlead .nlt a:hover{color:var(--brand)}
+.nlead .nld{font-size:14.5px;color:var(--muted);line-height:1.75;margin:10px 0 0;max-width:72ch}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:16px;
+  margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.ngrid h4{margin:0 0 5px;font-size:14.5px;font-weight:600;line-height:1.5}
+.ngrid h4 a{color:var(--ink);text-decoration:none}
+.ngrid h4 a:hover{color:var(--brand)}
+.ngrid .meta{font-size:12px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+
 /* ── 碳權百科 ── */
 .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:11px}
 .wcard{display:flex;flex-direction:column;gap:5px;cursor:pointer;text-decoration:none;
@@ -361,28 +392,74 @@ function bars(o,m){
 const V={};
 S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;
 
-V.dash=()=>{
-  const m=S.meta,reg={},typ={},vint={};
-  S.p.forEach(p=>{if(p.r)reg[p.r]=(reg[p.r]||0)+p.i;if(p.t)typ[p.t]=(typ[p.t]||0)+p.i});
-  S.c.forEach(c=>(c.vint||[]).forEach(([y,q])=>vint[y]=(vint[y]||0)+q));
-  const nw=(S.news?.items||[]).filter(x=>x.rel).slice(0,5);
-  return `<div class="kpis">
-    <div class="kpi"><div class="v">${m.projects.toLocaleString()}</div><div class="k">${T('k_projects')}</div></div>
-    <div class="kpi"><div class="v">${m.countries}</div><div class="k">${T('k_countries')}</div></div>
-    <div class="kpi"><div class="v">${big(m.issued)}</div><div class="k">${T('k_issued')}</div></div>
-    <div class="kpi"><div class="v">${m.registries.length}</div><div class="k">${T('k_registries')}</div></div>
-  </div>
-  <div class="block"><h3>${T('h_vintage')}</h3>${spark(Object.entries(vint).map(([y,q])=>[+y,q]).sort((a,b)=>a[0]-b[0]))}</div>
-  <div class="block"><h3>${T('h_byreg')}</h3>${S.p.length?bars(reg):`<div class="note">${T('loadp')}</div>`}</div>
-  <div class="block"><h3>${T('h_bytype')}</h3>${S.p.length?bars(typ,10):`<div class="note">${T('loadp')}</div>`}</div>
-  <div class="block"><h3>${T('h_top12')}</h3>
-    <table class="dt"><thead><tr><th>${T('t_country')}</th><th>${T('t_region')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
-    <tbody>${S.c.slice(0,12).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
-      <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
-      <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.issued)}</td>
-      <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table></div>
-  ${nw.length?`<div class="block"><h3>${T('h_latest')}</h3><div class="news">${nw.map(newsCard).join('')}</div>
-    <span class="more" onclick="go('pulse')">${T('seeall')}</span></div>`:''}`;
+// 快速入口：以「想知道什麼」出發，而不是以資料表出發
+const QUICK = [
+  ['q_where',  'go("countries")',                              '#0b5c86,#2a9fd0'],
+  ['q_forest', 'dcatJump("Forestry & Land Use")',              '#15603f,#3f9e6e'],
+  ['q_deliver','go("delivery")',                               '#7a5a1a,#c49a3a'],
+  ['q_who',    'go("devs")',                                   '#5c4a86,#9281c4'],
+  ['q_method', 'go("methods")',                                '#1f6b66,#46a8a0'],
+  ['q_map',    'go("map")',                                    '#46525f,#828f9d'],
+  ['q_learn',  'go("wiki")',                                   '#006DA7,#009F7C'],
+  ['q_news',   'go("pulse")',                                  '#7d3f55,#bd7a90']
+];
+function dcatJump(c) { S.view = 'projects'; S.pmode = 'all'; S.fcat = c; S.fth = null; S.q = ''; S.lim = 60; render(); window.scrollTo(0, 0); }
+
+V.dash = () => {
+  const m = S.meta, reg = {}, cat = {}, vint = {};
+  S.p.forEach(p => { if (p.r) reg[p.r] = (reg[p.r] || 0) + p.i; if (p.cat) cat[p.cat] = (cat[p.cat] || 0) + p.i; });
+  S.c.forEach(c => (c.vint || []).forEach(([y, q]) => vint[y] = (vint[y] || 0) + q));
+  const news = (S.news && S.news.items) || [];
+  const lead = news.filter(x => x.rel)[0];
+  const rest = news.filter(x => x.rel && x !== lead).slice(0, 6);
+  // 各國的 devs 加總會把跨國開發商重複計算，改用 meta 的不重複數
+  const devs = m.devs || S.c.reduce((s, c) => s + (c.devs || 0), 0);
+
+  const kpi = (v, k, g) => `<div class="kpi2"><span class="kv">${v}</span><span class="kk">${k}</span>
+    <span class="kb" style="background:linear-gradient(135deg,${g})"></span></div>`;
+
+  return `<div class="kpis2">
+      ${kpi(m.projects.toLocaleString(), T('k_projects'), '#0b5c86,#2a9fd0')}
+      ${kpi(fmt(devs), T('k_devs2'), '#5c4a86,#9281c4')}
+      ${kpi(m.countries, T('k_countries'), '#15603f,#3f9e6e')}
+      ${kpi(big(m.issued), T('k_issued'), '#7a5a1a,#c49a3a')}
+    </div>
+
+    <div class="qpanel">
+      <div class="qh">${T('q_head')}</div>
+      <div class="qgrid">${QUICK.map(q =>
+        `<button class="qbtn" onclick='${q[1]}'><span class="qd" style="background:linear-gradient(135deg,${q[2]})"></span>${T(q[0])}</button>`
+      ).join('')}</div>
+    </div>
+
+    ${lead ? `<div class="block nlead">
+      <div class="eyebrow" style="margin-bottom:12px">${T('h_latest')}</div>
+      <h3 class="nlt"><a href="${esc(lead.u)}" target="_blank" rel="noopener">${esc(lead.t)}</a></h3>
+      <div class="meta"><span class="cat cat-${esc(lead.c)}">${esc(T('cat.' + lead.c) !== 'cat.' + lead.c ? T('cat.' + lead.c) : lead.c)}</span>
+        <span>${esc(lead.s)}</span><span>${ago(lead.ts)}</span></div>
+      ${lead.d ? `<div class="nld">${esc(lead.d)}</div>` : ''}
+      <div class="ngrid">${rest.map(x => `<article>
+        <h4><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a></h4>
+        <div class="meta"><span>${esc(x.s)}</span><span>${ago(x.ts)}</span></div>
+      </article>`).join('')}</div>
+      <span class="more" onclick="go('pulse')">${T('seeall')}</span>
+    </div>` : ''}
+
+    <div class="block"><h3>${T('h_vintage')}</h3>${spark(Object.entries(vint).map(([y, q]) => [+y, q]).sort((a, b) => a[0] - b[0]))}</div>
+
+    <div class="grid g2" style="gap:22px">
+      <div class="block"><h3>${T('h_byreg')}</h3>${S.p.length ? bars(reg) : `<div class="note">${T('loadp')}</div>`}</div>
+      <div class="block"><h3>${T('h_bycat')}</h3>${S.p.length ? bars(cat, 8) : `<div class="note">${T('loadp')}</div>`}</div>
+    </div>
+
+    <div class="block"><h3>${T('h_top12')}</h3>
+      <table class="dt"><thead><tr><th>${T('t_country')}</th><th>${T('t_region')}</th>
+        <th class="n">${T('t_proj')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
+      <tbody>${S.c.slice(0, 12).map(c => `<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
+        <td>${c.iso ? flag(c.iso) : ''}<strong style="vertical-align:middle">${esc(c.name)}</strong></td>
+        <td>${esc(c.r4) || '—'}</td>
+        <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.issued)}</td>
+        <td class="n pct ${pc(c.delivery)}">${c.delivery == null ? '—' : c.delivery + '%'}</td></tr>`).join('')}</tbody></table></div>`;
 };
 
 const R4 = [
@@ -1124,7 +1201,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012m';
+const DV='?v=20261012p';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────
