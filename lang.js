@@ -41,11 +41,7 @@
   function pick(l) {
     try { localStorage.setItem(KEY, l); } catch (e) { /* 無痕視窗 */ }
     if (typeof window.setLang === 'function') { window.setLang(l); draw(); return; }
-    if (l === 'zh') {
-      location.href = onProxy ? origin() + location.pathname : location.pathname;
-      return;
-    }
-    location.href = proxyUrl(GT[l]);
+    if (typeof window.applyPageLang === 'function') { window.applyPageLang(l); draw(); return; }
   }
 
   function draw() {
@@ -63,10 +59,16 @@
     });
   }
 
+  function boot() {
+    draw();
+    var c = current();
+    if (c !== 'zh' && typeof window.applyPageLang === 'function') window.applyPageLang(c);
+  }
+
   window.LangBar = { draw: draw, pick: pick, current: current };
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', draw);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    draw();
+    boot();
   }
 })();

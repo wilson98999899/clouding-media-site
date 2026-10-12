@@ -66,6 +66,12 @@ header{
 /* 頁首內的 CTA 疊在漸層上，改白色外框 */
 header .cta{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
 header .cta:hover{background:#fff;color:var(--brand)!important;border-color:#fff;filter:none}
+/* ── 語系 ── */
+html[lang="en"] .en{display:none}       /* 英文版主文已是英文，副標會重複 */
+html[lang="my"] body,html[lang="my"] h1,html[lang="my"] h2,html[lang="my"] h3{
+  font-family:"Noto Sans Myanmar","Myanmar Text","Padauk",var(--sans);line-height:1.95}
+html[lang="my"] .lead{line-height:2}
+
 /* ── 語系切換（全站共用） ── */
 .langbar{display:inline-flex;align-items:center;gap:10px;margin-left:18px;color:#fff}
 .langbar svg{width:17px;height:17px;opacity:.8;flex:0 0 auto}
