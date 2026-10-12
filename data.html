@@ -120,6 +120,40 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 訂閱面板 ── */
+.cta2{border:1px solid var(--line);border-radius:12px;padding:34px 30px;margin-bottom:24px;
+  text-align:center;background:linear-gradient(170deg,var(--sand),var(--paper))}
+.cta2.done{background:var(--accent-soft)}
+.c2tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--brand);
+  background:var(--paper);border:1px solid var(--line);border-radius:20px;
+  padding:5px 14px;margin-bottom:16px}
+.c2h{font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);
+  line-height:1.4;margin-bottom:8px}
+.c2p{font-size:15px;color:var(--muted);line-height:1.8;max-width:56ch;margin:0 auto 20px}
+.c2act{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.c2links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;font-size:13.5px}
+.c2links a{color:var(--muted);cursor:pointer;text-decoration:none}
+.c2links a:hover{color:var(--brand);text-decoration:underline}
+.c2n{font-size:12.5px;color:var(--muted);line-height:1.7;margin:14px 0 0;max-width:54ch;
+  margin-left:auto;margin-right:auto}
+
+.sform{max-width:430px;margin:6px auto 0;text-align:left;display:flex;flex-direction:column;gap:13px}
+.sform label{font-size:13.5px;font-weight:600;color:var(--ink);display:flex;
+  flex-direction:column;gap:5px}
+.sform input[type=text],.sform input[type=email]{font:15px var(--sans);padding:10px 13px;
+  border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);
+  font-weight:400}
+.sform input:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
+.sform fieldset{border:none;padding:0;margin:0}
+.sform legend{font-size:13.5px;font-weight:600;color:var(--ink);padding:0;margin-bottom:7px}
+.chks{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.chk{flex-direction:row!important;align-items:flex-start;gap:7px!important;
+  font-weight:400!important;font-size:13.5px!important;color:var(--sec)!important;cursor:pointer}
+.chk input{margin:2px 0 0;flex:0 0 auto;accent-color:var(--brand)}
+.consent{margin-top:2px;line-height:1.65}
+.sact{display:flex;gap:9px;margin-top:4px}
+@media(max-width:560px){.chks{grid-template-columns:1fr}.cta2{padding:26px 18px}}
+
 /* ── 儀表板 ── */
 .kpis2{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:4px 0 24px}
 .kpi2{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:10px;
@@ -390,7 +424,92 @@ function bars(o,m){
 }
 
 const V={};
-S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;
+S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;S.signup=null;
+
+/* 訂閱與名單蒐集
+   資料本身完全開放、不需登入——這個站是靜態託管，JSON 檔就是公開網址，
+   任何「登入才看得到」的設計都只是裝飾。這裡換成以「寄摘要給你」交換
+   email，是真的能履行的承諾。
+
+   SIGNUP_ENDPOINT 填入 Google 表單的 formResponse 網址即可啟用；
+   未設定時自動退回 mailto，不會讓訪客按了沒反應。 */
+const SIGNUP = {
+  endpoint: null,        // 例：'https://docs.google.com/forms/d/e/FORM_ID/formResponse'
+  fields: { email: 'entry.000000', org: 'entry.000000', topic: 'entry.000000' },
+  mailto: 'wilson@clouding-media.com'
+};
+const TOPICS = ['t_buy', 't_comply', 't_dev', 't_rule'];
+
+function openSignup() { S.signup = 'form'; render(); setTimeout(() => { const e = $('#su_email'); if (e) e.focus(); }, 30); }
+function closeSignup() { S.signup = null; render(); }
+
+async function submitSignup(ev) {
+  ev.preventDefault();
+  const f = ev.target;
+  const email = f.email.value.trim();
+  const org = f.org.value.trim();
+  const topics = [...f.querySelectorAll('input[name=topic]:checked')].map(i => T(i.value)).join('、');
+  if (!f.consent.checked) return;
+
+  if (!SIGNUP.endpoint) {
+    const body = encodeURIComponent(
+      `${T('su_mail_org')}${org}\n${T('su_mail_topic')}${topics}\n${T('su_mail_email')}${email}\n`);
+    location.href = `mailto:${SIGNUP.mailto}?subject=${encodeURIComponent(T('su_mail_sub'))}&body=${body}`;
+    S.signup = 'sent'; render(); return;
+  }
+  const d = new FormData();
+  d.append(SIGNUP.fields.email, email);
+  d.append(SIGNUP.fields.org, org);
+  d.append(SIGNUP.fields.topic, topics);
+  try { await fetch(SIGNUP.endpoint, { method: 'POST', mode: 'no-cors', body: d }); } catch (e) { /* no-cors 無法讀回應 */ }
+  S.signup = 'sent'; render();
+}
+
+function ctaPanel() {
+  if (S.signup === 'sent') {
+    return `<div class="cta2 done">
+      <div class="c2h">${T('su_done_h')}</div>
+      <p class="c2p">${T('su_done_p')}</p>
+      <button class="btn2" onclick="S.signup=null;render()">${T('su_back')}</button>
+    </div>`;
+  }
+  if (S.signup === 'form') {
+    return `<div class="cta2">
+      <div class="c2h">${T('su_form_h')}</div>
+      <form class="sform" onsubmit="submitSignup(event)">
+        <label>${T('su_email')}<input id="su_email" name="email" type="email" required
+          placeholder="name@company.com" autocomplete="email"></label>
+        <label>${T('su_org')}<input name="org" type="text" placeholder="${T('su_org_ph')}"
+          autocomplete="organization"></label>
+        <fieldset><legend>${T('su_topic')}</legend>
+          <div class="chks">${TOPICS.map(t =>
+            `<label class="chk"><input type="checkbox" name="topic" value="${t}"> ${T(t)}</label>`).join('')}</div>
+        </fieldset>
+        <label class="chk consent"><input type="checkbox" name="consent" required>
+          <span>${T('su_consent')}</span></label>
+        <div class="sact">
+          <button class="cta" type="submit">${T('su_submit')}</button>
+          <button class="btn2" type="button" onclick="closeSignup()">${T('su_cancel')}</button>
+        </div>
+        <p class="c2n">${T('su_privacy')}</p>
+      </form>
+    </div>`;
+  }
+  return `<div class="cta2">
+    <div class="c2tag">${T('su_tag')}</div>
+    <div class="c2h">${T('su_h')}</div>
+    <p class="c2p">${T('su_p')}</p>
+    <div class="c2act">
+      <button class="cta" onclick="openSignup()">${T('su_cta')}</button>
+      <a class="btn2" href="contact.html">${T('su_contact')}</a>
+    </div>
+    <div class="c2links">
+      <a onclick="go('wiki')">${T('su_l1')}</a>
+      <a href="about.html">${T('su_l2')}</a>
+      <a href="mailto:${SIGNUP.mailto}">${T('su_l3')}</a>
+    </div>
+  </div>`;
+}
 
 // 快速入口：以「想知道什麼」出發，而不是以資料表出發
 const QUICK = [
@@ -424,6 +543,8 @@ V.dash = () => {
       ${kpi(m.countries, T('k_countries'), '#15603f,#3f9e6e')}
       ${kpi(big(m.issued), T('k_issued'), '#7a5a1a,#c49a3a')}
     </div>
+
+    ${ctaPanel()}
 
     <div class="qpanel">
       <div class="qh">${T('q_head')}</div>
@@ -1201,7 +1322,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012p';
+const DV='?v=20261012q';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────
