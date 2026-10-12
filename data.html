@@ -118,6 +118,15 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .loading{color:var(--muted);padding:50px 0;text-align:center}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 機構卡片 ── */
+.ocard .oav{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;
+  font-family:var(--serif);font-size:30px;font-weight:700;color:rgba(255,255,255,.95);
+  letter-spacing:1px;position:relative}
+.ocard .oav::after{content:"";position:absolute;inset:0;opacity:.26;
+  background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);
+  background-size:8px 8px}
+.ocard .pchips .flg{width:20px;height:15px}
+
 /* ── 國家索引版面 ── */
 .r4grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:0 0 26px}
 .r4card{position:relative;overflow:hidden;text-align:left;cursor:pointer;border-radius:10px;
@@ -318,7 +327,7 @@ function bars(o,m){
 }
 
 const V={};
-S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;
+S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';
 
 V.dash=()=>{
   const m=S.meta,reg={},typ={},vint={};
@@ -636,20 +645,138 @@ function projAll(){
   ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>`:''}</div>`;
 }
 
-V.devs=()=>{
-  const m={};
-  S.p.forEach(p=>{if(!p.d)return;const a=m[p.d]||(m[p.d]={n:0,i:0,cs:new Set()});
-    a.n++;a.i+=p.i;if(p.c)a.cs.add(p.c)});
-  const q=S.q.toLowerCase();
-  const rows=Object.entries(m).filter(([k])=>!q||k.toLowerCase().includes(q)).sort((a,b)=>b[1].i-a[1].i);
-  return `<div class="crumb">開發商</div>
-  <div class="ctl"><input type="search" id="q" placeholder="${T('s_dev')}" value="${esc(S.q)}">
-    <span class="muted small">${rows.length.toLocaleString()} 家</span></div>
-  <div class="block"><table class="dt"><thead><tr><th>${T('t_dev')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_ncountry')}</th><th class="n">${T('t_issued')}</th></tr></thead>
-  <tbody>${rows.slice(0,S.lim).map(([k,v])=>`<tr><td>${esc(k)}</td>
-    <td class="n">${fmt(v.n)}</td><td class="n">${v.cs.size}</td><td class="n">${fmt(v.i)}</td></tr>`).join('')}</tbody></table>
-  ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+let ORGS = null;
+
+function buildOrgs() {
+  if (ORGS) return ORGS;
+  const mk = () => ({ n: 0, i: 0, cs: {}, cats: {}, regs: {} });
+  const dev = {}, vrf = {}, reg = {};
+  S.p.forEach(p => {
+    if (p.d) {
+      const a = dev[p.d] || (dev[p.d] = mk());
+      a.n++; a.i += p.i || 0;
+      if (p.c) a.cs[p.c] = (a.cs[p.c] || 0) + 1;
+      if (p.cat) a.cats[p.cat] = (a.cats[p.cat] || 0) + 1;
+      if (p.r) a.regs[p.r] = (a.regs[p.r] || 0) + 1;
+    }
+    if (p.vf) {
+      const a = vrf[p.vf] || (vrf[p.vf] = mk());
+      a.n++; a.i += p.i || 0;
+      if (p.c) a.cs[p.c] = (a.cs[p.c] || 0) + 1;
+      if (p.cat) a.cats[p.cat] = (a.cats[p.cat] || 0) + 1;
+    }
+    if (p.r) {
+      const a = reg[p.r] || (reg[p.r] = mk());
+      a.n++; a.i += p.i || 0;
+      if (p.c) a.cs[p.c] = (a.cs[p.c] || 0) + 1;
+      if (p.cat) a.cats[p.cat] = (a.cats[p.cat] || 0) + 1;
+    }
+  });
+  const top = o => { let k = null, v = -1; for (const x in o) if (o[x] > v) { v = o[x]; k = x; } return k; };
+  const finish = (m, kind) => Object.entries(m).map(([name, a]) =>
+    ({ name, kind, n: a.n, i: a.i, c: top(a.cs), cat: top(a.cats), reg: top(a.regs) }))
+    .sort((x, y) => y.n - x.n);
+  ORGS = { dev: finish(dev, 'dev'), vrf: finish(vrf, 'vrf'), reg: finish(reg, 'reg') };
+  return ORGS;
+}
+
+function dmode(m) { S.dmode = m; S.lim = 60; render(); window.scrollTo(0, 0); }
+// 沒有機構明細頁，改為帶著名稱跳到專案清單（搜尋欄已涵蓋開發商欄位）
+function orgGo(name) {
+  S.view = 'projects'; S.pmode = 'all'; S.q = name;
+  S.fth = null; S.fcat = ''; S.fr = ''; S.lim = 60;
+  render(); window.scrollTo(0, 0);
+}
+function dcatGo(c) { S.dmode = 'all'; S.dcat = c; S.dkind = 'dev'; S.q = ''; S.lim = 60; render(); window.scrollTo(0, 0); }
+function dkindGo(k) { S.dmode = 'all'; S.dkind = k; S.dcat = ''; S.q = ''; S.lim = 60; render(); window.scrollTo(0, 0); }
+
+function initials(s) {
+  const w = String(s || '').replace(/[^A-Za-z一-鿿 ]/g, ' ').trim().split(/\s+/);
+  if (!w[0]) return '—';
+  return (w.length > 1 ? w[0][0] + w[1][0] : w[0].slice(0, 2)).toUpperCase();
+}
+
+function ocard(o) {
+  const iso = ISO[o.c] || '';
+  return `<a class="pcard ocard" onclick="orgGo('${esc(o.name).replace(/'/g,"\'")}')" title="${esc(o.name)}">
+    <span class="oav" style="background:linear-gradient(135deg,${catGrad(o.cat)})">${esc(initials(o.name))}</span>
+    <span class="ptitle">${esc(o.name)}</span>
+    <span class="pdev">${fmt(o.n)} ${T('u_proj')} · ${big(o.i)} tCO₂e</span>
+    <span class="pchips">${iso ? flag(iso) : ''}<em>${esc(o.c || '—')}</em><em>${esc(catName(o.cat))}</em></span>
+  </a>`;
+}
+
+V.devs = () => {
+  ISO = {}; S.c.forEach(c => { if (c.iso) ISO[c.name] = c.iso; });
+  const O = buildOrgs();
+  const total = O.dev.length + O.vrf.length + O.reg.length;
+  const tabs = `<div class="ptabs">
+    <button class="${S.dmode !== 'all' ? 'on' : ''}" onclick="dmode('disc')">${T('tab_disc')}</button>
+    <button class="${S.dmode === 'all' ? 'on' : ''}" onclick="dmode('all')">${T('tab_allorg')} ${total.toLocaleString()}</button>
+  </div>`;
+  return `<div class="crumb">${T('devs')}</div>` + tabs + (S.dmode === 'all' ? dAll(O) : dDisc(O));
 };
+
+function dDisc(O) {
+  const byCat = {};
+  O.dev.forEach(d => { (byCat[d.cat] || (byCat[d.cat] = [])).push(d); });
+  const order = Object.keys(byCat).sort((a, b) => byCat[b].length - byCat[a].length);
+
+  const tiles = `<div class="themes">${order.slice(0, 8).map(c =>
+    `<button class="theme" style="background:linear-gradient(135deg,${catGrad(c)})" onclick="dcatGo('${esc(c)}')">
+      <span class="tn">${catName(c)}</span><span class="tc">${byCat[c].length.toLocaleString()}</span>
+    </button>`).join('')}</div>`;
+
+  const sec = (title, list, onAll) => `<div class="catsec">
+    <div class="cathead">
+      <span class="cdot" style="background:var(--grad)"></span>
+      <h3>${title}</h3><span class="cn">${list.length.toLocaleString()}</span>
+      <span class="sp"></span>
+      <button class="arw" onclick="scrollRow(this,-1)" aria-label="prev">&#8249;</button>
+      <button class="arw" onclick="scrollRow(this,1)" aria-label="next">&#8250;</button>
+      ${onAll ? `<span class="more" style="margin:0 0 0 10px" onclick="${onAll}">${T('seeallp')}</span>` : ''}
+    </div>
+    <div class="scroller">${list.slice(0, 14).map(ocard).join('')}</div>
+  </div>`;
+
+  return tiles
+    + sec(T('k_devs2'), O.dev, "dkindGo('dev')")
+    + sec(T('k_vrf'), O.vrf, "dkindGo('vrf')")
+    + sec(T('k_regs2'), O.reg, "dkindGo('reg')")
+    + order.slice(0, 4).map(c => sec(catName(c), byCat[c], `dcatGo('${esc(c)}')`)).join('');
+}
+
+function dAll(O) {
+  const q = S.q.toLowerCase();
+  let rows = S.dkind === 'vrf' ? O.vrf : S.dkind === 'reg' ? O.reg : O.dev;
+  if (S.dcat) rows = rows.filter(o => o.cat === S.dcat);
+  if (q) rows = rows.filter(o => o.name.toLowerCase().includes(q) || (o.c || '').toLowerCase().includes(q));
+  const k = S.sort.k === 'i' ? 'i' : S.sort.k, d = S.sort.d;
+  rows = [...rows].sort((a, b) => {
+    const x = a[k], y = b[k];
+    if (typeof x === 'number' || typeof y === 'number') return ((y || 0) - (x || 0)) * (d < 0 ? 1 : -1);
+    return String(x || '').localeCompare(String(y || '')) * (d < 0 ? -1 : 1);
+  });
+  const KINDS = [['dev', 'k_devs2'], ['vrf', 'k_vrf'], ['reg', 'k_regs2']];
+  const active = S.dcat ? catName(S.dcat) : '';
+  return `<div class="ctl">
+    <input type="search" id="q" placeholder="${T('s_dev')}" value="${esc(S.q)}">
+    <select id="dkind">${KINDS.map(([v, lk]) => `<option value="${v}"${S.dkind === v ? ' selected' : ''}>${T(lk)}</option>`).join('')}</select>
+    ${active ? `<span class="pill">${esc(active)} <b onclick="S.dcat='';render()" style="cursor:pointer">&#10005;</b></span>` : ''}
+    <span class="muted small">${rows.length.toLocaleString()} ${T('rows')}</span>
+  </div>
+  <div class="block"><table class="dt"><thead><tr>
+    <th data-s="name">${T('t_name')}</th><th data-s="c">${T('t_country')}</th>
+    <th data-s="cat">${T('t_cat')}</th>
+    <th class="n" data-s="n">${T('t_proj')}</th><th class="n" data-s="i">${T('t_issued')}</th></tr></thead>
+  <tbody>${rows.slice(0, S.lim).map(o => `<tr class="clickrow" onclick="orgGo('${esc(o.name).replace(/'/g,"\'")}')">
+    <td><strong>${esc(o.name)}</strong></td>
+    <td>${o.c && ISO[o.c] ? flag(ISO[o.c]) : ''}${esc(o.c || '—')}</td>
+    <td>${esc(catName(o.cat))}</td>
+    <td class="n">${fmt(o.n)}</td><td class="n">${fmt(o.i)}</td></tr>`).join('')}</tbody></table>
+  ${rows.length > S.lim ? `<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>` : ''}</div>
+  <div class="src">${T('org_note')}</div>`;
+}
 
 // 交付率共用：依任一維度分群
 function deliv(keyFn,minN){
@@ -838,15 +965,15 @@ function render(){
   const q=$('#q');
   if(q)q.oninput=e=>{S.q=e.target.value;S.lim=60;render();
     const n=$('#q');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}};
-  ['fr','fs','fc','fg','fcat'].forEach(id=>{const el=$('#'+id);
-    if(el)el.onchange=e=>{S[id]=e.target.value;if(id==='fcat')S.fth=null;S.lim=60;render()}});
+  ['fr','fs','fc','fg','fcat','dkind'].forEach(id=>{const el=$('#'+id);
+    if(el)el.onchange=e=>{S[id]=e.target.value;if(id==='fcat')S.fth=null;if(id==='dkind')S.dcat='';S.lim=60;render()}});
   if(S.view==='map') setTimeout(drawMap,30);
   document.querySelectorAll('th[data-s]').forEach(th=>th.onclick=()=>{
     const k=th.dataset.s;S.sort.d=(S.sort.k===k)?-S.sort.d:-1;S.sort.k=k;render()});
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012g';
+const DV='?v=20261012h';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // 先載輕量的國家與摘要檔（約 100 KB）把畫面開出來，

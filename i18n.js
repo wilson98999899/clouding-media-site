@@ -77,6 +77,8 @@ zh:{
   tab_index:'索引', tab_analytics:'分析', collapse:'收合 ▲',
   u_devs:'開發商', u_proj:'專案', u_countries:'個國家',
   r_ap:'亞太', r_af:'非洲', r_am:'美洲', r_em:'歐洲與中東', r_int:'跨國',
+  tab_allorg:'全部機構', k_devs2:'開發商', k_vrf:'查證機構', k_regs2:'登記處',
+  org_note:'機構資料為自專案紀錄彙整而得：開發商取自登記處所載的專案開發方，查證機構取自驗證／查證單位欄位。UNEP CCC 的 CDM 管線表沒有專案參與方欄位，故 CDM 專案不計入開發商統計。',
   seeall:'看全部動態 →'
 },
 en:{
@@ -154,6 +156,8 @@ en:{
   tab_index:'Index', tab_analytics:'Analytics', collapse:'Collapse ▲',
   u_devs:'developers', u_proj:'projects', u_countries:'countries',
   r_ap:'Asia-Pacific', r_af:'Africa', r_am:'Americas', r_em:'Europe & Middle East', r_int:'International',
+  tab_allorg:'All organisations', k_devs2:'Developers', k_vrf:'Verification bodies', k_regs2:'Registries',
+  org_note:'Organisation data is aggregated from the project records: developers from the registry’s stated project proponent, verification bodies from the validation/verification field. The UNEP CCC CDM pipeline has no project-participant column, so CDM projects are not counted towards developers.',
   seeall:'See all →'
 },
 my:{
@@ -234,6 +238,8 @@ my:{
   tab_index:'အညွှန်း', tab_analytics:'ခွဲခြမ်းစိတ်ဖြာမှု', collapse:'ခေါက်သိမ်းရန် ▲',
   u_devs:'ဖွံ့ဖြိုးသူ', u_proj:'စီမံကိန်း', u_countries:'နိုင်ငံ',
   r_ap:'အာရှ-ပစိဖိတ်', r_af:'အာဖရိက', r_am:'အမေရိက', r_em:'ဥရောပနှင့် အရှေ့အလယ်ပိုင်း', r_int:'နိုင်ငံတကာ',
+  tab_allorg:'အဖွဲ့အစည်းအားလုံး', k_devs2:'ဖွံ့ဖြိုးသူများ', k_vrf:'စစ်ဆေးအတည်ပြုရေးအဖွဲ့များ', k_regs2:'မှတ်ပုံတင်အဖွဲ့များ',
+  org_note:'အဖွဲ့အစည်းအချက်အလက်များကို စီမံကိန်းမှတ်တမ်းများမှ စုစည်းထားသည်။ UNEP CCC ၏ CDM စာရင်းတွင် စီမံကိန်းပါဝင်သူ ကော်လံမပါသဖြင့် CDM စီမံကိန်းများကို ဖွံ့ဖြိုးသူစာရင်းတွင် မထည့်ပါ။',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };
