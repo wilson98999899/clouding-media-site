@@ -120,6 +120,20 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 公司卡（含標誌） ── */
+.olg{position:relative;width:46px;height:46px;border-radius:9px;flex:0 0 auto;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+.olg img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  background:#fff;padding:4px;display:none}
+.olg.has img{display:block}
+.olg.has .oini{display:none}
+.oini{font-family:var(--serif);font-size:17px;font-weight:700;color:rgba(255,255,255,.95);
+  letter-spacing:.5px;line-height:1}
+.ocomp{align-items:flex-start;padding:13px 15px}
+.ocomp .cc{gap:3px}
+.ocomp .cm{font-size:12.5px;color:var(--muted)}
+.ocomp .pchips{padding:6px 0 0}
+
 /* ── 國家詳細頁 ── */
 .chero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;
   background:linear-gradient(160deg,#eef4f3,var(--paper));border:1px solid var(--line);
@@ -452,7 +466,7 @@ function bars(o,m){
 }
 
 const V={};
-S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;S.signup=null;
+S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.cexp=false;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;S.signup=null;
 
 /* 訂閱與名單蒐集
    資料本身完全開放、不需登入——這個站是靜態託管，JSON 檔就是公開網址，
@@ -708,6 +722,30 @@ function cAnalytics() {
   ${sorted.length > S.lim ? `<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>` : ''}</div>`;
 }
 
+
+// 開發商標誌：有檔案就用，沒有就退回字首徽章。
+// 檔名以機構名稱正規化後產生，放在 images/logos/。
+function logoSlug(name){
+  return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'').slice(0,48);
+}
+function orgLogo(o){
+  const g=catGrad(o.cat), ini=esc(initials(o.name)), sl=logoSlug(o.name);
+  return `<span class="olg" style="background:linear-gradient(135deg,${g})"><span class="oini">${ini}</span>`
+    +`<img src="images/logos/${sl}.png" alt="" loading="lazy"`
+    +` onload="this.parentNode.classList.add('has')" onerror="this.remove()"></span>`;
+}
+function ccompany(o,country){
+  const iso=ISO[country]||'';
+  return `<a class="ccard ocomp" onclick="orgGo('${esc(o.name).replace(/'/g,"\'")}')" title="${esc(o.name)}">
+    ${orgLogo(o)}
+    <span class="cc">
+      <span class="cn2">${esc(o.name)}</span>
+      <span class="cm">${T('c_devof',{c:esc(country)})}</span>
+      <span class="pchips">${iso?flag(iso):''}<em>${fmt(o.n)} ${T('u_proj')}</em><em>${esc(catName(o.cat))}</em></span>
+    </span>
+  </a>`;
+}
 function khero(v, k, g) {
   return `<div class="khcard"><span class="khv">${v}</span><span class="khk">${k}</span>
     <span class="khi" style="background:linear-gradient(135deg,${g})"></span></div>`;
@@ -772,6 +810,27 @@ V.country = () => {
       <span class="more" style="margin:0" onclick="S.view='projects';S.pmode='all';S.q='${esc(c.name)}';S.fcat='';S.fth=null;S.lim=60;render();window.scrollTo(0,0)">${T('seeallp')}</span>
     </div>
     <div class="pgrid">${ps.slice(0, 9).map(pcard).join('')}</div></div>` : ''}
+
+  ${(() => {
+    const m = {};
+    ps.forEach(p => { if (!p.d) return;
+      const a = m[p.d] || (m[p.d] = { name: p.d, n: 0, i: 0, cats: {} });
+      a.n++; a.i += p.i || 0;
+      if (p.cat) a.cats[p.cat] = (a.cats[p.cat] || 0) + 1; });
+    const list = Object.values(m).map(a => {
+      let k = null, v = -1;
+      for (const x in a.cats) if (a.cats[x] > v) { v = a.cats[x]; k = x; }
+      a.cat = k; return a;
+    }).sort((x, y) => y.n - x.n);
+    if (!list.length) return '';
+    const shown = S.cexp ? list : list.slice(0, 9);
+    return `<div class="catsec"><div class="cathead">
+        <span class="cdot" style="background:var(--grad)"></span>
+        <h3>${T('c_orgs')}</h3><span class="cn">${fmt(list.length)}</span><span class="sp"></span>
+        ${list.length > 9 ? `<span class="more" style="margin:0" onclick="S.cexp=${S.cexp ? 'false' : 'true'};render()">${S.cexp ? T('collapse') : T('seeallp')}</span>` : ''}
+      </div>
+      <div class="cgrid">${shown.map(o => ccompany(o, c.name)).join('')}</div></div>`;
+  })()}
 
   <div class="block"><h3>${T('c_all')}（${fmt(ps.length)}）</h3>
     <div class="ctl"><span class="more" style="margin:0" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">${T('csv')}</span></div>
@@ -1436,7 +1495,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012t';
+const DV='?v=20261012u';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────

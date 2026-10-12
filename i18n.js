@@ -111,6 +111,7 @@ zh:{
   c_top:'核發量最高的專案', c_all:'全部專案',
   map_osm:'街道圖', map_sat:'衛星影像',
   gp_reg:'登記處自報座標',
+  c_orgs:'開發商', c_devof:'在 {c} 營運的碳專案開發商',
   seeall:'看全部動態 →'
 },
 en:{
@@ -222,6 +223,7 @@ en:{
   c_top:'Largest projects by issuance', c_all:'All projects',
   map_osm:'Street map', map_sat:'Satellite',
   gp_reg:'Registry-reported coordinates',
+  c_orgs:'Developers', c_devof:'Carbon project developer operating in {c}',
   seeall:'See all →'
 },
 my:{
@@ -336,6 +338,7 @@ my:{
   c_top:'ထုတ်ပေးမှု အများဆုံး စီမံကိန်းများ', c_all:'စီမံကိန်းအားလုံး',
   map_osm:'လမ်းမြေပုံ', map_sat:'ဂြိုဟ်တုပုံ',
   gp_reg:'မှတ်ပုံတင်အဖွဲ့မှ ပေးသော ကိုဩဒိနိတ်',
+  c_orgs:'ဖွံ့ဖြိုးသူများ', c_devof:'{c} တွင် လုပ်ကိုင်နေသော ကာဗွန်စီမံကိန်း ဖွံ့ဖြိုးသူ',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };
