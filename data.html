@@ -743,7 +743,7 @@ V.country = () => {
     <div class="mhead"><span class="mchip">${T('c_map')}</span>
       <span class="muted small">${T('c_map_n', { n: fmt(located), t: fmt(ps.length) })}</span></div>
     ${located ? `<div id="cmapc"></div>
-      <div class="legend">${['site', 'place', 'admin'].map(k =>
+      <div class="legend">${['reg', 'site', 'place', 'admin'].map(k =>
         `<span><i style="background:${GP[k][0]}"></i>${T('gp_' + k)}</span>`).join('')}</div>`
       : `<div class="note">${T('c_map_none')}</div>`}
   </div>
@@ -890,7 +890,7 @@ const catGrad=c=>(CATMETA[c]||CATMETA.Other).g;
 // 只有真的定位到地點（site／place／admin）才放影像。僅有國家質心的
 // 專案維持漸層底：那種縮放下的圖磚是「國家中央」而非案場，同一國
 // 還會重複同一張，放上去只會誤導。
-const TZ={site:12,place:11,admin:8};
+const TZ={reg:13,site:12,place:11,admin:8};
 function tileURL(ll,gp){
   const z=TZ[gp];
   if(!ll||!z)return null;
@@ -1230,7 +1230,8 @@ window.csvProjects=rows=>dl('專案清單.csv',
    rows.map(p=>[p.id,p.n,p.c,p.rg,p.r,p.t,p.sc,p.m,p.fy,p.e,p.i,p.rt||0])));
 
 
-const GP={site:['#0e6b5e','地點＋州省驗證'],place:['#128c7a','地點欄位'],
+const GP={reg:['#05564a','登記處自報座標'],
+          site:['#0e6b5e','地點＋州省驗證'],place:['#128c7a','地點欄位'],
           admin:['#7aa6a0','州／省質心'],name:['#b59a4a','自名稱推得'],
           country:['#b8c3c0','國家質心']};
 let _map=null,_layer=null;
@@ -1435,7 +1436,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012s';
+const DV='?v=20261012t';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────

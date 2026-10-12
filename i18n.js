@@ -110,6 +110,7 @@ zh:{
   c_deliv_note:'樣本為 {n} 個同時具備事前年預估與起始年、且已運行滿三年的專案。此指標由本站計算，登記處不直接提供；會低估仍在爬坡期的專案，應作量級比較而非個案評價。',
   c_top:'核發量最高的專案', c_all:'全部專案',
   map_osm:'街道圖', map_sat:'衛星影像',
+  gp_reg:'登記處自報座標',
   seeall:'看全部動態 →'
 },
 en:{
@@ -220,6 +221,7 @@ en:{
   c_deliv_note:'Sample of {n} projects reporting both an ex-ante annual estimate and a start year, and running at least three years. We calculate this; no registry publishes it. It understates projects still ramping up, so use it to compare magnitudes rather than to judge an individual project.',
   c_top:'Largest projects by issuance', c_all:'All projects',
   map_osm:'Street map', map_sat:'Satellite',
+  gp_reg:'Registry-reported coordinates',
   seeall:'See all →'
 },
 my:{
@@ -333,6 +335,7 @@ my:{
   c_deliv_note:'သုံးနှစ်အထက် လည်ပတ်ပြီး ကိန်းဂဏန်းနှစ်မျိုးစလုံးရှိသော စီမံကိန်း {n} ခုကို နမူနာယူသည်။',
   c_top:'ထုတ်ပေးမှု အများဆုံး စီမံကိန်းများ', c_all:'စီမံကိန်းအားလုံး',
   map_osm:'လမ်းမြေပုံ', map_sat:'ဂြိုဟ်တုပုံ',
+  gp_reg:'မှတ်ပုံတင်အဖွဲ့မှ ပေးသော ကိုဩဒိနိတ်',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };

@@ -14,12 +14,13 @@
   "VCS"
  ],
  "geo": {
-  "site": 2497,
-  "country": 15661,
+  "site": 964,
+  "country": 15722,
   "place": 144,
-  "admin": 1168,
-  "name": 5454,
-  "null": 93
+  "admin": 1169,
+  "name": 5457,
+  "reg": 1533,
+  "null": 28
  },
  "cats": {
   "Chemical Processes": 792,
@@ -34,7 +35,7 @@
   "Engineered Removal": 19,
   "Other": 45
  },
- "psize": 4463096,
+ "psize": 4463881,
  "devs": 4017,
  "vrfs": 107
 }
