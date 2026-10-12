@@ -73,6 +73,7 @@ zh:{
   th_redd:'REDD+ 減少毀林', th_arr:'造林與再造林', th_ifm:'改良森林經營',
   th_blue:'濕地與紅樹林', th_soil:'土壤與草原碳匯', th_stove:'潔淨爐灶',
   th_solar:'太陽能', th_meth:'甲烷減量',
+  loadp:'專案明細載入中…（約 1.6 MB）', loaderr:'資料載入失敗，請重新整理。',
   seeall:'看全部動態 →'
 },
 en:{
@@ -146,6 +147,7 @@ en:{
   th_redd:'REDD+', th_arr:'Afforestation & Reforestation', th_ifm:'Improved Forest Management',
   th_blue:'Wetlands & Mangroves', th_soil:'Soil & Grassland Carbon', th_stove:'Clean Cookstoves',
   th_solar:'Solar', th_meth:'Methane Reduction',
+  loadp:'Loading project records… (about 1.6 MB)', loaderr:'Could not load the data. Please refresh.',
   seeall:'See all →'
 },
 my:{
@@ -222,6 +224,7 @@ my:{
   th_ifm:'သစ်တောစီမံခန့်ခွဲမှု တိုးတက်စေခြင်း', th_blue:'စိမ့်မြေနှင့် ဒီရေတောများ',
   th_soil:'မြေဆီလွှာနှင့် မြက်ခင်းပြင် ကာဗွန်', th_stove:'သန့်ရှင်းသော မီးဖို',
   th_solar:'နေရောင်ခြည်စွမ်းအင်', th_meth:'မီသိန်း လျှော့ချမှု',
+  loadp:'စီမံကိန်းအချက်အလက်များ ရယူနေသည်…', loaderr:'အချက်အလက် ရယူ၍မရပါ။ စာမျက်နှာကို ပြန်ဖွင့်ပါ။',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };

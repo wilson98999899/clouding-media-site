@@ -305,8 +305,8 @@ V.dash=()=>{
     <div class="kpi"><div class="v">${m.registries.length}</div><div class="k">${T('k_registries')}</div></div>
   </div>
   <div class="block"><h3>${T('h_vintage')}</h3>${spark(Object.entries(vint).map(([y,q])=>[+y,q]).sort((a,b)=>a[0]-b[0]))}</div>
-  <div class="block"><h3>${T('h_byreg')}</h3>${bars(reg)}</div>
-  <div class="block"><h3>${T('h_bytype')}</h3>${bars(typ,10)}</div>
+  <div class="block"><h3>${T('h_byreg')}</h3>${S.p.length?bars(reg):`<div class="note">${T('loadp')}</div>`}</div>
+  <div class="block"><h3>${T('h_bytype')}</h3>${S.p.length?bars(typ,10):`<div class="note">${T('loadp')}</div>`}</div>
   <div class="block"><h3>${T('h_top12')}</h3>
     <table class="dt"><thead><tr><th>${T('t_country')}</th><th>${T('t_region')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
     <tbody>${S.c.slice(0,12).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
@@ -314,7 +314,7 @@ V.dash=()=>{
       <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.issued)}</td>
       <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table></div>
   ${nw.length?`<div class="block"><h3>${T('h_latest')}</h3><div class="news">${nw.map(newsCard).join('')}</div>
-    <span class="more" onclick="go('pulse')">${T('seeallp')}</span></div>`:''}`;
+    <span class="more" onclick="go('pulse')">${T('seeall')}</span></div>`:''}`;
 };
 
 V.countries=()=>{
@@ -719,8 +719,11 @@ V.pulse=()=>{
 function go(v,sel){S.view=v;S.sel=sel||null;S.q='';S.lim=60;render();window.scrollTo(0,0)}
 window.go=go;
 
+const NEEDP=new Set(['projects','devs','map','delivery','methods','project']);
 function render(){
-  $('#view').innerHTML=(V[S.view]||V.dash)();
+  $('#view').innerHTML=(NEEDP.has(S.view)&&!S.p.length)
+    ? `<div class="loading">${T('loadp')}</div>`
+    : (V[S.view]||V.dash)();
   document.querySelectorAll('.dbnav a').forEach(a=>
     a.classList.toggle('on',a.dataset.v===S.view
       ||(S.view==='country'&&a.dataset.v==='countries')
@@ -736,15 +739,21 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012d';
-Promise.all(['data/projects.json'+DV,'data/countries.json'+DV,'data/meta.json'+DV]
-  .map(u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()})))
- .then(([p,c,m])=>{S.p=p;S.c=c;S.meta=m;
+const DV='?v=20261012e';
+const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
+
+// 先載輕量的國家與摘要檔（約 100 KB）把畫面開出來，
+// 10 MB 的專案明細在背景補上，不擋首屏。
+Promise.all([getJ('data/countries.json'+DV),getJ('data/meta.json'+DV)])
+ .then(([c,m])=>{S.c=c;S.meta=m;
    document.documentElement.lang=LANG;document.title=T('title');applyStatic();buildSw();render();
-   return fetch('data/news.json'+DV).then(r=>r.ok?r.json():null)})
- .then(n=>{if(n){S.news=n;if(S.view==='dash'||S.view==='pulse')render()}})
- .catch(e=>$('#view').innerHTML=`<div class="loading">資料載入失敗：${esc(e.message)}<br><br>
-   本頁需以 HTTP 開啟（瀏覽器會阻擋 file:// 的 fetch）。</div>`);
+   getJ('data/news.json'+DV).then(n=>{S.news=n;
+     if(S.view==='pulse'||S.view==='dash')render()}).catch(()=>{});
+   return getJ('data/projects.json'+DV);})
+ .then(p=>{S.p=p;render();})
+ .catch(e=>{const el=document.getElementById('view');
+   if(el)el.innerHTML='<div class="loading">'+T('loaderr')+'<br><span class="small">'+esc(e.message)+'</span></div>';
+   console.error(e);});
 </script>
 </body>
 </html>
