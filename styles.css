@@ -46,8 +46,11 @@ header{
   box-shadow:0 1px 10px rgba(0,0,0,.10);
 }
 .nav{display:flex;align-items:center;gap:28px;height:70px}
-.brand{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.4px;
+.brand{display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:1.2px;
   text-decoration:none;color:#fff;white-space:nowrap}
+.brand .logo{height:32px;width:auto;display:block;flex:0 0 auto}
+footer .brand{font-size:19px}
 .brand span{color:#9ff0d8}
 .nav .sp{flex:1}
 .nav a.lk{text-decoration:none;color:rgba(255,255,255,.82);font-size:14.5px;font-weight:600;
