@@ -1,13 +1,14 @@
 {
- "source": "Berkeley Carbon Trading Project — Voluntary Registry Offsets Database v2026-08 (CC BY 4.0)",
+ "source": "Berkeley Carbon Trading Project — Voluntary Registry Offsets Database v2026-08 (CC BY 4.0) ＋ UNEP CCC CDM/JI Pipeline (2025-04)",
  "built": "2026-10-12",
- "projects": 11856,
- "countries": 155,
- "issued": 2704143472.766,
+ "projects": 25017,
+ "countries": 176,
+ "issued": 5135943157.766,
  "registries": [
   "ACR",
   "ART",
   "CAR",
+  "CDM",
   "GOLD",
   "ISO",
   "VCS"

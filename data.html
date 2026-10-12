@@ -133,6 +133,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
     <a data-v="devs">開發商</a>
     <div class="grp">分析</div>
     <a data-v="delivery">交付率</a>
+    <a data-v="methods">方法學</a>
     <div class="grp">情報</div>
     <a data-v="pulse">每日動態</a>
   </aside>
@@ -247,15 +248,61 @@ V.country=()=>{
   <div class="block"><h3>登記處</h3>${bars(c.regs)}</div>
   <div class="block"><h3>專案類型</h3>${bars(c.types,10)}</div>
   <div class="block"><h3>專案（${ps.length}）</h3>
+    <div class="ctl"><span class="more" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">匯出 CSV</span></div>
     <table class="dt"><thead><tr><th>ID</th><th>名稱</th><th>登記處</th><th>類型</th>
       <th class="n">年預估</th><th class="n">已核發</th><th class="n">達成率</th></tr></thead>
     <tbody>${ps.slice(0,S.lim).map(p=>{
       const yr=p.fy?2026-p.fy:null,exp=(p.e&&yr&&yr>=3)?p.e*yr:null,d=exp?Math.round(1000*p.i/exp)/10:null;
-      return `<tr><td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
+      return `<tr class="clickrow" onclick="go('project','${esc(p.id)}')">
+      <td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
       <td>${esc(p.r)}</td><td>${esc(p.t)||'—'}</td>
       <td class="n">${fmt(p.e)}</td><td class="n">${fmt(p.i)}</td>
       <td class="n pct ${pc(d)}">${d==null?'—':d+'%'}</td></tr>`}).join('')}</tbody></table>
     ${ps.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+};
+
+V.project=()=>{
+  const p=S.p.find(x=>x.id===S.sel);
+  if(!p)return'<div class="loading">找不到該專案</div>';
+  const yr=p.fy?2026-p.fy:null, exp=(p.e&&yr&&yr>=3)?p.e*yr:null;
+  const d=exp?Math.round(1000*(p.i||0)/exp)/10:null;
+  const peers=S.p.filter(x=>x.c===p.c&&x.t===p.t&&x.id!==p.id).sort((a,b)=>(b.i||0)-(a.i||0)).slice(0,6);
+  const row=(k,v)=>v?`<tr><td style="color:var(--muted);width:34%">${k}</td><td>${v}</td></tr>`:'';
+  return `<div class="crumb"><a onclick="go('projects')">專案</a>
+    ${p.c?` / <a onclick="go('country','${esc(p.c)}')">${esc(p.c)}</a>`:''} / ${esc(p.id)}</div>
+  <h2 style="font-size:23px;margin-bottom:6px;line-height:1.45">${esc(p.n)}</h2>
+  <p class="muted small" style="margin-bottom:22px">
+    <span class="pill">${esc(p.id)}</span> ${esc(p.r)}${p.s?' ｜ '+esc(p.s):''}</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">${fmt(p.e)}</div><div class="k">事前年預估 tCO₂e</div></div>
+    <div class="kpi"><div class="v">${fmt(p.i)}</div><div class="k">已核發 tCO₂e</div></div>
+    ${p.rt?`<div class="kpi"><div class="v">${fmt(p.rt)}</div><div class="k">已註銷</div></div>`:''}
+    ${d!=null?`<div class="kpi hl"><div class="v">${d}%</div><div class="k">達成率（${yr} 年）</div></div>`:''}
+  </div>
+  <div class="block"><h3>專案資訊</h3>
+    <table class="dt"><tbody>
+      ${row('國家',p.c?`<a onclick="go('country','${esc(p.c)}')" style="color:var(--accent);cursor:pointer">${esc(p.c)}</a>`:'')}
+      ${row('地區',esc(p.rg))}${row('登記處',esc(p.r))}${row('狀態',esc(p.s))}
+      ${row('範疇',esc(p.sc))}${row('類型',esc(p.t))}${row('減量／移除',esc(p.rr))}
+      ${row('方法學',esc(p.m)+(p.mv?' '+esc(p.mv):''))}
+      ${row('開發商',esc(p.d))}${row('查證機構',esc(p.vf))}
+      ${row('起始年份',p.fy||'')}${row('地點',esc(p.l))}
+    </tbody></table></div>
+  ${d!=null?`<div class="block"><h3>交付率計算</h3>
+    <table class="dt"><tbody>
+      <tr><td>事前年預估</td><td class="n">${fmt(p.e)}</td></tr>
+      <tr><td>運行年數（2026 − ${p.fy}）</td><td class="n">${yr}</td></tr>
+      <tr><td>預估累計</td><td class="n">${fmt(exp)}</td></tr>
+      <tr><td>實際已核發</td><td class="n">${fmt(p.i)}</td></tr>
+      <tr><td><strong>達成率</strong></td><td class="n pct ${pc(d)}"><strong>${d}%</strong></td></tr>
+    </tbody></table>
+    <div class="note">本站自行計算。此法假設年預估在整個運行期間恆定，
+      對仍在爬坡、或計入期尚未完整查證的專案會低估。不作為個案品質評價。</div></div>`:''}
+  ${peers.length?`<div class="block"><h3>同國家、同類型的其他專案</h3>
+    <table class="dt"><thead><tr><th>ID</th><th>名稱</th><th class="n">年預估</th><th class="n">已核發</th></tr></thead>
+    <tbody>${peers.map(x=>`<tr class="clickrow" onclick="go('project','${esc(x.id)}')">
+      <td><span class="pill">${esc(x.id)}</span></td><td>${esc(x.n)}</td>
+      <td class="n">${fmt(x.e)}</td><td class="n">${fmt(x.i)}</td></tr>`).join('')}</tbody></table></div>`:''}`;
 };
 
 V.projects=()=>{
@@ -269,6 +316,7 @@ V.projects=()=>{
   rows=[...rows].sort((a,b)=>{const x=a[k],y=b[k];
     if(typeof x==='number'||typeof y==='number')return((y||0)-(x||0))*(d<0?1:-1);
     return String(x||'').localeCompare(String(y||''))*(d<0?-1:1)});
+  window.__rows=rows;
   const regs=[...new Set(S.p.map(p=>p.r).filter(Boolean))].sort();
   const scs=[...new Set(S.p.map(p=>p.sc).filter(Boolean))].sort();
   return `<div class="crumb">專案</div>
@@ -277,14 +325,15 @@ V.projects=()=>{
     <select id="fr"><option value="">全部登記處</option>${regs.map(r=>`<option${S.fr===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
     <select id="fs"><option value="">全部範疇</option>${scs.map(r=>`<option${S.fs===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
     <span class="muted small">${rows.length.toLocaleString()} 筆</span>
+    <span class="more" style="margin:0" onclick="csvProjects(window.__rows||[])">匯出 CSV</span>
   </div>
   <div class="block"><table class="dt"><thead><tr>
     <th data-s="id">ID</th><th data-s="n">名稱</th><th data-s="c">國家</th>
     <th data-s="r">登記處</th><th data-s="t">類型</th>
     <th class="n" data-s="e">年預估</th><th class="n" data-s="i">已核發</th></tr></thead>
-  <tbody>${rows.slice(0,S.lim).map(p=>`<tr>
+  <tbody>${rows.slice(0,S.lim).map(p=>`<tr class="clickrow" onclick="go('project','${esc(p.id)}')">
     <td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
-    <td style="cursor:pointer;color:var(--accent)" onclick="go('country','${esc(p.c)}')">${esc(p.c)||'—'}</td>
+    <td>${esc(p.c)||'—'}</td>
     <td>${esc(p.r)}</td><td>${esc(p.t)||'—'}</td>
     <td class="n">${fmt(p.e)}</td><td class="n">${fmt(p.i)}</td></tr>`).join('')}</tbody></table>
   ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
@@ -305,31 +354,87 @@ V.devs=()=>{
   ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
 };
 
+// 交付率共用：依任一維度分群
+function deliv(keyFn,minN){
+  const g={};
+  S.p.forEach(p=>{const k=keyFn(p);
+    if(!k||!p.e||!p.fy)return; const yr=2026-p.fy; if(yr<3)return;
+    const a=g[k]||(g[k]={e:0,i:0,n:0});a.e+=p.e*yr;a.i+=p.i||0;a.n++});
+  return Object.entries(g).filter(([,v])=>v.n>=(minN||10))
+    .map(([k,v])=>[k,v.n,v.e,v.i,Math.round(1000*v.i/v.e)/10]).sort((a,b)=>a[4]-b[4]);
+}
+const dtable=(rows,lbl)=>`<table class="dt"><thead><tr><th>${lbl}</th><th class="n">案數</th>
+  <th class="n">預估累計</th><th class="n">實際核發</th><th class="n">交付率</th></tr></thead>
+  <tbody>${rows.map(([k,n,e,i,d])=>`<tr><td>${esc(k)}</td><td class="n">${n}</td>
+  <td class="n">${fmt(e)}</td><td class="n">${fmt(i)}</td>
+  <td class="n pct ${pc(d)}">${d}%</td></tr>`).join('')}</tbody></table>`;
+
 V.delivery=()=>{
   const rows=S.c.filter(c=>c.cmp_n>=3&&c.delivery!=null).sort((a,b)=>a.delivery-b.delivery);
-  const bt={};
-  S.p.forEach(p=>{if(!p.t||!p.e||!p.fy)return;const yr=2026-p.fy;if(yr<3)return;
-    const a=bt[p.t]||(bt[p.t]={e:0,i:0,n:0});a.e+=p.e*yr;a.i+=p.i;a.n++});
-  const tr=Object.entries(bt).filter(([,v])=>v.n>=10)
-    .map(([k,v])=>[k,v.n,Math.round(1000*v.i/v.e)/10]).sort((a,b)=>a[2]-b[2]);
+  const byType=deliv(p=>p.t,10);
+  const byReg=deliv(p=>p.r,5);
+  const byRegion=deliv(p=>p.rg,10);
+  const byCohort=deliv(p=>{const y=p.fy;return y?(y<2008?'2007 以前':y<2013?'2008–2012':
+    y<2018?'2013–2017':y<2021?'2018–2020':'2021 以後'):null},10)
+    .sort((a,b)=>a[0].localeCompare(b[0]));
+  const all=S.p.filter(p=>p.e&&p.fy&&(2026-p.fy)>=3);
+  const te=all.reduce((s,p)=>s+p.e*(2026-p.fy),0), ti=all.reduce((s,p)=>s+(p.i||0),0);
   return `<div class="crumb">分析</div>
   <h2 style="font-size:26px;margin-bottom:6px">交付率</h2>
-  <p class="muted small" style="margin-bottom:22px">事前預估與實際核發之間的落差。本站自行計算，登記處不直接提供。</p>
+  <p class="muted small" style="margin-bottom:20px">事前預估與實際核發之間的落差。本站自行計算，登記處不直接提供。</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">${fmt(all.length)}</div><div class="k">納入樣本</div></div>
+    <div class="kpi"><div class="v">${big(te)}</div><div class="k">事前預估累計</div></div>
+    <div class="kpi"><div class="v">${big(ti)}</div><div class="k">實際核發</div></div>
+    <div class="kpi hl"><div class="v">${(100*ti/te).toFixed(1)}%</div><div class="k">全體交付率</div></div>
+  </div>
   <div class="block"><h3>計算方式</h3>
-    <div class="note">以登記處所載 <em>Estimated Annual Emission Reductions</em> 乘以運行年數（2026 − 起始年）
-      作為事前預估累計，對照 <em>Total Credits Issued</em>。僅納入兩者皆有、且已運行滿 3 年的專案。<br><br>
+    <div class="note">以登記處所載「事前年預估減量」乘以運行年數（2026 − 起始年）作為事前預估累計，
+      對照「已核發額度」。僅納入兩者皆有、且已運行滿 3 年的專案。<br><br>
       <strong>限制：</strong>此指標會低估仍在爬坡期的專案，亦受計入期設計與查證節奏影響。
       應作為<strong>量級比較</strong>，不作為個案評價。</div></div>
-  <div class="block"><h3>依專案類型（樣本 ≥10 案）</h3>
-    <table class="dt"><thead><tr><th>類型</th><th class="n">案數</th><th class="n">交付率</th></tr></thead>
-    <tbody>${tr.map(([k,n,d])=>`<tr><td>${esc(k)}</td><td class="n">${n}</td>
-      <td class="n pct ${pc(d)}">${d}%</td></tr>`).join('')}</tbody></table></div>
+  <div class="block"><h3>依登記處</h3>${dtable(byReg,'登記處')}</div>
+  <div class="block"><h3>依起始年世代</h3>${dtable(byCohort,'世代')}
+    <div class="note">近年世代的交付率偏低屬預期——專案仍在爬坡，尚未完成全部查證週期。</div></div>
+  <div class="block"><h3>依專案類型（樣本 ≥10 案）</h3>${dtable(byType,'類型')}</div>
+  <div class="block"><h3>依地區（樣本 ≥10 案）</h3>${dtable(byRegion,'地區')}</div>
   <div class="block"><h3>依國家（樣本 ≥3 案）</h3>
+    <div class="ctl"><span class="more" onclick="csvDeliv()">匯出 CSV</span></div>
     <table class="dt"><thead><tr><th>國家</th><th class="n">案數</th><th class="n">預估累計</th><th class="n">實際核發</th><th class="n">交付率</th></tr></thead>
     <tbody>${rows.map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
       <td>${esc(c.name)}</td><td class="n">${c.cmp_n}</td><td class="n">${fmt(c.cmp_exp)}</td>
       <td class="n">${fmt(c.cmp_act)}</td><td class="n pct ${pc(c.delivery)}">${c.delivery}%</td></tr>`).join('')}</tbody></table></div>`;
 };
+
+V.methods=()=>{
+  const rows=deliv(p=>p.m,8).filter(r=>r[0].length<70);
+  const cnt={};S.p.forEach(p=>{if(p.m)cnt[p.m]=(cnt[p.m]||0)+1});
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,25);
+  return `<div class="crumb">分析</div>
+  <h2 style="font-size:26px;margin-bottom:6px">方法學</h2>
+  <p class="muted small" style="margin-bottom:20px">依方法學彙整專案數與交付率。方法學名稱依各登記處原始記載，未正規化。</p>
+  <div class="block"><h3>專案數前 25 名</h3>
+    <table class="dt"><thead><tr><th>方法學</th><th class="n">專案數</th></tr></thead>
+    <tbody>${top.map(([k,v])=>`<tr><td>${esc(k)}</td><td class="n">${fmt(v)}</td></tr>`).join('')}</tbody></table></div>
+  <div class="block"><h3>依方法學之交付率（樣本 ≥8 案）</h3>${dtable(rows,'方法學')}</div>`;
+};
+
+// ── CSV 匯出 ──
+function dl(name,rows){
+  const csv='﻿'+rows.map(r=>r.map(c=>{
+    const s=c==null?'':String(c);
+    return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+window.csvDeliv=()=>dl('交付率_依國家.csv',
+  [['國家','地區','案數','預估累計','實際核發','交付率%']].concat(
+   S.c.filter(c=>c.cmp_n>=3&&c.delivery!=null).sort((a,b)=>a.delivery-b.delivery)
+    .map(c=>[c.name,c.region,c.cmp_n,Math.round(c.cmp_exp),Math.round(c.cmp_act),c.delivery])));
+window.csvProjects=rows=>dl('專案清單.csv',
+  [['ID','名稱','國家','地區','登記處','類型','範疇','方法學','起始年','年預估','已核發','已註銷']].concat(
+   rows.map(p=>[p.id,p.n,p.c,p.rg,p.r,p.t,p.sc,p.m,p.fy,p.e,p.i,p.rt||0])));
 
 const newsCard=i=>`<article>
   <h4><a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.t)}</a></h4>
@@ -368,7 +473,9 @@ window.go=go;
 function render(){
   $('#view').innerHTML=(V[S.view]||V.dash)();
   document.querySelectorAll('.dbnav a').forEach(a=>
-    a.classList.toggle('on',a.dataset.v===S.view||(S.view==='country'&&a.dataset.v==='countries')));
+    a.classList.toggle('on',a.dataset.v===S.view
+      ||(S.view==='country'&&a.dataset.v==='countries')
+      ||(S.view==='project'&&a.dataset.v==='projects')));
   const q=$('#q');
   if(q)q.oninput=e=>{S.q=e.target.value;S.lim=60;render();
     const n=$('#q');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}};
