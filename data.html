@@ -118,6 +118,33 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .loading{color:var(--muted);padding:50px 0;text-align:center}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 國家索引版面 ── */
+.r4grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:0 0 26px}
+.r4card{position:relative;overflow:hidden;text-align:left;cursor:pointer;border-radius:10px;
+  border:1px solid var(--line);background:var(--paper);padding:17px 19px 16px;
+  display:flex;flex-direction:column;gap:4px;font-family:var(--sans);
+  transition:box-shadow .16s,border-color .16s}
+.r4card:hover{box-shadow:0 4px 16px rgba(0,109,167,.1);border-color:#cfe0e9}
+.r4card .r4n{font-size:16px;font-weight:700;color:var(--ink)}
+.r4card .r4m{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.r4card .r4b{position:absolute;left:0;top:0;bottom:0;width:4px}
+
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:11px}
+.ccard{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;
+  border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:var(--paper);
+  transition:box-shadow .16s,border-color .16s}
+.ccard:hover{box-shadow:0 4px 16px rgba(0,109,167,.1);border-color:#cfe0e9}
+.ccard .cc{display:flex;flex-direction:column;min-width:0}
+.ccard .cn2{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.4;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ccard .cm{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px}
+.flg{width:26px;height:20px;object-fit:cover;border-radius:3px;flex:0 0 auto;
+  box-shadow:0 0 0 1px rgba(0,0,0,.12);display:inline-block;vertical-align:middle}
+.flg.nf{width:26px;height:20px;background:var(--sand);color:var(--muted);font-size:10px;
+  font-weight:700;text-align:center;line-height:20px;letter-spacing:.3px}
+table.dt .flg{margin-right:8px}
+@media(max-width:700px){.cgrid{grid-template-columns:1fr}.r4grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+
 /* ── 專案探索版面 ── */
 .ptabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:0 0 24px}
 .ptabs button{font:600 14.5px var(--sans);padding:9px 16px;border:none;background:none;
@@ -291,7 +318,7 @@ function bars(o,m){
 }
 
 const V={};
-S.pmode='disc';S.fth=null;S.fcat='';
+S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;
 
 V.dash=()=>{
   const m=S.meta,reg={},typ={},vint={};
@@ -317,22 +344,102 @@ V.dash=()=>{
     <span class="more" onclick="go('pulse')">${T('seeall')}</span></div>`:''}`;
 };
 
-V.countries=()=>{
-  const q=S.q.toLowerCase();
-  const rows=S.c.filter(c=>!q||c.name.toLowerCase().includes(q)||(c.region||'').toLowerCase().includes(q));
-  return `<div class="crumb">國家</div>
-  <div class="ctl"><input type="search" id="q" placeholder="${T('s_country')}" value="${esc(S.q)}">
-    <span class="muted small">${rows.length} 個國家</span></div>
+const R4 = [
+  ['Asia-Pacific',         'r_ap',  '#0b5c86,#2a9fd0'],
+  ['Africa',               'r_af',  '#15603f,#3f9e6e'],
+  ['Americas',             'r_am',  '#7a5a1a,#c49a3a'],
+  ['Europe & Middle East', 'r_em',  '#46525f,#828f9d'],
+  ['International',        'r_int', '#5c4a86,#9281c4']
+];
+const flag = iso => iso
+  ? `<img class="flg" src="images/flags/${iso.toLowerCase()}.png" alt="" loading="lazy" width="26" height="20" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'flg nf',textContent:'${esc(iso)}'}))">`
+  : '<span class="flg nf">—</span>';
+
+function cmode(m) { S.cmode = m; S.lim = 60; render(); window.scrollTo(0, 0); }
+
+function ccard(c) {
+  return `<a class="ccard" onclick="go('country','${esc(c.name)}')" title="${esc(c.name)}">
+    ${flag(c.iso)}
+    <span class="cc">
+      <span class="cn2">${esc(c.name)}</span>
+      <span class="cm">${fmt(c.devs)} ${T('u_devs')} · ${fmt(c.n)} ${T('u_proj')}</span>
+    </span>
+  </a>`;
+}
+
+V.countries = () => {
+  const groups = {};
+  S.c.forEach(c => { (groups[c.r4 || 'International'] || (groups[c.r4 || 'International'] = [])).push(c); });
+
+  const tabs = `<div class="ptabs">
+    <button class="${S.cmode !== 'an' ? 'on' : ''}" onclick="cmode('ix')">${T('tab_index')}</button>
+    <button class="${S.cmode === 'an' ? 'on' : ''}" onclick="cmode('an')">${T('tab_analytics')}</button>
+  </div>`;
+
+  const sum = `<div class="r4grid">${R4.filter(r => groups[r[0]] && r[0] !== 'International').map(r => {
+    const g = groups[r[0]];
+    return `<button class="r4card" onclick="document.getElementById('rg-${esc(r[0]).replace(/[^A-Za-z]/g,'')}').scrollIntoView({behavior:'smooth',block:'start'})">
+      <span class="r4n">${T(r[1])}</span>
+      <span class="r4m">${fmt(g.reduce((s,c)=>s+(c.devs||0),0))} ${T('u_devs')} · ${fmt(g.reduce((s,c)=>s+c.n,0))} ${T('u_proj')}</span>
+      <span class="r4b" style="background:linear-gradient(135deg,${r[2]})"></span>
+    </button>`;
+  }).join('')}</div>`;
+
+  return `<div class="crumb">${T('countries')}</div>` + sum + tabs +
+    (S.cmode === 'an' ? cAnalytics() : cIndex(groups));
+};
+
+function cIndex(groups) {
+  const q = S.q.toLowerCase();
+  const search = `<div class="ctl"><input type="search" id="q" placeholder="${T('s_country')}" value="${esc(S.q)}">
+    <span class="muted small">${S.c.length} ${T('u_countries')}</span></div>`;
+
+  if (q) {
+    const hit = S.c.filter(c => c.name.toLowerCase().includes(q) || (c.iso||'').toLowerCase() === q);
+    return search + `<div class="cgrid">${hit.map(ccard).join('') || `<div class="loading">${T('none')}</div>`}</div>`;
+  }
+
+  return search + R4.filter(r => groups[r[0]]).map(r => {
+    const g = [...groups[r[0]]].sort((a, b) => b.n - a.n);
+    const id = 'rg-' + r[0].replace(/[^A-Za-z]/g, '');
+    const shown = S.rexp === r[0] ? g : g.slice(0, 9);
+    return `<div class="catsec" id="${id}">
+      <div class="cathead">
+        <span class="cdot" style="background:linear-gradient(135deg,${r[2]})"></span>
+        <h3>${T(r[1])}</h3>
+        <span class="cn">${g.length} ${T('u_countries')}</span>
+        <span class="sp"></span>
+        ${g.length > 9 ? `<span class="more" style="margin:0" onclick="S.rexp=${S.rexp===r[0]?'null':`'${esc(r[0])}'`};render()">${S.rexp===r[0]?T('collapse'):T('seeallp')}</span>` : ''}
+      </div>
+      <div class="cgrid">${shown.map(ccard).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function cAnalytics() {
+  const q = S.q.toLowerCase();
+  const rows = S.c.filter(c => !q || c.name.toLowerCase().includes(q) || (c.r4 || '').toLowerCase().includes(q));
+  const k = S.sort.k, d = S.sort.d;
+  const sorted = [...rows].sort((a, b) => {
+    const x = a[k], y = b[k];
+    if (typeof x === 'number' || typeof y === 'number') return ((y || 0) - (x || 0)) * (d < 0 ? 1 : -1);
+    return String(x || '').localeCompare(String(y || '')) * (d < 0 ? -1 : 1);
+  });
+  return `<div class="ctl"><input type="search" id="q" placeholder="${T('s_country')}" value="${esc(S.q)}">
+    <span class="muted small">${sorted.length} ${T('u_countries')}</span></div>
   <div class="block"><table class="dt"><thead><tr>
-    <th>${T('t_country')}</th><th>${T('t_region')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_devs')}</th>
-    <th class="n">${T('t_issued')}</th><th class="n">${T('t_retired')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
-  <tbody>${rows.slice(0,S.lim).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
-    <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
+    <th data-s="name">${T('t_country')}</th><th data-s="r4">${T('t_region')}</th>
+    <th class="n" data-s="n">${T('t_proj')}</th><th class="n" data-s="devs">${T('t_devs')}</th>
+    <th class="n" data-s="issued">${T('t_issued')}</th><th class="n" data-s="retired">${T('t_retired')}</th>
+    <th class="n" data-s="delivery">${T('t_delivery')}</th></tr></thead>
+  <tbody>${sorted.slice(0, S.lim).map(c => `<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
+    <td>${flag(c.iso)}<strong style="vertical-align:middle">${esc(c.name)}</strong></td>
+    <td>${esc(c.r4) || '—'}</td>
     <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.devs)}</td>
     <td class="n">${fmt(c.issued)}</td><td class="n">${fmt(c.retired)}</td>
-    <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table>
-  ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆（共 ${rows.length}）</span>`:''}</div>`;
-};
+    <td class="n pct ${pc(c.delivery)}">${c.delivery == null ? '—' : c.delivery + '%'}</td></tr>`).join('')}</tbody></table>
+  ${sorted.length > S.lim ? `<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>` : ''}</div>`;
+}
 
 V.country=()=>{
   const c=S.c.find(x=>x.name===S.sel);
@@ -739,7 +846,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012e';
+const DV='?v=20261012g';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // 先載輕量的國家與摘要檔（約 100 KB）把畫面開出來，

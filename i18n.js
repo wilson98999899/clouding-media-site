@@ -74,6 +74,9 @@ zh:{
   th_blue:'濕地與紅樹林', th_soil:'土壤與草原碳匯', th_stove:'潔淨爐灶',
   th_solar:'太陽能', th_meth:'甲烷減量',
   loadp:'專案明細載入中…（約 1.6 MB）', loaderr:'資料載入失敗，請重新整理。',
+  tab_index:'索引', tab_analytics:'分析', collapse:'收合 ▲',
+  u_devs:'開發商', u_proj:'專案', u_countries:'個國家',
+  r_ap:'亞太', r_af:'非洲', r_am:'美洲', r_em:'歐洲與中東', r_int:'跨國',
   seeall:'看全部動態 →'
 },
 en:{
@@ -148,6 +151,9 @@ en:{
   th_blue:'Wetlands & Mangroves', th_soil:'Soil & Grassland Carbon', th_stove:'Clean Cookstoves',
   th_solar:'Solar', th_meth:'Methane Reduction',
   loadp:'Loading project records… (about 1.6 MB)', loaderr:'Could not load the data. Please refresh.',
+  tab_index:'Index', tab_analytics:'Analytics', collapse:'Collapse ▲',
+  u_devs:'developers', u_proj:'projects', u_countries:'countries',
+  r_ap:'Asia-Pacific', r_af:'Africa', r_am:'Americas', r_em:'Europe & Middle East', r_int:'International',
   seeall:'See all →'
 },
 my:{
@@ -225,6 +231,9 @@ my:{
   th_soil:'မြေဆီလွှာနှင့် မြက်ခင်းပြင် ကာဗွန်', th_stove:'သန့်ရှင်းသော မီးဖို',
   th_solar:'နေရောင်ခြည်စွမ်းအင်', th_meth:'မီသိန်း လျှော့ချမှု',
   loadp:'စီမံကိန်းအချက်အလက်များ ရယူနေသည်…', loaderr:'အချက်အလက် ရယူ၍မရပါ။ စာမျက်နှာကို ပြန်ဖွင့်ပါ။',
+  tab_index:'အညွှန်း', tab_analytics:'ခွဲခြမ်းစိတ်ဖြာမှု', collapse:'ခေါက်သိမ်းရန် ▲',
+  u_devs:'ဖွံ့ဖြိုးသူ', u_proj:'စီမံကိန်း', u_countries:'နိုင်ငံ',
+  r_ap:'အာရှ-ပစိဖိတ်', r_af:'အာဖရိက', r_am:'အမေရိက', r_em:'ဥရောပနှင့် အရှေ့အလယ်ပိုင်း', r_int:'နိုင်ငံတကာ',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };
