@@ -64,6 +64,15 @@ zh:{
   gp_name:'自名稱推得',
   gp_country:'國家質心',
   gtrans:'翻譯整頁內容',
+  tab_disc:'探索', tab_all:'全部專案', rows:'筆', more80:'再顯示 80 筆',
+  t_cat:'分類', seeallp:'看全部 →',
+  cat_forest:'林業與土地利用', cat_renew:'再生能源', cat_house:'家戶與社區',
+  cat_agri:'農業', cat_waste:'廢棄物管理', cat_chem:'化學製程',
+  cat_indus:'工業與商業', cat_trans:'運輸', cat_ccs:'碳捕捉與封存',
+  cat_removal:'工程移除', cat_other:'其他',
+  th_redd:'REDD+ 減少毀林', th_arr:'造林與再造林', th_ifm:'改良森林經營',
+  th_blue:'濕地與紅樹林', th_soil:'土壤與草原碳匯', th_stove:'潔淨爐灶',
+  th_solar:'太陽能', th_meth:'甲烷減量',
   seeall:'看全部動態 →'
 },
 en:{
@@ -128,6 +137,15 @@ en:{
   gp_name:'Inferred from name',
   gp_country:'Country centroid',
   gtrans:'Translate full page',
+  tab_disc:'Discover', tab_all:'All projects', rows:'results', more80:'Show 80 more',
+  t_cat:'Category', seeallp:'See all →',
+  cat_forest:'Forestry & Land Use', cat_renew:'Renewable Energy', cat_house:'Household & Community',
+  cat_agri:'Agriculture', cat_waste:'Waste Management', cat_chem:'Chemical Processes',
+  cat_indus:'Industrial & Commercial', cat_trans:'Transportation', cat_ccs:'Carbon Capture & Storage',
+  cat_removal:'Engineered Removal', cat_other:'Other',
+  th_redd:'REDD+', th_arr:'Afforestation & Reforestation', th_ifm:'Improved Forest Management',
+  th_blue:'Wetlands & Mangroves', th_soil:'Soil & Grassland Carbon', th_stove:'Clean Cookstoves',
+  th_solar:'Solar', th_meth:'Methane Reduction',
   seeall:'See all →'
 },
 my:{
@@ -192,6 +210,18 @@ my:{
   gp_name:'အမည်မှ ခန့်မှန်း',
   gp_country:'နိုင်ငံဗဟိုချက်',
   gtrans:'စာမျက်နှာအပြည့် ဘာသာပြန်ရန်',
+  tab_disc:'ရှာဖွေရန်', tab_all:'စီမံကိန်းအားလုံး', rows:'ခု', more80:'နောက်ထပ် ၈၀ ခု ပြရန်',
+  t_cat:'အမျိုးအစား', seeallp:'အားလုံးကြည့်ရန် →',
+  cat_forest:'သစ်တောနှင့် မြေအသုံးချမှု', cat_renew:'ပြန်လည်ပြည့်ဖြိုးမြဲစွမ်းအင်',
+  cat_house:'အိမ်ထောင်စုနှင့် ရပ်ရွာ', cat_agri:'စိုက်ပျိုးရေး',
+  cat_waste:'စွန့်ပစ်ပစ္စည်း စီမံခန့်ခွဲမှု', cat_chem:'ဓာတုဖြစ်စဉ်',
+  cat_indus:'စက်မှုနှင့် စီးပွားရေး', cat_trans:'သယ်ယူပို့ဆောင်ရေး',
+  cat_ccs:'ကာဗွန်ဖမ်းယူသိုလှောင်မှု', cat_removal:'အင်ဂျင်နီယာနည်းဖြင့် ဖယ်ရှားမှု',
+  cat_other:'အခြား',
+  th_redd:'REDD+', th_arr:'သစ်တောပြန်လည်စိုက်ပျိုးခြင်း',
+  th_ifm:'သစ်တောစီမံခန့်ခွဲမှု တိုးတက်စေခြင်း', th_blue:'စိမ့်မြေနှင့် ဒီရေတောများ',
+  th_soil:'မြေဆီလွှာနှင့် မြက်ခင်းပြင် ကာဗွန်', th_stove:'သန့်ရှင်းသော မီးဖို',
+  th_solar:'နေရောင်ခြည်စွမ်းအင်', th_meth:'မီသိန်း လျှော့ချမှု',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };
