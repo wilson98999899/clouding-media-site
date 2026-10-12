@@ -116,6 +116,8 @@ table.dt tbody tr:hover td{background:var(--sand)}
   cursor:pointer;font-weight:600}
 .more:hover{text-decoration:underline}
 .loading{color:var(--muted);padding:50px 0;text-align:center}
+.pwrap{max-width:320px;height:6px;margin:14px auto 8px;background:var(--sand);border-radius:3px;overflow:hidden}
+.pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
 /* ── 機構卡片 ── */
@@ -953,11 +955,11 @@ V.pulse=()=>{
 function go(v,sel){S.view=v;S.sel=sel||null;S.q='';S.lim=60;render();window.scrollTo(0,0)}
 window.go=go;
 
-const NEEDP=new Set(['projects','devs','map','delivery','methods','project']);
 function render(){
-  $('#view').innerHTML=(NEEDP.has(S.view)&&!S.p.length)
-    ? `<div class="loading">${T('loadp')}</div>`
-    : (V[S.view]||V.dash)();
+  const waiting=NEEDP.has(S.view)&&!S.p.length;
+  if(waiting&&PP.state!=='error')needProjects();
+  $('#view').innerHTML=waiting?progBlock():(V[S.view]||V.dash)();
+  if(waiting)paintProg();
   document.querySelectorAll('.dbnav a').forEach(a=>
     a.classList.toggle('on',a.dataset.v===S.view
       ||(S.view==='country'&&a.dataset.v==='countries')
@@ -973,21 +975,92 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012h';
+const DV='?v=20261012i';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
-// 先載輕量的國家與摘要檔（約 100 KB）把畫面開出來，
-// 10 MB 的專案明細在背景補上，不擋首屏。
+// ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────
+const NEEDP=new Set(['projects','devs','map','delivery','methods','project']);
+let PLOAD=null;
+const PP={state:'idle',done:0,total:0,msg:''};
+
+function expand(z){
+  const out=new Array(z.n),D=z.dicts,C=z.data,K=z.cols;
+  for(let i=0;i<z.n;i++){
+    const o={};
+    for(let j=0;j<K.length;j++){
+      const k=K[j],v=C[k][i];
+      if(D[k]){if(v>=0)o[k]=D[k][v];}
+      else if(v!=null)o[k]=v;
+    }
+    out[i]=o;
+  }
+  return out;
+}
+
+function paintProg(){
+  const el=document.getElementById('pbar');
+  if(!el)return;
+  const pct=PP.total?Math.min(100,Math.round(100*PP.done/PP.total)):0;
+  el.style.width=pct+'%';
+  const t=document.getElementById('ptxt');
+  if(t)t.textContent=pct+'%';
+}
+
+async function loadProjects(){
+  const url='data/projects.min.json'+DV;
+  const r=await fetch(url);
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  PP.total=(S.meta&&S.meta.psize)||0;
+  let buf;
+  if(r.body&&r.body.getReader&&PP.total){
+    const rd=r.body.getReader(),parts=[];let got=0;
+    for(;;){
+      const c=await rd.read();
+      if(c.done)break;
+      parts.push(c.value);got+=c.value.length;PP.done=got;paintProg();
+    }
+    buf=new Uint8Array(got);let o=0;
+    for(const c of parts){buf.set(c,o);o+=c.length;}
+    buf=new TextDecoder().decode(buf);
+  }else{
+    buf=await r.text();
+  }
+  return expand(JSON.parse(buf));
+}
+
+function needProjects(){
+  if(S.p.length||PLOAD)return;
+  PP.state='loading';PP.done=0;
+  PLOAD=loadProjects()
+    .then(p=>{S.p=p;PP.state='done';render();})
+    .catch(e=>{PP.state='error';PP.msg=e.message;PLOAD=null;render();console.error(e);});
+}
+window.retryProjects=()=>{PP.state='idle';PLOAD=null;render();};
+
+function progBlock(){
+  if(PP.state==='error')return `<div class="loading">${T('loaderr')}
+    <div class="small muted" style="margin-top:6px">${esc(PP.msg)}</div>
+    <span class="more" onclick="retryProjects()">${T('retry')}</span></div>`;
+  return `<div class="loading">${T('loadp')}
+    <div class="pwrap"><i id="pbar"></i></div>
+    <div class="small muted" id="ptxt">0%</div></div>`;
+}
+
+// ── 啟動：先用輕量檔開畫面，專案明細等到有頁面需要時才抓 ──────────
 Promise.all([getJ('data/countries.json'+DV),getJ('data/meta.json'+DV)])
- .then(([c,m])=>{S.c=c;S.meta=m;
-   document.documentElement.lang=LANG;document.title=T('title');applyStatic();buildSw();render();
+ .then(([c,m])=>{
+   S.c=c;S.meta=m;
+   document.documentElement.lang=LANG;document.title=T('title');
+   applyStatic();buildSw();render();
    getJ('data/news.json'+DV).then(n=>{S.news=n;
-     if(S.view==='pulse'||S.view==='dash')render()}).catch(()=>{});
-   return getJ('data/projects.json'+DV);})
- .then(p=>{S.p=p;render();})
- .catch(e=>{const el=document.getElementById('view');
+     if(S.view==='pulse'||S.view==='dash')render();}).catch(()=>{});
+   if(S.view==='dash')needProjects();
+ })
+ .catch(e=>{
+   const el=document.getElementById('view');
    if(el)el.innerHTML='<div class="loading">'+T('loaderr')+'<br><span class="small">'+esc(e.message)+'</span></div>';
-   console.error(e);});
+   console.error(e);
+ });
 </script>
 </body>
 </html>
