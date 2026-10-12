@@ -6,7 +6,40 @@
 <title>碳市場資料庫｜Clouding Media</title>
 <meta name="description" content="全球自願碳市場登記處資料與每日情報。專案、國家、開發商、交付率分析。">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600;700&family=Playfair+Display:wght@500;600;700&family=Open+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
 <style>
+/* ── 語言 ── */
+html[lang="my"] body,html[lang="my"] h1,html[lang="my"] h2,html[lang="my"] h3,
+html[lang="my"] .lead,html[lang="my"] .brand{
+  font-family:"Noto Sans Myanmar","Myanmar Text","Padauk",var(--sans);
+  line-height:1.95;
+}
+html[lang="my"] .dbnav a,html[lang="my"] table.dt,html[lang="my"] .news h4{line-height:1.8}
+.langsw{display:flex;gap:4px;margin-left:14px}
+.langsw button{font:600 13px/1.5 var(--sans);padding:4px 11px;min-height:30px;
+  display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.45);
+  background:none;color:rgba(255,255,255,.85);border-radius:4px;cursor:pointer}
+.langsw button:hover{color:#fff;border-color:#fff}
+.langsw button.on{background:#fff;color:var(--brand);border-color:#fff}
+@media(max-width:900px){.langsw{width:100%;margin:10px 0 0}}
+
+#mapc{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--sand)}
+@media(max-width:900px){#mapc{height:420px}}
+.leaflet-container{font:14px var(--sans);background:var(--sand)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin:12px 0 0;color:var(--muted)}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:6px;
+  vertical-align:-1px;border:1px solid rgba(0,0,0,.25)}
+.mpop{font:14px var(--sans);line-height:1.6;max-width:260px}
+.mpop b{display:block;margin-bottom:4px}
+.mpop .mt{color:#5d6b78;font-size:12.5px}
+
 /* ── 資料庫專屬 ── */
 .db{display:grid;grid-template-columns:186px 1fr;gap:34px;align-items:start}
 @media(max-width:900px){.db{grid-template-columns:1fr;gap:20px}}
@@ -17,20 +50,21 @@
 @media(max-width:900px){.dbnav .grp{width:100%;margin:8px 0 2px}}
 .dbnav a{display:block;padding:7px 11px;font-size:14.5px;color:var(--muted);
   text-decoration:none;border-left:2px solid transparent;cursor:pointer;border-radius:0 4px 4px 0}
-.dbnav a:hover{color:var(--ink);background:var(--paper)}
-.dbnav a.on{color:var(--ink);font-weight:600;border-left-color:var(--accent);background:var(--paper)}
+.dbnav a:hover{color:var(--ink);background:var(--sand)}
+.dbnav a.on{color:var(--brand);font-weight:600;border-left-color:var(--brand);background:var(--sand)}
 @media(max-width:900px){.dbnav a{border:1px solid var(--line);border-radius:4px;padding:6px 12px}}
 
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin:4px 0 30px}
-.kpi{border-left:3px solid var(--accent);padding-left:16px}
-.kpi .v{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1.18;letter-spacing:-.5px}
+.kpi{border-left:3px solid var(--brand);padding-left:16px}
+.kpi .v{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.18;
+  letter-spacing:-.3px;color:var(--brand)}
 .kpi .k{font-size:13.5px;color:var(--muted);margin-top:3px}
 .kpi.hl{border-left-color:var(--warn)}
 .kpi.hl .v{color:var(--warn)}
 
 .block{background:var(--paper);border:1px solid var(--line);border-radius:8px;
   padding:22px 24px;margin-bottom:22px}
-.block h3{font-size:16px;margin:0 0 14px}
+.block h3{font-size:16px;margin:0 0 14px;color:var(--ink)}
 .block .note{font-size:13.5px;color:var(--muted);line-height:1.65;margin-top:12px}
 
 table.dt{width:100%;border-collapse:collapse;font-size:14px}
@@ -54,14 +88,14 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .ctl input[type=search]{min-width:260px;flex:1;max-width:380px}
 
 .spark{display:flex;align-items:flex-end;gap:2px;height:52px}
-.spark i{flex:1;background:var(--accent);opacity:.8;border-radius:2px 2px 0 0;min-height:1px}
+.spark i{flex:1;background:var(--brand);opacity:.75;border-radius:2px 2px 0 0;min-height:1px}
 .spark i:hover{opacity:1}
 .sparkx{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:5px}
 
 .bars b{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:14px;font-weight:400}
 .bars .l{width:190px;flex:0 0 190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bars .tr{flex:1;height:8px;background:var(--sand);border-radius:4px;overflow:hidden}
-.bars .fl{height:100%;background:var(--accent);border-radius:4px}
+.bars .fl{height:100%;background:var(--grad);border-radius:4px}
 .bars .nn{width:70px;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
 
 .news{border-top:1px solid var(--line)}
@@ -105,6 +139,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
     <a class="lk" href="about.html">關於</a>
     <a class="lk" href="contact.html">聯絡</a>
     <a class="cta" href="contact.html">聯絡我們</a>
+    <span class="langsw" id="langsw"></span>
   </nav>
 </div>
 </header>
@@ -113,8 +148,8 @@ table.dt tbody tr:hover td{background:var(--sand)}
 <div class="wrap">
   <div class="rule"></div>
   <div class="eyebrow">Carbon Market Database</div>
-  <h1 style="font-size:clamp(26px,4vw,40px);margin-bottom:12px">碳市場資料庫</h1>
-  <p class="lead" style="margin-bottom:0">
+  <h1 id="hh1" style="font-size:clamp(26px,4vw,40px);margin-bottom:12px">碳市場資料庫</h1>
+  <p class="lead" id="hlead" style="margin-bottom:0">
     全球自願碳市場的登記處資料與每日情報。可依國家、專案類型、開發商翻閱，
     並檢視我們自行計算的交付率——事前預估與實際核發之間的落差。
   </p>
@@ -131,6 +166,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
     <a data-v="countries">國家</a>
     <a data-v="projects">專案</a>
     <a data-v="devs">開發商</a>
+    <a data-v="map">地圖</a>
     <div class="grp">分析</div>
     <a data-v="delivery">交付率</a>
     <a data-v="methods">方法學</a>
@@ -138,7 +174,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
     <a data-v="pulse">每日動態</a>
   </aside>
 
-  <div id="view"><div class="loading">載入資料中…</div></div>
+  <div id="view"><div class="loading" id="boot">載入資料中…</div></div>
 
 </div>
 </div>
@@ -155,7 +191,30 @@ table.dt tbody tr:hover td{background:var(--sand)}
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-const S={p:[],c:[],meta:null,news:null,view:'dash',sel:null,q:'',fr:'',fs:'',fc:'',
+let LANG=(localStorage.getItem('cmlang')||(navigator.language||'').slice(0,2).replace('zh','zh'))||'zh';
+if(!window.I18N[LANG])LANG='zh';
+const T=(k,v)=>{let x=(window.I18N[LANG]||{})[k]; if(x==null)x=(window.I18N.zh||{})[k]; if(x==null)return k;
+  if(v)Object.keys(v).forEach(n=>x=x.split('{'+n+'}').join(v[n])); return x;};
+const TC=c=>((window.I18N[LANG]||{}).cat||{})[c]||c;
+const TG=g=>((window.I18N[LANG]||{}).tag||{})[g]||g;
+function setLang(l){LANG=l;localStorage.setItem('cmlang',l);document.documentElement.lang=l;
+  document.title=T('title');applyStatic();buildSw();render();}
+function buildSw(){const el=document.getElementById('langsw');if(!el)return;
+  el.innerHTML=['zh','en','my'].map(l=>
+    `<button class="${l===LANG?'on':''}" onclick="setLang('${l}')">${window.I18N[l].lang}</button>`).join('')
+   +`<button onclick="gtrans()" title="Google Translate">${T('gtrans')}</button>`;}
+function gtrans(){const h=location.hostname.replace(/-/g,'--').replace(/\./g,'-');
+  const tl=LANG==='zh'?'zh-TW':LANG;
+  open(`https://${h}.translate.goog${location.pathname}?_x_tr_sl=auto&_x_tr_tl=${tl}&_x_tr_hl=${tl}`,'_blank');}
+function applyStatic(){
+  const set=(sel,k)=>{const e=document.querySelector(sel);if(e)e.textContent=T(k)};
+  set('#hh1','h1'); set('#hlead','lead');
+  document.querySelectorAll('.dbnav a[data-v]').forEach(a=>a.textContent=T(a.dataset.v));
+  document.querySelectorAll('.dbnav .grp').forEach((g,i)=>g.textContent=T(['nav_browse','nav_analysis','nav_intel'][i]));
+}
+window.setLang=setLang;window.gtrans=gtrans;
+
+const S={p:[],c:[],meta:null,news:null,view:'dash',sel:null,q:'',fr:'',fs:'',fc:'',fg:'good',
          sort:{k:'i',d:-1},lim:60};
 const $=s=>document.querySelector(s);
 const fmt=n=>n==null?'—':Math.round(n).toLocaleString('en-US');
@@ -184,37 +243,37 @@ const V={};
 
 V.dash=()=>{
   const m=S.meta,reg={},typ={},vint={};
-  S.p.forEach(p=>{if(p.r)reg[p.r]=(reg[p.r]||0)+p.i;if(p.t)typ[p.t]=(typ[p.t]||0)+p.i;
-    (p.v||[]).forEach(([y,q])=>vint[y]=(vint[y]||0)+q)});
+  S.p.forEach(p=>{if(p.r)reg[p.r]=(reg[p.r]||0)+p.i;if(p.t)typ[p.t]=(typ[p.t]||0)+p.i});
+  S.c.forEach(c=>(c.vint||[]).forEach(([y,q])=>vint[y]=(vint[y]||0)+q));
   const nw=(S.news?.items||[]).filter(x=>x.rel).slice(0,5);
   return `<div class="kpis">
-    <div class="kpi"><div class="v">${m.projects.toLocaleString()}</div><div class="k">專案</div></div>
-    <div class="kpi"><div class="v">${m.countries}</div><div class="k">國家</div></div>
-    <div class="kpi"><div class="v">${big(m.issued)}</div><div class="k">已核發 tCO₂e</div></div>
-    <div class="kpi"><div class="v">${m.registries.length}</div><div class="k">登記處</div></div>
+    <div class="kpi"><div class="v">${m.projects.toLocaleString()}</div><div class="k">${T('k_projects')}</div></div>
+    <div class="kpi"><div class="v">${m.countries}</div><div class="k">${T('k_countries')}</div></div>
+    <div class="kpi"><div class="v">${big(m.issued)}</div><div class="k">${T('k_issued')}</div></div>
+    <div class="kpi"><div class="v">${m.registries.length}</div><div class="k">${T('k_registries')}</div></div>
   </div>
-  <div class="block"><h3>逐年核發量</h3>${spark(Object.entries(vint).map(([y,q])=>[+y,q]).sort((a,b)=>a[0]-b[0]))}</div>
-  <div class="block"><h3>登記處（依已核發量）</h3>${bars(reg)}</div>
-  <div class="block"><h3>專案類型（依已核發量）</h3>${bars(typ,10)}</div>
-  <div class="block"><h3>核發量前 12 國</h3>
-    <table class="dt"><thead><tr><th>國家</th><th>地區</th><th class="n">專案</th><th class="n">已核發</th><th class="n">交付率</th></tr></thead>
+  <div class="block"><h3>${T('h_vintage')}</h3>${spark(Object.entries(vint).map(([y,q])=>[+y,q]).sort((a,b)=>a[0]-b[0]))}</div>
+  <div class="block"><h3>${T('h_byreg')}</h3>${bars(reg)}</div>
+  <div class="block"><h3>${T('h_bytype')}</h3>${bars(typ,10)}</div>
+  <div class="block"><h3>${T('h_top12')}</h3>
+    <table class="dt"><thead><tr><th>${T('t_country')}</th><th>${T('t_region')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
     <tbody>${S.c.slice(0,12).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
       <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
       <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.issued)}</td>
       <td class="n pct ${pc(c.delivery)}">${c.delivery==null?'—':c.delivery+'%'}</td></tr>`).join('')}</tbody></table></div>
-  ${nw.length?`<div class="block"><h3>最新動態</h3><div class="news">${nw.map(newsCard).join('')}</div>
-    <span class="more" onclick="go('pulse')">看全部動態 →</span></div>`:''}`;
+  ${nw.length?`<div class="block"><h3>${T('h_latest')}</h3><div class="news">${nw.map(newsCard).join('')}</div>
+    <span class="more" onclick="go('pulse')">${T('seeall')}</span></div>`:''}`;
 };
 
 V.countries=()=>{
   const q=S.q.toLowerCase();
   const rows=S.c.filter(c=>!q||c.name.toLowerCase().includes(q)||(c.region||'').toLowerCase().includes(q));
   return `<div class="crumb">國家</div>
-  <div class="ctl"><input type="search" id="q" placeholder="搜尋國家或地區…" value="${esc(S.q)}">
+  <div class="ctl"><input type="search" id="q" placeholder="${T('s_country')}" value="${esc(S.q)}">
     <span class="muted small">${rows.length} 個國家</span></div>
   <div class="block"><table class="dt"><thead><tr>
-    <th>國家</th><th>地區</th><th class="n">專案</th><th class="n">開發商</th>
-    <th class="n">已核發</th><th class="n">已註銷</th><th class="n">交付率</th></tr></thead>
+    <th>${T('t_country')}</th><th>${T('t_region')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_devs')}</th>
+    <th class="n">${T('t_issued')}</th><th class="n">${T('t_retired')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
   <tbody>${rows.slice(0,S.lim).map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
     <td><strong>${esc(c.name)}</strong></td><td>${esc(c.region)||'—'}</td>
     <td class="n">${fmt(c.n)}</td><td class="n">${fmt(c.devs)}</td>
@@ -225,18 +284,18 @@ V.countries=()=>{
 
 V.country=()=>{
   const c=S.c.find(x=>x.name===S.sel);
-  if(!c)return'<div class="loading">找不到該國家</div>';
+  if(!c)return`<div class="loading">${T('notfound_c')}</div>`;
   const ps=S.p.filter(p=>p.c===c.name).sort((a,b)=>b.i-a.i);
   return `<div class="crumb"><a onclick="go('countries')">國家</a> / ${esc(c.region)||'—'} / ${esc(c.name)}</div>
   <h2 style="font-size:28px;margin-bottom:6px">${esc(c.name)}</h2>
   <p class="muted small" style="margin-bottom:22px">${c.n} 個專案，橫跨 ${Object.keys(c.regs).length} 個登記處</p>
   <div class="kpis">
-    <div class="kpi"><div class="v">${fmt(c.n)}</div><div class="k">專案</div></div>
-    <div class="kpi"><div class="v">${fmt(c.devs)}</div><div class="k">開發商</div></div>
-    <div class="kpi"><div class="v">${big(c.issued)}</div><div class="k">已核發 tCO₂e</div></div>
+    <div class="kpi"><div class="v">${fmt(c.n)}</div><div class="k">${T('k_projects')}</div></div>
+    <div class="kpi"><div class="v">${fmt(c.devs)}</div><div class="k">${T('k_devs')}</div></div>
+    <div class="kpi"><div class="v">${big(c.issued)}</div><div class="k">${T('k_issued')}</div></div>
     ${c.delivery!=null?`<div class="kpi hl"><div class="v">${c.delivery}%</div><div class="k">交付率（${c.cmp_n} 案）</div></div>`:''}
   </div>
-  ${c.delivery!=null?`<div class="block"><h3>交付率：事前預估 vs 實際核發</h3>
+  ${c.delivery!=null?`<div class="block"><h3>${T('h_delivtbl')}</h3>
     <table class="dt"><tbody>
       <tr><td>事前預估累計（年預估 × 運行年數）</td><td class="n">${fmt(c.cmp_exp)}</td></tr>
       <tr><td>實際已核發</td><td class="n">${fmt(c.cmp_act)}</td></tr>
@@ -244,13 +303,13 @@ V.country=()=>{
     </tbody></table>
     <div class="note">樣本：${c.cmp_n} 個同時具備「事前年預估」與「起始年」、且已運行滿 3 年的專案。
       此指標為本站自行計算，登記處不直接提供。會低估仍在爬坡期的專案，應作量級比較而非個案評價。</div></div>`:''}
-  <div class="block"><h3>逐年核發量</h3>${spark(c.vint)}</div>
+  <div class="block"><h3>${T('h_vintage')}</h3>${spark(c.vint)}</div>
   <div class="block"><h3>登記處</h3>${bars(c.regs)}</div>
   <div class="block"><h3>專案類型</h3>${bars(c.types,10)}</div>
   <div class="block"><h3>專案（${ps.length}）</h3>
-    <div class="ctl"><span class="more" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">匯出 CSV</span></div>
-    <table class="dt"><thead><tr><th>ID</th><th>名稱</th><th>登記處</th><th>類型</th>
-      <th class="n">年預估</th><th class="n">已核發</th><th class="n">達成率</th></tr></thead>
+    <div class="ctl"><span class="more" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">${T('csv')}</span></div>
+    <table class="dt"><thead><tr><th>ID</th><th>${T('t_name')}</th><th>${T('t_registry')}</th><th>${T('t_type')}</th>
+      <th class="n">${T('t_est')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_rate')}</th></tr></thead>
     <tbody>${ps.slice(0,S.lim).map(p=>{
       const yr=p.fy?2026-p.fy:null,exp=(p.e&&yr&&yr>=3)?p.e*yr:null,d=exp?Math.round(1000*p.i/exp)/10:null;
       return `<tr class="clickrow" onclick="go('project','${esc(p.id)}')">
@@ -263,7 +322,7 @@ V.country=()=>{
 
 V.project=()=>{
   const p=S.p.find(x=>x.id===S.sel);
-  if(!p)return'<div class="loading">找不到該專案</div>';
+  if(!p)return`<div class="loading">${T('notfound_p')}</div>`;
   const yr=p.fy?2026-p.fy:null, exp=(p.e&&yr&&yr>=3)?p.e*yr:null;
   const d=exp?Math.round(1000*(p.i||0)/exp)/10:null;
   const peers=S.p.filter(x=>x.c===p.c&&x.t===p.t&&x.id!==p.id).sort((a,b)=>(b.i||0)-(a.i||0)).slice(0,6);
@@ -275,11 +334,11 @@ V.project=()=>{
     <span class="pill">${esc(p.id)}</span> ${esc(p.r)}${p.s?' ｜ '+esc(p.s):''}</p>
   <div class="kpis">
     <div class="kpi"><div class="v">${fmt(p.e)}</div><div class="k">事前年預估 tCO₂e</div></div>
-    <div class="kpi"><div class="v">${fmt(p.i)}</div><div class="k">已核發 tCO₂e</div></div>
+    <div class="kpi"><div class="v">${fmt(p.i)}</div><div class="k">${T('k_issued')}</div></div>
     ${p.rt?`<div class="kpi"><div class="v">${fmt(p.rt)}</div><div class="k">已註銷</div></div>`:''}
     ${d!=null?`<div class="kpi hl"><div class="v">${d}%</div><div class="k">達成率（${yr} 年）</div></div>`:''}
   </div>
-  <div class="block"><h3>專案資訊</h3>
+  <div class="block"><h3>${T('h_info')}</h3>
     <table class="dt"><tbody>
       ${row('國家',p.c?`<a onclick="go('country','${esc(p.c)}')" style="color:var(--accent);cursor:pointer">${esc(p.c)}</a>`:'')}
       ${row('地區',esc(p.rg))}${row('登記處',esc(p.r))}${row('狀態',esc(p.s))}
@@ -288,7 +347,7 @@ V.project=()=>{
       ${row('開發商',esc(p.d))}${row('查證機構',esc(p.vf))}
       ${row('起始年份',p.fy||'')}${row('地點',esc(p.l))}
     </tbody></table></div>
-  ${d!=null?`<div class="block"><h3>交付率計算</h3>
+  ${d!=null?`<div class="block"><h3>${T('h_calc')}</h3>
     <table class="dt"><tbody>
       <tr><td>事前年預估</td><td class="n">${fmt(p.e)}</td></tr>
       <tr><td>運行年數（2026 − ${p.fy}）</td><td class="n">${yr}</td></tr>
@@ -298,8 +357,8 @@ V.project=()=>{
     </tbody></table>
     <div class="note">本站自行計算。此法假設年預估在整個運行期間恆定，
       對仍在爬坡、或計入期尚未完整查證的專案會低估。不作為個案品質評價。</div></div>`:''}
-  ${peers.length?`<div class="block"><h3>同國家、同類型的其他專案</h3>
-    <table class="dt"><thead><tr><th>ID</th><th>名稱</th><th class="n">年預估</th><th class="n">已核發</th></tr></thead>
+  ${peers.length?`<div class="block"><h3>${T('h_peers')}</h3>
+    <table class="dt"><thead><tr><th>ID</th><th>${T('t_name')}</th><th class="n">${T('t_est')}</th><th class="n">${T('t_issued')}</th></tr></thead>
     <tbody>${peers.map(x=>`<tr class="clickrow" onclick="go('project','${esc(x.id)}')">
       <td><span class="pill">${esc(x.id)}</span></td><td>${esc(x.n)}</td>
       <td class="n">${fmt(x.e)}</td><td class="n">${fmt(x.i)}</td></tr>`).join('')}</tbody></table></div>`:''}`;
@@ -321,16 +380,16 @@ V.projects=()=>{
   const scs=[...new Set(S.p.map(p=>p.sc).filter(Boolean))].sort();
   return `<div class="crumb">專案</div>
   <div class="ctl">
-    <input type="search" id="q" placeholder="搜尋名稱、ID、國家、開發商、類型…" value="${esc(S.q)}">
-    <select id="fr"><option value="">全部登記處</option>${regs.map(r=>`<option${S.fr===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
-    <select id="fs"><option value="">全部範疇</option>${scs.map(r=>`<option${S.fs===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    <input type="search" id="q" placeholder="${T('s_project')}" value="${esc(S.q)}">
+    <select id="fr"><option value="">${T('f_allreg')}</option>${regs.map(r=>`<option${S.fr===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    <select id="fs"><option value="">${T('f_allscope')}</option>${scs.map(r=>`<option${S.fs===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
     <span class="muted small">${rows.length.toLocaleString()} 筆</span>
-    <span class="more" style="margin:0" onclick="csvProjects(window.__rows||[])">匯出 CSV</span>
+    <span class="more" style="margin:0" onclick="csvProjects(window.__rows||[])">${T('csv')}</span>
   </div>
   <div class="block"><table class="dt"><thead><tr>
-    <th data-s="id">ID</th><th data-s="n">名稱</th><th data-s="c">國家</th>
-    <th data-s="r">登記處</th><th data-s="t">類型</th>
-    <th class="n" data-s="e">年預估</th><th class="n" data-s="i">已核發</th></tr></thead>
+    <th data-s="id">ID</th><th data-s="n">${T('t_name')}</th><th data-s="c">${T('t_country')}</th>
+    <th data-s="r">${T('t_registry')}</th><th data-s="t">${T('t_type')}</th>
+    <th class="n" data-s="e">${T('t_est')}</th><th class="n" data-s="i">${T('t_issued')}</th></tr></thead>
   <tbody>${rows.slice(0,S.lim).map(p=>`<tr class="clickrow" onclick="go('project','${esc(p.id)}')">
     <td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
     <td>${esc(p.c)||'—'}</td>
@@ -346,9 +405,9 @@ V.devs=()=>{
   const q=S.q.toLowerCase();
   const rows=Object.entries(m).filter(([k])=>!q||k.toLowerCase().includes(q)).sort((a,b)=>b[1].i-a[1].i);
   return `<div class="crumb">開發商</div>
-  <div class="ctl"><input type="search" id="q" placeholder="搜尋開發商…" value="${esc(S.q)}">
+  <div class="ctl"><input type="search" id="q" placeholder="${T('s_dev')}" value="${esc(S.q)}">
     <span class="muted small">${rows.length.toLocaleString()} 家</span></div>
-  <div class="block"><table class="dt"><thead><tr><th>開發商</th><th class="n">專案</th><th class="n">國家數</th><th class="n">已核發</th></tr></thead>
+  <div class="block"><table class="dt"><thead><tr><th>${T('t_dev')}</th><th class="n">${T('t_proj')}</th><th class="n">${T('t_ncountry')}</th><th class="n">${T('t_issued')}</th></tr></thead>
   <tbody>${rows.slice(0,S.lim).map(([k,v])=>`<tr><td>${esc(k)}</td>
     <td class="n">${fmt(v.n)}</td><td class="n">${v.cs.size}</td><td class="n">${fmt(v.i)}</td></tr>`).join('')}</tbody></table>
   ${rows.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
@@ -363,8 +422,8 @@ function deliv(keyFn,minN){
   return Object.entries(g).filter(([,v])=>v.n>=(minN||10))
     .map(([k,v])=>[k,v.n,v.e,v.i,Math.round(1000*v.i/v.e)/10]).sort((a,b)=>a[4]-b[4]);
 }
-const dtable=(rows,lbl)=>`<table class="dt"><thead><tr><th>${lbl}</th><th class="n">案數</th>
-  <th class="n">預估累計</th><th class="n">實際核發</th><th class="n">交付率</th></tr></thead>
+const dtable=(rows,lbl)=>`<table class="dt"><thead><tr><th>${lbl}</th><th class="n">${T('t_n')}</th>
+  <th class="n">${T('t_expcum')}</th><th class="n">${T('t_actual')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
   <tbody>${rows.map(([k,n,e,i,d])=>`<tr><td>${esc(k)}</td><td class="n">${n}</td>
   <td class="n">${fmt(e)}</td><td class="n">${fmt(i)}</td>
   <td class="n pct ${pc(d)}">${d}%</td></tr>`).join('')}</tbody></table>`;
@@ -383,24 +442,24 @@ V.delivery=()=>{
   <h2 style="font-size:26px;margin-bottom:6px">交付率</h2>
   <p class="muted small" style="margin-bottom:20px">事前預估與實際核發之間的落差。本站自行計算，登記處不直接提供。</p>
   <div class="kpis">
-    <div class="kpi"><div class="v">${fmt(all.length)}</div><div class="k">納入樣本</div></div>
-    <div class="kpi"><div class="v">${big(te)}</div><div class="k">事前預估累計</div></div>
-    <div class="kpi"><div class="v">${big(ti)}</div><div class="k">實際核發</div></div>
-    <div class="kpi hl"><div class="v">${(100*ti/te).toFixed(1)}%</div><div class="k">全體交付率</div></div>
+    <div class="kpi"><div class="v">${fmt(all.length)}</div><div class="k">${T('k_sample')}</div></div>
+    <div class="kpi"><div class="v">${big(te)}</div><div class="k">${T('k_exp')}</div></div>
+    <div class="kpi"><div class="v">${big(ti)}</div><div class="k">${T('k_act')}</div></div>
+    <div class="kpi hl"><div class="v">${(100*ti/te).toFixed(1)}%</div><div class="k">${T('k_all_delivery')}</div></div>
   </div>
-  <div class="block"><h3>計算方式</h3>
+  <div class="block"><h3>${T('h_method')}</h3>
     <div class="note">以登記處所載「事前年預估減量」乘以運行年數（2026 − 起始年）作為事前預估累計，
       對照「已核發額度」。僅納入兩者皆有、且已運行滿 3 年的專案。<br><br>
       <strong>限制：</strong>此指標會低估仍在爬坡期的專案，亦受計入期設計與查證節奏影響。
       應作為<strong>量級比較</strong>，不作為個案評價。</div></div>
-  <div class="block"><h3>依登記處</h3>${dtable(byReg,'登記處')}</div>
-  <div class="block"><h3>依起始年世代</h3>${dtable(byCohort,'世代')}
+  <div class="block"><h3>${T('h_reg')}</h3>${dtable(byReg,'登記處')}</div>
+  <div class="block"><h3>${T('h_cohort')}</h3>${dtable(byCohort,'世代')}
     <div class="note">近年世代的交付率偏低屬預期——專案仍在爬坡，尚未完成全部查證週期。</div></div>
-  <div class="block"><h3>依專案類型（樣本 ≥10 案）</h3>${dtable(byType,'類型')}</div>
-  <div class="block"><h3>依地區（樣本 ≥10 案）</h3>${dtable(byRegion,'地區')}</div>
-  <div class="block"><h3>依國家（樣本 ≥3 案）</h3>
-    <div class="ctl"><span class="more" onclick="csvDeliv()">匯出 CSV</span></div>
-    <table class="dt"><thead><tr><th>國家</th><th class="n">案數</th><th class="n">預估累計</th><th class="n">實際核發</th><th class="n">交付率</th></tr></thead>
+  <div class="block"><h3>${T('h_type')}</h3>${dtable(byType,'類型')}</div>
+  <div class="block"><h3>${T('h_region')}</h3>${dtable(byRegion,'地區')}</div>
+  <div class="block"><h3>${T('h_country')}</h3>
+    <div class="ctl"><span class="more" onclick="csvDeliv()">${T('csv')}</span></div>
+    <table class="dt"><thead><tr><th>${T('t_country')}</th><th class="n">${T('t_n')}</th><th class="n">${T('t_expcum')}</th><th class="n">${T('t_actual')}</th><th class="n">${T('t_delivery')}</th></tr></thead>
     <tbody>${rows.map(c=>`<tr class="clickrow" onclick="go('country','${esc(c.name)}')">
       <td>${esc(c.name)}</td><td class="n">${c.cmp_n}</td><td class="n">${fmt(c.cmp_exp)}</td>
       <td class="n">${fmt(c.cmp_act)}</td><td class="n pct ${pc(c.delivery)}">${c.delivery}%</td></tr>`).join('')}</tbody></table></div>`;
@@ -413,10 +472,10 @@ V.methods=()=>{
   return `<div class="crumb">分析</div>
   <h2 style="font-size:26px;margin-bottom:6px">方法學</h2>
   <p class="muted small" style="margin-bottom:20px">依方法學彙整專案數與交付率。方法學名稱依各登記處原始記載，未正規化。</p>
-  <div class="block"><h3>專案數前 25 名</h3>
-    <table class="dt"><thead><tr><th>方法學</th><th class="n">專案數</th></tr></thead>
+  <div class="block"><h3>${T('h_mtop')}</h3>
+    <table class="dt"><thead><tr><th>${T('t_methodology')}</th><th class="n">${T('t_proj')}</th></tr></thead>
     <tbody>${top.map(([k,v])=>`<tr><td>${esc(k)}</td><td class="n">${fmt(v)}</td></tr>`).join('')}</tbody></table></div>
-  <div class="block"><h3>依方法學之交付率（樣本 ≥8 案）</h3>${dtable(rows,'方法學')}</div>`;
+  <div class="block"><h3>${T('h_mdeliv')}</h3>${dtable(rows,'方法學')}</div>`;
 };
 
 // ── CSV 匯出 ──
@@ -436,6 +495,65 @@ window.csvProjects=rows=>dl('專案清單.csv',
   [['ID','名稱','國家','地區','登記處','類型','範疇','方法學','起始年','年預估','已核發','已註銷']].concat(
    rows.map(p=>[p.id,p.n,p.c,p.rg,p.r,p.t,p.sc,p.m,p.fy,p.e,p.i,p.rt||0])));
 
+
+const GP={site:['#0e6b5e','地點＋州省驗證'],place:['#128c7a','地點欄位'],
+          admin:['#7aa6a0','州／省質心'],name:['#b59a4a','自名稱推得'],
+          country:['#b8c3c0','國家質心']};
+let _map=null,_layer=null;
+
+V.map=()=>{
+  const m=S.meta.geo||{};
+  const tot=Object.values(GP).length;
+  return `<div class="crumb">${T('projects')}</div>
+  <h2 style="font-size:26px;margin-bottom:6px">${T('map')}</h2>
+  <p class="muted small" style="margin-bottom:16px">${T('map_sub')}</p>
+  <div class="ctl">
+    <input type="search" id="q" placeholder="${T('s_project')}" value="${esc(S.q)}">
+    <select id="fr"><option value="">${T('f_allreg')}</option>${
+      [...new Set(S.p.map(p=>p.r).filter(Boolean))].sort().map(r=>
+      `<option${S.fr===r?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    <select id="fg">
+      <option value="good"${S.fg!=='all'?' selected':''}>${T('map_good')}</option>
+      <option value="all"${S.fg==='all'?' selected':''}>${T('map_all')}</option>
+    </select>
+    <span class="muted small" id="mcount"></span>
+  </div>
+  <div id="mapc"></div>
+  <div class="legend">${Object.entries(GP).map(([k,[c,l]])=>
+    `<span><i style="background:${c}"></i>${T('gp_'+k)}（${fmt(m[k]||0)}）</span>`).join('')}</div>
+  <div class="block" style="margin-top:20px"><h3>${T('map_note_h')}</h3>
+    <div class="note">${T('map_note')}</div></div>`;
+};
+
+function drawMap(){
+  const el=document.getElementById('mapc'); if(!el||!window.L) return;
+  if(_map){_map.remove();_map=null}
+  _map=L.map(el,{worldCopyJump:true,scrollWheelZoom:true}).setView([12,20],2);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    {maxZoom:14,attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd'}).addTo(_map);
+  const q=S.q.toLowerCase();
+  let rows=S.p.filter(p=>p.ll);
+  if(S.fg!=='all') rows=rows.filter(p=>p.gp!=='country');
+  if(S.fr) rows=rows.filter(p=>p.r===S.fr);
+  if(q) rows=rows.filter(p=>(p.n||'').toLowerCase().includes(q)
+    ||(p.c||'').toLowerCase().includes(q)||(p.t||'').toLowerCase().includes(q));
+  rows=rows.sort((a,b)=>(b.i||0)-(a.i||0)).slice(0,4000);
+  const g=L.layerGroup();
+  rows.forEach(p=>{
+    const col=(GP[p.gp]||GP.country)[0];
+    const r=p.i>5e6?9:p.i>1e6?7:p.i>1e5?5:3.5;
+    L.circleMarker(p.ll,{radius:r,color:col,weight:1,fillColor:col,fillOpacity:.55})
+     .bindPopup(`<div class="mpop"><b>${esc(p.n||'')}</b>
+       <span class="mt">${esc(p.c||'')} ｜ ${esc(p.r||'')} ｜ ${esc(p.t||'—')}</span>
+       <span class="mt">${T('t_issued')}：${fmt(p.i)} tCO₂e</span>
+       <span class="mt">${T('gp_'+(p.gp||'country'))}</span></div>`)
+     .addTo(g);
+  });
+  g.addTo(_map); _layer=g;
+  const c=document.getElementById('mcount');
+  if(c) c.textContent=fmt(rows.length)+' '+T('items')+(rows.length>=4000?'（'+T('map_cap')+'）':'');
+}
+
 const newsCard=i=>`<article>
   <h4><a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.t)}</a></h4>
   <div class="meta"><span class="cat cat-${esc(i.c)}">${esc(i.c)}</span>
@@ -445,7 +563,7 @@ const newsCard=i=>`<article>
 </article>`;
 
 V.pulse=()=>{
-  if(!S.news)return'<div class="loading">情報載入中…</div>';
+  if(!S.news)return`<div class="loading">${T('loading_news')}</div>`;
   let it=S.news.items;
   if(S.fc)it=it.filter(x=>x.c===S.fc);
   if(S.q){const q=S.q.toLowerCase();it=it.filter(x=>(x.t+' '+x.d).toLowerCase().includes(q))}
@@ -456,12 +574,12 @@ V.pulse=()=>{
   <p class="muted small" style="margin-bottom:20px">
     自 ${S.news.sources.length} 個公開來源聚合，依碳市場相關性分類。更新於 ${esc(S.news.built)}。</p>
   <div class="ctl">
-    <input type="search" id="q" placeholder="搜尋標題或摘要…" value="${esc(S.q)}">
-    <select id="fc"><option value="">全部分類</option>${cats.map(c=>
+    <input type="search" id="q" placeholder="${T('s_news')}" value="${esc(S.q)}">
+    <select id="fc"><option value="">${T('f_allcat')}</option>${cats.map(c=>
       `<option value="${esc(c)}"${S.fc===c?' selected':''}>${esc(c)}（${cnt[c]}）</option>`).join('')}</select>
     <span class="muted small">${it.length} 則</span>
   </div>
-  <div class="block"><div class="news">${it.slice(0,S.lim).map(newsCard).join('')||'<div class="loading">無符合項目</div>'}</div>
+  <div class="block"><div class="news">${it.slice(0,S.lim).map(newsCard).join('')||`<div class="loading">${T('none')}</div>`}</div>
   ${it.length>S.lim?`<span class="more" onclick="S.lim+=40;render()">再顯示 40 則</span>`:''}</div>
   <div class="src">來源：${S.news.sources.map(esc).join('、')}。
     本頁僅聚合公開 RSS 之標題與摘要並連回原文，不轉載全文。分類由關鍵字規則自動產生，可能有誤。</div>`;
@@ -479,17 +597,20 @@ function render(){
   const q=$('#q');
   if(q)q.oninput=e=>{S.q=e.target.value;S.lim=60;render();
     const n=$('#q');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}};
-  ['fr','fs','fc'].forEach(id=>{const el=$('#'+id);
+  ['fr','fs','fc','fg'].forEach(id=>{const el=$('#'+id);
     if(el)el.onchange=e=>{S[id]=e.target.value;S.lim=60;render()}});
+  if(S.view==='map') setTimeout(drawMap,30);
   document.querySelectorAll('th[data-s]').forEach(th=>th.onclick=()=>{
     const k=th.dataset.s;S.sort.d=(S.sort.k===k)?-S.sort.d:-1;S.sort.k=k;render()});
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-Promise.all(['data/projects.json','data/countries.json','data/meta.json']
+const DV='?v=20261012b';
+Promise.all(['data/projects.json'+DV,'data/countries.json'+DV,'data/meta.json'+DV]
   .map(u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()})))
- .then(([p,c,m])=>{S.p=p;S.c=c;S.meta=m;render();
-   return fetch('data/news.json').then(r=>r.ok?r.json():null)})
+ .then(([p,c,m])=>{S.p=p;S.c=c;S.meta=m;
+   document.documentElement.lang=LANG;document.title=T('title');applyStatic();buildSw();render();
+   return fetch('data/news.json'+DV).then(r=>r.ok?r.json():null)})
  .then(n=>{if(n){S.news=n;if(S.view==='dash'||S.view==='pulse')render()}})
  .catch(e=>$('#view').innerHTML=`<div class="loading">資料載入失敗：${esc(e.message)}<br><br>
    本頁需以 HTTP 開啟（瀏覽器會阻擋 file:// 的 fetch）。</div>`);

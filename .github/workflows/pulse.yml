@@ -1,0 +1,34 @@
+name: 每日動態更新
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # UTC 21:00 = 台北 05:00
+  workflow_dispatch:        # 也可手動觸發
+
+permissions:
+  contents: write
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 抓取 RSS 並重建 news.json
+        run: python tools/pulse.py data
+
+      - name: 有變動才提交
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/news.json; then
+            echo "無新內容，略過"
+          else
+            git add data/news.json
+            git commit -m "每日動態：$(date -u +%Y-%m-%d)"
+            git push
+          fi
