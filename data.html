@@ -25,14 +25,7 @@ html[lang="my"] .lead,html[lang="my"] .brand{
   line-height:1.95;
 }
 html[lang="my"] .dbnav a,html[lang="my"] table.dt,html[lang="my"] .news h4{line-height:1.8}
-.langsw{display:flex;gap:4px;margin-left:14px}
-.langsw button{font-weight:600;font-size:13px;line-height:1.9;padding:3px 11px;min-height:36px;
-  font-family:"Noto Sans Myanmar",var(--sans);
-  display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.45);
-  background:none;color:rgba(255,255,255,.85);border-radius:4px;cursor:pointer}
-.langsw button:hover{color:#fff;border-color:#fff}
-.langsw button.on{background:#fff;color:var(--brand);border-color:#fff}
-@media(max-width:900px){.langsw{width:100%;margin:10px 0 0}}
+
 
 #mapc{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--sand)}
 @media(max-width:900px){#mapc{height:420px}}
@@ -187,6 +180,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .src{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:28px;
   padding-top:16px;border-top:1px solid var(--line)}
 </style>
+<script src="lang.js" defer></script>
 </head>
 <body>
 
@@ -202,7 +196,7 @@ table.dt tbody tr:hover td{background:var(--sand)}
     <a class="lk" href="about.html">關於</a>
     <a class="lk" href="contact.html">聯絡</a>
     <a class="cta" href="contact.html">聯絡我們</a>
-    <span class="langsw" id="langsw"></span>
+    <span class="langbar" id="langbar"></span>
   </nav>
 </div>
 </header>
@@ -262,20 +256,14 @@ const TC=c=>((window.I18N[LANG]||{}).cat||{})[c]||c;
 const TG=g=>((window.I18N[LANG]||{}).tag||{})[g]||g;
 function setLang(l){LANG=l;localStorage.setItem('cmlang',l);document.documentElement.lang=l;
   document.title=T('title');applyStatic();buildSw();render();}
-function buildSw(){const el=document.getElementById('langsw');if(!el)return;
-  el.innerHTML=['zh','en','my'].map(l=>
-    `<button class="${l===LANG?'on':''}" onclick="setLang('${l}')">${window.I18N[l].lang}</button>`).join('')
-   +`<button onclick="gtrans()" title="Google Translate">${T('gtrans')}</button>`;}
-function gtrans(){const h=location.hostname.replace(/-/g,'--').replace(/\./g,'-');
-  const tl=LANG==='zh'?'zh-TW':LANG;
-  open(`https://${h}.translate.goog${location.pathname}?_x_tr_sl=auto&_x_tr_tl=${tl}&_x_tr_hl=${tl}`,'_blank');}
+function buildSw(){if(window.LangBar)window.LangBar.draw();}
 function applyStatic(){
   const set=(sel,k)=>{const e=document.querySelector(sel);if(e)e.textContent=T(k)};
   set('#hh1','h1'); set('#hlead','lead');
   document.querySelectorAll('.dbnav a[data-v]').forEach(a=>a.textContent=T(a.dataset.v));
   document.querySelectorAll('.dbnav .grp').forEach((g,i)=>g.textContent=T(['nav_browse','nav_analysis','nav_intel'][i]));
 }
-window.setLang=setLang;window.gtrans=gtrans;
+window.setLang=setLang;
 
 const S={p:[],c:[],meta:null,news:null,view:'dash',sel:null,q:'',fr:'',fs:'',fc:'',fg:'good',
          sort:{k:'i',d:-1},lim:60};
