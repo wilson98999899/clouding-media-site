@@ -4,6 +4,11 @@
    註：緬甸文為機器輔助撰寫，尚未經母語者校讀。 */
 window.PAGE_I18N = {
 en: {
+ '衛星影像':'Satellite imagery',
+ '，EOX IT Services GmbH 製作，授權':', produced by EOX IT Services GmbH, licensed ',
+ '， 含經處理的 Copernicus Sentinel 資料。僅於專案已定位到具體地點時顯示縮圖； 僅能對應到國家層級者，改以色塊與國別代碼表示，不以國家中央的影像充當案場。':', containing modified Copernicus Sentinel data. Thumbnails appear only where a project is geocoded to a specific place. Where the match is country-level only, we show a colour block and country code rather than passing off an image of the country’s centre as the site.',
+ '碳權百科':'Carbon wiki',
+ '條目由本公司彙整撰寫，每則標示可查證的一手來源（登記處文件、UNFCCC、ICAO、EUR-Lex 等）， 並隨規則變動更新。內容為一般性說明，非法律意見。':'Entries are compiled and written in-house. Each cites a verifiable primary source — registry documents, UNFCCC, ICAO, EUR-Lex — and is updated as the rules change. General information only, not legal advice.',
  '， v2026-08，授權':', v2026-08, licensed ',
  '。 該資料庫彙整 Verra（VCS）、Gold Standard、American Carbon Registry、 Climate Action Reserve、ART 與 Isometric 六個自願性登記處之公開紀錄。':'. It consolidates the public records of six voluntary registries: Verra (VCS), Gold Standard, American Carbon Registry, Climate Action Reserve, ART and Isometric.',
  '清潔發展機制':'Clean Development Mechanism',
@@ -167,6 +172,11 @@ en: {
  '聯絡方式與合作流程說明。初步討論不收費。':'How to reach us and how an engagement runs. The first conversation is free.'
 },
 my: {
+ '衛星影像':'ဂြိုဟ်တုပုံရိပ်',
+ '，EOX IT Services GmbH 製作，授權':'၊ EOX IT Services GmbH မှ ထုတ်လုပ်၊ လိုင်စင် ',
+ '， 含經處理的 Copernicus Sentinel 資料。僅於專案已定位到具體地點時顯示縮圖； 僅能對應到國家層級者，改以色塊與國別代碼表示，不以國家中央的影像充當案場。':'။ ပြုပြင်ထားသော Copernicus Sentinel ဒေတာ ပါဝင်သည်။ တိကျသောနေရာ သတ်မှတ်နိုင်သော စီမံကိန်းများတွင်သာ ပုံငယ် ပြသသည်။',
+ '碳權百科':'ကာဗွန် ဝီကီ',
+ '條目由本公司彙整撰寫，每則標示可查證的一手來源（登記處文件、UNFCCC、ICAO、EUR-Lex 等）， 並隨規則變動更新。內容為一般性說明，非法律意見。':'ခေါင်းစဉ်များကို ကုမ္ပဏီတွင်းမှ ရေးသားစုစည်းပြီး တစ်ခုချင်းစီတွင် စစ်ဆေးနိုင်သော မူလရင်းမြစ်ကို ဖော်ပြသည်။ အထွေထွေအချက်အလက်သာဖြစ်ပြီး ဥပဒေအကြံဉာဏ် မဟုတ်ပါ။',
  '， v2026-08，授權':'၊ v2026-08၊ လိုင်စင် ',
  '。 該資料庫彙整 Verra（VCS）、Gold Standard、American Carbon Registry、 Climate Action Reserve、ART 與 Isometric 六個自願性登記處之公開紀錄。':'။ Verra (VCS)၊ Gold Standard၊ American Carbon Registry၊ Climate Action Reserve၊ ART နှင့် Isometric စသည့် စေတနာ့ဝန်ထမ်း မှတ်ပုံတင်အဖွဲ့ ခြောက်ခု၏ အများပြည်သူမှတ်တမ်းများကို စုစည်းထားသည်။',
  '清潔發展機制':'သန့်ရှင်းသော ဖွံ့ဖြိုးရေးယန္တရား',

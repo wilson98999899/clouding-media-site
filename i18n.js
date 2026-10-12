@@ -80,6 +80,12 @@ zh:{
   tab_allorg:'全部機構', k_devs2:'開發商', k_vrf:'查證機構', k_regs2:'登記處',
   org_note:'機構資料為自專案紀錄彙整而得：開發商取自登記處所載的專案開發方，查證機構取自驗證／查證單位欄位。UNEP CCC 的 CDM 管線表沒有專案參與方欄位，故 CDM 專案不計入開發商統計。',
   retry:'重試',
+  nav_ref:'參考', wiki:'碳權百科', wiki_h:'碳權百科', u_entries:'則',
+  wiki_lead:'碳市場的基本概念、標準、法規與專案類型。每則條目標示可查證來源，並隨規則變動更新。',
+  wiki_s:'搜尋條目', wiki_src:'資料來源', wiki_built:'最後更新 ',
+  wiki_disc:'本條目為一般性說明，非法律意見。涉及法律效果或投資決策時，請另行取得專業意見。',
+  wiki_my:'百科條目目前備有中文與英文，緬甸文版本尚在整理中，以下顯示英文。',
+  tile_attr:'縮圖衛星影像：Sentinel-2 cloudless（EOX IT Services GmbH，CC BY 4.0），含經處理的 Copernicus Sentinel 資料。僅在專案已定位到具體地點時顯示；僅有國家層級座標者改以色塊與國別代碼表示。',
   seeall:'看全部動態 →'
 },
 en:{
@@ -160,6 +166,12 @@ en:{
   tab_allorg:'All organisations', k_devs2:'Developers', k_vrf:'Verification bodies', k_regs2:'Registries',
   org_note:'Organisation data is aggregated from the project records: developers from the registry’s stated project proponent, verification bodies from the validation/verification field. The UNEP CCC CDM pipeline has no project-participant column, so CDM projects are not counted towards developers.',
   retry:'Retry',
+  nav_ref:'Reference', wiki:'Carbon wiki', wiki_h:'Carbon wiki', u_entries:'entries',
+  wiki_lead:'The concepts, standards, regulation and project types of the carbon market. Every entry cites a verifiable source and is updated as the rules change.',
+  wiki_s:'Search entries', wiki_src:'Sources', wiki_built:'Last updated ',
+  wiki_disc:'General information only, not legal advice. Take professional advice where legal effect or an investment decision is involved.',
+  wiki_my:'Wiki entries are currently available in Chinese and English; the Burmese edition is in preparation, so English is shown below.',
+  tile_attr:'Thumbnail imagery: Sentinel-2 cloudless by EOX IT Services GmbH (CC BY 4.0), containing modified Copernicus Sentinel data. Shown only where a project is geocoded to a specific place; country-level matches show a colour block and country code instead.',
   seeall:'See all →'
 },
 my:{
@@ -243,6 +255,12 @@ my:{
   tab_allorg:'အဖွဲ့အစည်းအားလုံး', k_devs2:'ဖွံ့ဖြိုးသူများ', k_vrf:'စစ်ဆေးအတည်ပြုရေးအဖွဲ့များ', k_regs2:'မှတ်ပုံတင်အဖွဲ့များ',
   org_note:'အဖွဲ့အစည်းအချက်အလက်များကို စီမံကိန်းမှတ်တမ်းများမှ စုစည်းထားသည်။ UNEP CCC ၏ CDM စာရင်းတွင် စီမံကိန်းပါဝင်သူ ကော်လံမပါသဖြင့် CDM စီမံကိန်းများကို ဖွံ့ဖြိုးသူစာရင်းတွင် မထည့်ပါ။',
   retry:'ထပ်မံကြိုးစားရန်',
+  nav_ref:'ကိုးကား', wiki:'ကာဗွန် ဝီကီ', wiki_h:'ကာဗွန် ဝီကီ', u_entries:'ခု',
+  wiki_lead:'ကာဗွန်စျေးကွက်၏ အခြေခံသဘောတရား၊ စံနှုန်း၊ ဥပဒေနှင့် စီမံကိန်းအမျိုးအစားများ။',
+  wiki_s:'ခေါင်းစဉ်ရှာရန်', wiki_src:'ရင်းမြစ်များ', wiki_built:'နောက်ဆုံးမွမ်းမံ ',
+  wiki_disc:'အထွေထွေအချက်အလက်သာဖြစ်ပြီး ဥပဒေအကြံဉာဏ် မဟုတ်ပါ။',
+  wiki_my:'ဝီကီခေါင်းစဉ်များကို လက်ရှိတွင် တရုတ်နှင့် အင်္ဂလိပ်ဘာသာဖြင့်သာ ရရှိနိုင်ပါသည်။ အောက်တွင် အင်္ဂလိပ်ဘာသာဖြင့် ပြသထားသည်။',
+  tile_attr:'ဂြိုဟ်တုပုံရိပ် — Sentinel-2 cloudless (EOX IT Services GmbH, CC BY 4.0)။ တိကျသောနေရာ သတ်မှတ်နိုင်သော စီမံကိန်းများတွင်သာ ပြသသည်။',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };

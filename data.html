@@ -120,6 +120,26 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 碳權百科 ── */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:11px}
+.wcard{display:flex;flex-direction:column;gap:5px;cursor:pointer;text-decoration:none;
+  border:1px solid var(--line);border-radius:9px;padding:15px 17px;background:var(--paper);
+  transition:box-shadow .16s,border-color .16s}
+.wcard:hover{box-shadow:0 4px 16px rgba(0,109,167,.1);border-color:#cfe0e9}
+.wcard .wt{font-size:15.5px;font-weight:700;color:var(--brand);line-height:1.4}
+.wcard .ws{font-size:13px;color:var(--muted);line-height:1.6}
+.wbody{max-width:66ch}
+.wbody p{font-size:15.5px;line-height:1.95;margin:0 0 16px;color:var(--sec)}
+.wsrc{list-style:none;margin:0;padding:0}
+.wsrc li{margin-bottom:7px;font-size:14px}
+.wsrc a{color:var(--brand);text-decoration:none}
+.wsrc a:hover{text-decoration:underline}
+.wnav{display:flex;justify-content:space-between;gap:16px;margin-top:26px;
+  padding-top:18px;border-top:1px solid var(--line);font-size:14px}
+.wnav a{color:var(--brand);cursor:pointer;text-decoration:none;max-width:45%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wnav a:hover{text-decoration:underline}
+
 /* ── 機構卡片 ── */
 .ocard .oav{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;
   font-family:var(--serif);font-size:30px;font-weight:700;color:rgba(255,255,255,.95);
@@ -192,28 +212,36 @@ table.dt .flg{margin-right:8px}
 .scroller::-webkit-scrollbar{height:7px}
 .scroller::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 
-.pcard{display:flex;flex-direction:column;text-decoration:none;cursor:pointer;
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(316px,1fr));gap:11px}
+.pcard{display:flex;gap:13px;text-decoration:none;cursor:pointer;
   scroll-snap-align:start;border:1px solid var(--line);border-radius:9px;overflow:hidden;
-  background:var(--paper);transition:box-shadow .16s,border-color .16s}
+  background:var(--paper);padding:11px;transition:box-shadow .16s,border-color .16s}
 .pcard:hover{box-shadow:0 5px 18px rgba(0,109,167,.11);border-color:#cfe0e9}
-.pthumb{position:relative;display:block;aspect-ratio:16/10;overflow:hidden}
-.pthumb::after{content:"";position:absolute;inset:0;opacity:.28;
-  background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);
-  background-size:8px 8px}
-.piso{position:absolute;left:12px;bottom:7px;z-index:1;font-family:var(--serif);
-  font-size:27px;font-weight:700;color:rgba(255,255,255,.92);letter-spacing:1px;line-height:1}
-.preg{position:absolute;right:9px;top:8px;z-index:1;font-size:10.5px;font-weight:700;
-  letter-spacing:.6px;color:rgba(255,255,255,.95);background:rgba(0,0,0,.26);
-  padding:2px 6px;border-radius:3px}
-.ptitle{padding:11px 13px 0;font-size:14px;font-weight:600;color:var(--ink);line-height:1.45;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:44px}
-.pdev{padding:4px 13px 0;font-size:12.5px;color:var(--muted);white-space:nowrap;
+.pth{position:relative;flex:0 0 auto;width:72px;height:72px;border-radius:7px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+.pth img{width:100%;height:100%;object-fit:cover;display:block}
+.pth{background-size:cover;background-position:center}
+.pth.ok .piso{display:none}
+.pth .piso{position:static;font-family:var(--serif);font-size:21px;font-weight:700;
+  color:rgba(255,255,255,.92);letter-spacing:.5px;line-height:1}
+.pbody{display:flex;flex-direction:column;min-width:0;flex:1;gap:2px}
+.ptitle{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;padding:0;min-height:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pdev{font-size:12.5px;color:var(--muted);padding:0;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
-.pchips{display:flex;gap:5px;flex-wrap:wrap;padding:9px 13px 12px}
+.pchips{display:flex;gap:5px;flex-wrap:wrap;align-items:center;padding:4px 0 0}
 .pchips em{font-style:normal;font-size:11px;background:var(--sand);color:var(--muted);
-  border:1px solid var(--line);padding:1px 7px;border-radius:3px;max-width:118px;
+  border:1px solid var(--line);padding:1px 7px;border-radius:3px;max-width:140px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(max-width:700px){.scroller{grid-auto-columns:176px}.themes{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+.pchips em.ct{border-color:transparent;color:#fff;background:var(--g,var(--brand))}
+.pchips .flg{width:18px;height:13px}
+/* 機構卡維持直式（縮圖是字首徽章，沒有衛星影像） */
+.ocard{flex-direction:column;gap:0;padding:0}
+.ocard .ptitle{padding:11px 13px 0;min-height:44px}
+.ocard .pdev{padding:4px 13px 0}
+.ocard .pchips{padding:9px 13px 12px}
+@media(max-width:700px){.pgrid{grid-template-columns:1fr}
+  .scroller{grid-auto-columns:176px}.themes{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
 .crumb a{color:var(--accent);cursor:pointer;text-decoration:none}
 .src{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:28px;
   padding-top:16px;border-top:1px solid var(--line)}
@@ -267,6 +295,8 @@ table.dt .flg{margin-right:8px}
     <a data-v="methods">方法學</a>
     <div class="grp">情報</div>
     <a data-v="pulse">每日動態</a>
+    <div class="grp">參考</div>
+    <a data-v="wiki">碳權百科</a>
   </aside>
 
   <div id="view"><div class="loading" id="boot">載入資料中…</div></div>
@@ -299,7 +329,7 @@ function applyStatic(){
   const set=(sel,k)=>{const e=document.querySelector(sel);if(e)e.textContent=T(k)};
   set('#hh1','h1'); set('#hlead','lead');
   document.querySelectorAll('.dbnav a[data-v]').forEach(a=>a.textContent=T(a.dataset.v));
-  document.querySelectorAll('.dbnav .grp').forEach((g,i)=>g.textContent=T(['nav_browse','nav_analysis','nav_intel'][i]));
+  document.querySelectorAll('.dbnav .grp').forEach((g,i)=>g.textContent=T(['nav_browse','nav_analysis','nav_intel','nav_ref'][i]));
 }
 window.setLang=setLang;
 
@@ -329,7 +359,7 @@ function bars(o,m){
 }
 
 const V={};
-S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';
+S.pmode='disc';S.fth=null;S.fcat='';S.cmode='ix';S.rexp=null;S.dmode='disc';S.dkind='dev';S.dcat='';S.wiki=null;
 
 V.dash=()=>{
   const m=S.meta,reg={},typ={},vint={};
@@ -561,13 +591,58 @@ let ISO={};
 const catName=c=>T((CATMETA[c]||CATMETA.Other).k);
 const catGrad=c=>(CATMETA[c]||CATMETA.Other).g;
 
+
+// 衛星縮圖：Sentinel-2 cloudless（EOX IT Services，CC BY 4.0）
+// 只有真的定位到地點（site／place／admin）才放影像。僅有國家質心的
+// 專案維持漸層底：那種縮放下的圖磚是「國家中央」而非案場，同一國
+// 還會重複同一張，放上去只會誤導。
+const TZ={site:12,place:11,admin:8};
+function tileURL(ll,gp){
+  const z=TZ[gp];
+  if(!ll||!z)return null;
+  const n=Math.pow(2,z);
+  const la=Math.max(-85.05,Math.min(85.05,ll[0]))*Math.PI/180;
+  let x=Math.floor((ll[1]+180)/360*n);
+  let y=Math.floor((1-Math.log(Math.tan(la)+1/Math.cos(la))/Math.PI)/2*n);
+  x=Math.max(0,Math.min(n-1,x));y=Math.max(0,Math.min(n-1,y));
+  return 'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/'+z+'/'+y+'/'+x+'.jpg';
+}
+// 捲到可視範圍才抓圖，並限制同時連線數，避免一次打爆圖磚服務
+let TQ=[],TRUN=0;
+function tpump(){
+  while(TRUN<6&&TQ.length){
+    const el=TQ.shift();if(!el.isConnected)continue;
+    TRUN++;
+    const img=new Image();
+    img.onload=()=>{el.style.backgroundImage='url('+img.src+')';el.classList.add('ok');TRUN--;tpump();};
+    img.onerror=()=>{TRUN--;tpump();};
+    img.src=el.dataset.tile;
+  }
+}
+const TOBS=('IntersectionObserver' in window)?new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){TOBS.unobserve(e.target);TQ.push(e.target);}});
+  tpump();
+},{rootMargin:'300px'}):null;
+function tileScan(){
+  document.querySelectorAll('.pth[data-tile]:not(.q)').forEach(el=>{
+    el.classList.add('q');
+    if(TOBS)TOBS.observe(el);else{TQ.push(el);}
+  });
+  if(!TOBS)tpump();
+}
+function thumb(p){
+  const u=tileURL(p.ll,p.gp),g=catGrad(p.cat),iso=ISO[p.c]||'';
+  return `<span class="pth"${u?` data-tile="${esc(u)}"`:''} style="background:linear-gradient(135deg,${g})"><span class="piso">${esc(iso)}</span></span>`;
+}
 function pcard(p){
   const iso=ISO[p.c]||'';
   return `<a class="pcard" onclick="go('project','${esc(p.id)}')" title="${esc(p.n)}">
-    <span class="pthumb" style="background:linear-gradient(135deg,${catGrad(p.cat)})"><span class="piso">${esc(iso)}</span><span class="preg">${esc(p.r)}</span></span>
-    <span class="ptitle">${esc(p.n)}</span>
-    <span class="pdev">${esc(p.d||'—')}</span>
-    <span class="pchips"><em>${esc(p.c||'—')}</em><em>${esc(p.s||'—')}</em></span>
+    ${thumb(p)}
+    <span class="pbody">
+      <span class="ptitle">${esc(p.n)}</span>
+      <span class="pdev">${esc(p.d||p.vf||'—')}</span>
+      <span class="pchips">${iso?flag(iso):''}<em>${esc(p.c||'—')}</em><em class="st">${esc(p.s||'—')}</em><em class="ct" style="--g:${catGrad(p.cat).split(',')[1]}">${esc(catName(p.cat))}</em></span>
+    </span>
   </a>`;
 }
 function scrollRow(btn,dir){
@@ -594,21 +669,19 @@ function projDisc(){
   const by={};S.p.forEach(p=>{(by[p.cat]||(by[p.cat]=[])).push(p)});
   const order=Object.keys(by).sort((a,b)=>by[b].length-by[a].length);
   const secs=order.map(c=>{
-    const top=[...by[c]].sort((x,y)=>(y.i||0)-(x.i||0)).slice(0,14);
+    const top=[...by[c]].sort((x,y)=>(y.i||0)-(x.i||0)).slice(0,9);
     return `<div class="catsec">
       <div class="cathead">
         <span class="cdot" style="background:linear-gradient(135deg,${catGrad(c)})"></span>
         <h3 onclick="catGo('${esc(c)}')">${catName(c)}</h3>
         <span class="cn">${by[c].length.toLocaleString()}</span>
         <span class="sp"></span>
-        <button class="arw" onclick="scrollRow(this,-1)" aria-label="prev">&#8249;</button>
-        <button class="arw" onclick="scrollRow(this,1)" aria-label="next">&#8250;</button>
-        <span class="more" style="margin:0 0 0 10px" onclick="catGo('${esc(c)}')">${T('seeallp')}</span>
+        <span class="more" style="margin:0" onclick="catGo('${esc(c)}')">${T('seeallp')}</span>
       </div>
-      <div class="scroller">${top.map(pcard).join('')}</div>
+      <div class="pgrid">${top.map(pcard).join('')}</div>
     </div>`;
   }).join('');
-  return tiles+secs;
+  return tiles+secs+`<div class="src">${T('tile_attr')}</div>`;
 }
 
 function projAll(){
@@ -952,6 +1025,81 @@ V.pulse=()=>{
     本頁僅聚合公開 RSS 之標題與摘要並連回原文，不轉載全文。分類由關鍵字規則自動產生，可能有誤。</div>`;
 };
 
+const wlang = () => (LANG === 'zh' ? 'zh' : 'en');   // 條目目前備有中英兩種
+const wtxt = o => (o && (o[wlang()] || o.zh || o.en)) || {};
+
+V.wiki = () => {
+  const W = S.wiki;
+  if (!W) return `<div class="loading">${T('loadp')}</div>`;
+  const q = S.q.toLowerCase();
+  const hit = e => {
+    if (!q) return true;
+    const x = wtxt(e);
+    return (x.t || '').toLowerCase().includes(q) || (x.s || '').toLowerCase().includes(q)
+      || (x.b || []).join(' ').toLowerCase().includes(q);
+  };
+  const rows = W.entries.filter(hit);
+
+  const head = `<div class="crumb">${T('wiki')}</div>
+    <h2 style="margin-bottom:8px">${T('wiki_h')}</h2>
+    <p class="lead" style="max-width:62ch">${T('wiki_lead')}</p>
+    ${LANG === 'my' ? `<div class="notebox" style="margin:0 0 18px">${T('wiki_my')}</div>` : ''}
+    <div class="ctl"><input type="search" id="q" placeholder="${T('wiki_s')}" value="${esc(S.q)}">
+      <span class="muted small">${rows.length} / ${W.entries.length} ${T('u_entries')}</span></div>`;
+
+  if (q) {
+    return head + `<div class="wgrid">${rows.map(wcard).join('') ||
+      `<div class="loading">${T('none')}</div>`}</div>`;
+  }
+
+  return head + W.cats.map(c => {
+    const g = rows.filter(e => e.cat === c.id);
+    if (!g.length) return '';
+    return `<div class="catsec">
+      <div class="cathead">
+        <span class="cdot" style="background:var(--grad)"></span>
+        <h3>${esc(LANG === 'zh' ? c.zh : c.en)}</h3>
+        <span class="cn">${g.length}</span>
+      </div>
+      <div class="wgrid">${g.map(wcard).join('')}</div>
+    </div>`;
+  }).join('') + `<div class="src">${esc(LANG === 'zh' ? W.note_zh : W.note_en)}　${T('wiki_built')}${esc(W.built)}</div>`;
+};
+
+function wcard(e) {
+  const x = wtxt(e);
+  return `<a class="wcard" onclick="go('wikientry','${esc(e.id)}')">
+    <span class="wt">${esc(x.t)}</span>
+    <span class="ws">${esc(x.s)}</span>
+  </a>`;
+}
+
+V.wikientry = () => {
+  const W = S.wiki;
+  if (!W) return `<div class="loading">${T('loadp')}</div>`;
+  const e = W.entries.find(x => x.id === S.sel);
+  if (!e) return `<div class="loading">${T('none')}</div>`;
+  const x = wtxt(e);
+  const cat = W.cats.find(c => c.id === e.cat) || {};
+  const i = W.entries.findIndex(y => y.id === e.id);
+  const prev = W.entries[i - 1], next = W.entries[i + 1];
+
+  return `<div class="crumb"><a onclick="go('wiki')">${T('wiki')}</a> ／ ${esc(LANG === 'zh' ? cat.zh : cat.en)}</div>
+  <h2 style="margin-bottom:6px">${esc(x.t)}</h2>
+  <p class="lead" style="max-width:60ch;margin-bottom:26px">${esc(x.s)}</p>
+  <div class="wbody">${(x.b || []).map(para => `<p>${esc(para)}</p>`).join('')}</div>
+  <div class="block" style="margin-top:26px">
+    <h3>${T('wiki_src')}</h3>
+    <ul class="wsrc">${(e.src || []).map(s =>
+      `<li><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join('')}</ul>
+    <div class="note">${T('wiki_disc')}</div>
+  </div>
+  <div class="wnav">
+    ${prev ? `<a onclick="go('wikientry','${esc(prev.id)}')">‹ ${esc(wtxt(prev).t)}</a>` : '<span></span>'}
+    ${next ? `<a onclick="go('wikientry','${esc(next.id)}')">${esc(wtxt(next).t)} ›</a>` : '<span></span>'}
+  </div>`;
+};
+
 function go(v,sel){S.view=v;S.sel=sel||null;S.q='';S.lim=60;render();window.scrollTo(0,0)}
 window.go=go;
 
@@ -959,11 +1107,12 @@ function render(){
   const waiting=NEEDP.has(S.view)&&!S.p.length;
   if(waiting&&PP.state!=='error')needProjects();
   $('#view').innerHTML=waiting?progBlock():(V[S.view]||V.dash)();
-  if(waiting)paintProg();
+  if(waiting)paintProg(); else tileScan();
   document.querySelectorAll('.dbnav a').forEach(a=>
     a.classList.toggle('on',a.dataset.v===S.view
       ||(S.view==='country'&&a.dataset.v==='countries')
-      ||(S.view==='project'&&a.dataset.v==='projects')));
+      ||(S.view==='project'&&a.dataset.v==='projects')
+      ||(S.view==='wikientry'&&a.dataset.v==='wiki')));
   const q=$('#q');
   if(q)q.oninput=e=>{S.q=e.target.value;S.lim=60;render();
     const n=$('#q');if(n){n.focus();n.setSelectionRange(n.value.length,n.value.length)}};
@@ -975,7 +1124,7 @@ function render(){
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012i';
+const DV='?v=20261012m';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────
@@ -1052,6 +1201,8 @@ Promise.all([getJ('data/countries.json'+DV),getJ('data/meta.json'+DV)])
    S.c=c;S.meta=m;
    document.documentElement.lang=LANG;document.title=T('title');
    applyStatic();buildSw();render();
+   getJ('data/wiki.json'+DV).then(w=>{S.wiki=w;
+     if(S.view==='wiki'||S.view==='wikientry')render();}).catch(()=>{});
    getJ('data/news.json'+DV).then(n=>{S.news=n;
      if(S.view==='pulse'||S.view==='dash')render();}).catch(()=>{});
    if(S.view==='dash')needProjects();
