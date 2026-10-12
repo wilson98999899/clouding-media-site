@@ -4,6 +4,10 @@
    註：緬甸文為機器輔助撰寫，尚未經母語者校讀。 */
 window.PAGE_I18N = {
 en: {
+ '紅樹林復育區':'Mangrove restoration area',
+ '紅樹林幼苗':'Mangrove seedling',
+ '紅樹林枝葉':'Mangrove foliage',
+ '紅樹林林分':'Mangrove stand',
  '紅樹林內踏勘':'Mangrove survey',
  '紅樹林灘地':'Mangrove flat',
  '灌叢林間小徑':'Bush trail',
@@ -188,6 +192,10 @@ en: {
  '聯絡方式與合作流程。初步諮詢不計費。':'How to reach us and how an engagement runs. Initial consultation is at no charge.'
 },
 my: {
+ '紅樹林復育區':'ဒီရေတော ပြန်လည်ထူထောင်ရေး ဧရိယာ',
+ '紅樹林幼苗':'ဒီရေတော ပျိုးပင်',
+ '紅樹林枝葉':'ဒီရေတော အရွက်များ',
+ '紅樹林林分':'ဒီရေတော အုပ်စု',
  '紅樹林內踏勘':'ဒီရေတောအတွင်း ကွင်းဆင်းစစ်ဆေးခြင်း',
  '紅樹林灘地':'ဒီရေတော ကမ်းပြင်',
  '灌叢林間小徑':'ချုံနွယ်ကြား လမ်းကြောင်း',
