@@ -4,6 +4,9 @@
    註：緬甸文為機器輔助撰寫，尚未經母語者校讀。 */
 window.PAGE_I18N = {
 en: {
+ '整理後的林地':'Cleared bushland',
+ '疏林地現況':'Open woodland',
+ '紅樹林林分現況':'Mangrove stand',
  '紅樹林復育區':'Mangrove restoration area',
  '紅樹林幼苗':'Mangrove seedling',
  '紅樹林枝葉':'Mangrove foliage',
@@ -192,6 +195,9 @@ en: {
  '聯絡方式與合作流程。初步諮詢不計費。':'How to reach us and how an engagement runs. Initial consultation is at no charge.'
 },
 my: {
+ '整理後的林地':'ရှင်းလင်းပြီး ချုံနွယ်မြေ',
+ '疏林地現況':'ကျဲပါးသော သစ်တော အခြေအနေ',
+ '紅樹林林分現況':'ဒီရေတော အုပ်စု အခြေအနေ',
  '紅樹林復育區':'ဒီရေတော ပြန်လည်ထူထောင်ရေး ဧရိယာ',
  '紅樹林幼苗':'ဒီရေတော ပျိုးပင်',
  '紅樹林枝葉':'ဒီရေတော အရွက်များ',
