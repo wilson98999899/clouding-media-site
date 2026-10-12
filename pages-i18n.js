@@ -4,6 +4,17 @@
    註：緬甸文為機器輔助撰寫，尚未經母語者校讀。 */
 window.PAGE_I18N = {
 en: {
+ '紅樹林內踏勘':'Mangrove survey',
+ '紅樹林灘地':'Mangrove flat',
+ '灌叢林間小徑':'Bush trail',
+ '濱海草原':'Coastal grassland',
+ '濕地草澤':'Wetland marsh',
+ '主管機關拜會':'Meeting the district authority',
+ '濱海路徑':'Coastal track',
+ '疏林地':'Open woodland',
+ '灌叢整理後的林地':'Cleared bushland',
+ '草原與天空':'Grassland and sky',
+ '相思樹枝葉':'Acacia foliage',
  'Gold Standard 公開 API':'Gold Standard public API',
  '（public-api.goldstandard.org）。 用於補齊該標準專案的座標與開發方，共取得 1,533 個由登記處自報的座標。':' (public-api.goldstandard.org), used to fill in coordinates and project developers for that standard. It supplied 1,533 registry-reported coordinates.',
  'Verra 登記處':'Verra Registry',
@@ -177,6 +188,17 @@ en: {
  '聯絡方式與合作流程。初步諮詢不計費。':'How to reach us and how an engagement runs. Initial consultation is at no charge.'
 },
 my: {
+ '紅樹林內踏勘':'ဒီရေတောအတွင်း ကွင်းဆင်းစစ်ဆေးခြင်း',
+ '紅樹林灘地':'ဒီရေတော ကမ်းပြင်',
+ '灌叢林間小徑':'ချုံနွယ်ကြား လမ်းကြောင်း',
+ '濱海草原':'ကမ်းခြေ မြက်ခင်းပြင်',
+ '濕地草澤':'စိမ့်မြေ မြက်ခင်း',
+ '主管機關拜會':'ခရိုင်အာဏာပိုင်နှင့် တွေ့ဆုံခြင်း',
+ '濱海路徑':'ကမ်းခြေ လမ်းကြောင်း',
+ '疏林地':'ကျဲပါးသော သစ်တော',
+ '灌叢整理後的林地':'ရှင်းလင်းပြီး ချုံနွယ်မြေ',
+ '草原與天空':'မြက်ခင်းပြင်နှင့် ကောင်းကင်',
+ '相思樹枝葉':'အကေးရှားပင် အရွက်များ',
  'Gold Standard 公開 API':'Gold Standard အများသုံး API',
  '（public-api.goldstandard.org）。 用於補齊該標準專案的座標與開發方，共取得 1,533 個由登記處自報的座標。':' (public-api.goldstandard.org)။ ထိုစံနှုန်းအောက်ရှိ စီမံကိန်းများ၏ ကိုဩဒိနိတ်နှင့် ဖွံ့ဖြိုးသူကို ဖြည့်စွက်ရန် အသုံးပြုသည်။ ကိုဩဒိနိတ် ၁,၅၃၃ ခု ရရှိသည်။',
  'Verra 登記處':'Verra မှတ်ပုံတင်အဖွဲ့',
