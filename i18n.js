@@ -104,6 +104,12 @@ zh:{
   su_done_h:'收到了，謝謝。', su_done_p:'下一期摘要會寄到你的信箱。若你勾選了特定主題，我們會另外就那部分與你聯繫。',
   su_back:'回到儀表板',
   su_mail_sub:'訂閱碳市場摘要', su_mail_org:'公司或單位：', su_mail_topic:'關注主題：', su_mail_email:'電子郵件：',
+  c_sub:'{c} 共 {n} 個專案，橫跨 {r} 個登記處。', c_map:'專案位置',
+  c_map_n:'{t} 件中有 {n} 件已定位到具體地點', c_map_none:'本國專案目前都只能對應到國家層級，沒有可標示的座標。',
+  c_deliv_k:'交付率（{n} 案）', c_exp:'事前預估累計（年預估 × 運行年數）', c_act:'實際已核發',
+  c_deliv_note:'樣本為 {n} 個同時具備事前年預估與起始年、且已運行滿三年的專案。此指標由本站計算，登記處不直接提供；會低估仍在爬坡期的專案，應作量級比較而非個案評價。',
+  c_top:'核發量最高的專案', c_all:'全部專案',
+  map_osm:'街道圖', map_sat:'衛星影像',
   seeall:'看全部動態 →'
 },
 en:{
@@ -208,6 +214,12 @@ en:{
   su_done_h:'Received — thank you.', su_done_p:'The next digest will reach your inbox. If you selected particular topics, we will follow up on those separately.',
   su_back:'Back to dashboard',
   su_mail_sub:'Carbon market digest subscription', su_mail_org:'Company: ', su_mail_topic:'Topics: ', su_mail_email:'Email: ',
+  c_sub:'{n} projects across {r} registries in {c}.', c_map:'Project locations',
+  c_map_n:'{n} of {t} geocoded to a specific place', c_map_none:'Every project here resolves only to country level, so there are no points to plot.',
+  c_deliv_k:'Delivery rate ({n} projects)', c_exp:'Ex-ante cumulative (annual estimate × years running)', c_act:'Actually issued',
+  c_deliv_note:'Sample of {n} projects reporting both an ex-ante annual estimate and a start year, and running at least three years. We calculate this; no registry publishes it. It understates projects still ramping up, so use it to compare magnitudes rather than to judge an individual project.',
+  c_top:'Largest projects by issuance', c_all:'All projects',
+  map_osm:'Street map', map_sat:'Satellite',
   seeall:'See all →'
 },
 my:{
@@ -315,6 +327,12 @@ my:{
   su_done_h:'လက်ခံရရှိပါပြီ။ ကျေးဇူးတင်ပါသည်။', su_done_p:'နောက်တစ်ကြိမ် အကျဉ်းချုပ်ကို သင့်စာတိုက်ပုံးသို့ ပေးပို့ပါမည်။',
   su_back:'ခြုံငုံသုံးသပ်ချက်သို့ ပြန်သွားရန်',
   su_mail_sub:'ကာဗွန်စျေးကွက် အကျဉ်းချုပ် ရယူရန်', su_mail_org:'ကုမ္ပဏီ — ', su_mail_topic:'အကြောင်းအရာ — ', su_mail_email:'အီးမေးလ် — ',
+  c_sub:'{c} တွင် မှတ်ပုံတင်အဖွဲ့ {r} ခုမှ စီမံကိန်း {n} ခု။', c_map:'စီမံကိန်း တည်နေရာများ',
+  c_map_n:'{t} ခုအနက် {n} ခု တိကျသောနေရာ သတ်မှတ်ပြီး', c_map_none:'ဤနိုင်ငံရှိ စီမံကိန်းများသည် နိုင်ငံအဆင့်သာ သတ်မှတ်နိုင်သဖြင့် မြေပုံတွင် ပြရန် အမှတ်မရှိပါ။',
+  c_deliv_k:'ပေးအပ်မှုနှုန်း (စီမံကိန်း {n} ခု)', c_exp:'ကြိုတင်ခန့်မှန်း စုစုပေါင်း', c_act:'အမှန်တကယ် ထုတ်ပေးပြီး',
+  c_deliv_note:'သုံးနှစ်အထက် လည်ပတ်ပြီး ကိန်းဂဏန်းနှစ်မျိုးစလုံးရှိသော စီမံကိန်း {n} ခုကို နမူနာယူသည်။',
+  c_top:'ထုတ်ပေးမှု အများဆုံး စီမံကိန်းများ', c_all:'စီမံကိန်းအားလုံး',
+  map_osm:'လမ်းမြေပုံ', map_sat:'ဂြိုဟ်တုပုံ',
   seeall:'အားလုံးကြည့်ရန် →'
 }
 };

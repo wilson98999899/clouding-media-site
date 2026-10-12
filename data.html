@@ -120,6 +120,34 @@ table.dt tbody tr:hover td{background:var(--sand)}
 .pwrap i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;transition:width .2s}
 .crumb{font-size:13px;color:var(--muted);margin-bottom:8px}
 
+/* ── 國家詳細頁 ── */
+.chero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;
+  background:linear-gradient(160deg,#eef4f3,var(--paper));border:1px solid var(--line);
+  border-radius:12px;padding:30px 32px;margin-bottom:24px}
+@media(max-width:860px){.chero{grid-template-columns:1fr;gap:22px;padding:24px 20px}}
+.ch1{font-family:var(--serif);font-size:clamp(32px,4.4vw,52px);font-weight:600;
+  color:var(--ink);line-height:1.1;margin:0 0 10px;display:flex;align-items:center;gap:14px}
+.ch1 .flg{width:46px;height:34px;border-radius:4px}
+.chs{font-size:15px;color:var(--muted);margin:0;line-height:1.75}
+.chk{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.khcard{position:relative;background:var(--paper);border:1px solid var(--line);
+  border-radius:10px;padding:15px 17px;display:flex;flex-direction:column;gap:2px}
+.khv{font-family:var(--serif);font-size:23px;font-weight:600;color:var(--brand);line-height:1.2}
+.khk{font-size:12.5px;color:var(--muted)}
+.khi{position:absolute;right:14px;top:15px;width:26px;height:26px;border-radius:50%;opacity:.85}
+
+.mhead{display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap}
+.mchip{font-size:12.5px;font-weight:600;color:var(--brand);background:var(--accent-soft);
+  border-radius:20px;padding:4px 13px}
+#cmapc{height:420px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--sand)}
+@media(max-width:700px){#cmapc{height:300px}}
+
+.dsplit{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.dbig{display:flex;flex-direction:column;gap:3px;min-width:132px}
+.dbig .dv{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1}
+.dbig .dk{font-size:12.5px;color:var(--muted)}
+.dsplit table{flex:1;min-width:240px}
+
 /* ── 訂閱面板 ── */
 .cta2{border:1px solid var(--line);border-radius:12px;padding:34px 30px;margin-bottom:24px;
   text-align:center;background:linear-gradient(170deg,var(--sand),var(--paper))}
@@ -680,43 +708,111 @@ function cAnalytics() {
   ${sorted.length > S.lim ? `<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>` : ''}</div>`;
 }
 
-V.country=()=>{
-  const c=S.c.find(x=>x.name===S.sel);
-  if(!c)return`<div class="loading">${T('notfound_c')}</div>`;
-  const ps=S.p.filter(p=>p.c===c.name).sort((a,b)=>b.i-a.i);
-  return `<div class="crumb"><a onclick="go('countries')">國家</a> / ${esc(c.region)||'—'} / ${esc(c.name)}</div>
-  <h2 style="font-size:28px;margin-bottom:6px">${esc(c.name)}</h2>
-  <p class="muted small" style="margin-bottom:22px">${c.n} 個專案，橫跨 ${Object.keys(c.regs).length} 個登記處</p>
-  <div class="kpis">
-    <div class="kpi"><div class="v">${fmt(c.n)}</div><div class="k">${T('k_projects')}</div></div>
-    <div class="kpi"><div class="v">${fmt(c.devs)}</div><div class="k">${T('k_devs')}</div></div>
-    <div class="kpi"><div class="v">${big(c.issued)}</div><div class="k">${T('k_issued')}</div></div>
-    ${c.delivery!=null?`<div class="kpi hl"><div class="v">${c.delivery}%</div><div class="k">交付率（${c.cmp_n} 案）</div></div>`:''}
+function khero(v, k, g) {
+  return `<div class="khcard"><span class="khv">${v}</span><span class="khk">${k}</span>
+    <span class="khi" style="background:linear-gradient(135deg,${g})"></span></div>`;
+}
+
+V.country = () => {
+  const c = S.c.find(x => x.name === S.sel);
+  if (!c) return `<div class="loading">${T('notfound_c')}</div>`;
+  ISO = {}; S.c.forEach(x => { if (x.iso) ISO[x.name] = x.iso; });
+  const ps = S.p.filter(p => p.c === c.name).sort((a, b) => (b.i || 0) - (a.i || 0));
+  const located = ps.filter(p => p.ll && p.gp !== 'country').length;
+  const r4 = c.r4 || 'International';
+  const r4k = (R4.find(r => r[0] === r4) || R4[4])[1];
+  const topCat = Object.entries(c.cats || {}).sort((a, b) => b[1] - a[1])[0];
+
+  return `<div class="chero">
+    <div class="chl">
+      <div class="crumb"><a onclick="go('countries')">${T('countries')}</a> ／
+        <a onclick="go('countries')">${T(r4k)}</a> ／ ${esc(c.name)}</div>
+      <div class="eyebrow" style="margin:14px 0 6px">${T(r4k)}</div>
+      <h1 class="ch1">${c.iso ? flag(c.iso) : ''}${esc(c.name)}</h1>
+      <p class="chs">${T('c_sub', { n: fmt(c.n), r: Object.keys(c.regs || {}).length, c: esc(c.name) })}</p>
+    </div>
+    <div class="chk">
+      ${khero(fmt(c.n), T('k_projects'), '#0b5c86,#2a9fd0')}
+      ${khero(fmt(c.devs), T('k_devs2'), '#5c4a86,#9281c4')}
+      ${khero(Object.keys(c.regs || {}).length, T('k_registries'), '#15603f,#3f9e6e')}
+      ${khero(big(c.issued), T('k_issued'), '#7a5a1a,#c49a3a')}
+    </div>
   </div>
-  ${c.delivery!=null?`<div class="block"><h3>${T('h_delivtbl')}</h3>
-    <table class="dt"><tbody>
-      <tr><td>事前預估累計（年預估 × 運行年數）</td><td class="n">${fmt(c.cmp_exp)}</td></tr>
-      <tr><td>實際已核發</td><td class="n">${fmt(c.cmp_act)}</td></tr>
-      <tr><td><strong>達成率</strong></td><td class="n pct ${pc(c.delivery)}"><strong>${c.delivery}%</strong></td></tr>
-    </tbody></table>
-    <div class="note">樣本：${c.cmp_n} 個同時具備「事前年預估」與「起始年」、且已運行滿 3 年的專案。
-      此指標為本站自行計算，登記處不直接提供。會低估仍在爬坡期的專案，應作量級比較而非個案評價。</div></div>`:''}
+
+  <div class="block">
+    <div class="mhead"><span class="mchip">${T('c_map')}</span>
+      <span class="muted small">${T('c_map_n', { n: fmt(located), t: fmt(ps.length) })}</span></div>
+    ${located ? `<div id="cmapc"></div>
+      <div class="legend">${['site', 'place', 'admin'].map(k =>
+        `<span><i style="background:${GP[k][0]}"></i>${T('gp_' + k)}</span>`).join('')}</div>`
+      : `<div class="note">${T('c_map_none')}</div>`}
+  </div>
+
+  ${c.delivery != null ? `<div class="block"><h3>${T('h_delivtbl')}</h3>
+    <div class="dsplit">
+      <div class="dbig"><span class="dv pct ${pc(c.delivery)}">${c.delivery}%</span>
+        <span class="dk">${T('c_deliv_k', { n: c.cmp_n })}</span></div>
+      <table class="dt"><tbody>
+        <tr><td>${T('c_exp')}</td><td class="n">${fmt(c.cmp_exp)}</td></tr>
+        <tr><td>${T('c_act')}</td><td class="n">${fmt(c.cmp_act)}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="note">${T('c_deliv_note', { n: c.cmp_n })}</div></div>` : ''}
+
   <div class="block"><h3>${T('h_vintage')}</h3>${spark(c.vint)}</div>
-  <div class="block"><h3>登記處</h3>${bars(c.regs)}</div>
-  <div class="block"><h3>專案類型</h3>${bars(c.types,10)}</div>
-  <div class="block"><h3>專案（${ps.length}）</h3>
-    <div class="ctl"><span class="more" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">${T('csv')}</span></div>
+
+  <div class="grid g2" style="gap:22px">
+    <div class="block"><h3>${T('t_registry')}</h3>${bars(c.regs)}</div>
+    <div class="block"><h3>${T('t_cat')}</h3>${bars(c.cats || c.types, 8)}</div>
+  </div>
+
+  ${topCat ? `<div class="catsec"><div class="cathead">
+      <span class="cdot" style="background:linear-gradient(135deg,${catGrad(topCat[0])})"></span>
+      <h3>${T('c_top')}</h3><span class="cn">${fmt(ps.length)}</span><span class="sp"></span>
+      <span class="more" style="margin:0" onclick="S.view='projects';S.pmode='all';S.q='${esc(c.name)}';S.fcat='';S.fth=null;S.lim=60;render();window.scrollTo(0,0)">${T('seeallp')}</span>
+    </div>
+    <div class="pgrid">${ps.slice(0, 9).map(pcard).join('')}</div></div>` : ''}
+
+  <div class="block"><h3>${T('c_all')}（${fmt(ps.length)}）</h3>
+    <div class="ctl"><span class="more" style="margin:0" onclick="csvProjects(S.p.filter(x=>x.c==='${esc(c.name)}'))">${T('csv')}</span></div>
     <table class="dt"><thead><tr><th>ID</th><th>${T('t_name')}</th><th>${T('t_registry')}</th><th>${T('t_type')}</th>
       <th class="n">${T('t_est')}</th><th class="n">${T('t_issued')}</th><th class="n">${T('t_rate')}</th></tr></thead>
-    <tbody>${ps.slice(0,S.lim).map(p=>{
-      const yr=p.fy?2026-p.fy:null,exp=(p.e&&yr&&yr>=3)?p.e*yr:null,d=exp?Math.round(1000*p.i/exp)/10:null;
+    <tbody>${ps.slice(0, S.lim).map(p => {
+      const yr = p.fy ? 2026 - p.fy : null, exp = (p.e && yr && yr >= 3) ? p.e * yr : null,
+        d = exp ? Math.round(1000 * p.i / exp) / 10 : null;
       return `<tr class="clickrow" onclick="go('project','${esc(p.id)}')">
       <td><span class="pill">${esc(p.id)}</span></td><td>${esc(p.n)}</td>
-      <td>${esc(p.r)}</td><td>${esc(p.t)||'—'}</td>
+      <td>${esc(p.r)}</td><td>${esc(p.t) || '—'}</td>
       <td class="n">${fmt(p.e)}</td><td class="n">${fmt(p.i)}</td>
-      <td class="n pct ${pc(d)}">${d==null?'—':d+'%'}</td></tr>`}).join('')}</tbody></table>
-    ${ps.length>S.lim?`<span class="more" onclick="S.lim+=80;render()">再顯示 80 筆</span>`:''}</div>`;
+      <td class="n pct ${pc(d)}">${d == null ? '—' : d + '%'}</td></tr>`; }).join('')}</tbody></table>
+    ${ps.length > S.lim ? `<span class="more" onclick="S.lim+=80;render()">${T('more80')}</span>` : ''}</div>`;
 };
+
+let _cmap = null;
+function drawCountryMap() {
+  const el = document.getElementById('cmapc');
+  if (!el || !window.L) return;
+  if (_cmap) { _cmap.remove(); _cmap = null; }
+  const c = S.c.find(x => x.name === S.sel);
+  const rows = S.p.filter(p => p.c === S.sel && p.ll && p.gp !== 'country');
+  if (!rows.length) return;
+  _cmap = L.map(el, { scrollWheelZoom: false });
+  const bl = baseLayers();
+  bl.sat.addTo(_cmap);
+  L.control.layers(bl, null, { position: 'topright' }).addTo(_cmap);
+  const g = L.layerGroup();
+  rows.forEach(p => {
+    const col = (GP[p.gp] || GP.country)[0];
+    const r = p.i > 5e6 ? 10 : p.i > 1e6 ? 8 : p.i > 1e5 ? 6 : 4;
+    L.circleMarker(p.ll, { radius: r, color: col, weight: 1, fillColor: col, fillOpacity: .55 })
+      .bindPopup(`<div class="mpop"><b>${esc(p.n || '')}</b>
+        <span class="mt">${esc(p.r || '')} ｜ ${esc(catName(p.cat))}</span>
+        <span class="mt">${T('t_issued')}：${fmt(p.i)} tCO₂e</span>
+        <span class="mt">${T('gp_' + (p.gp || 'country'))}</span></div>`).addTo(g);
+  });
+  g.addTo(_cmap);
+  _cmap.fitBounds(L.latLngBounds(rows.map(p => p.ll)).pad(0.25), { maxZoom: 9 });
+}
 
 V.project=()=>{
   const p=S.p.find(x=>x.id===S.sel);
@@ -1163,12 +1259,28 @@ V.map=()=>{
     <div class="note">${T('map_note')}</div></div>`;
 };
 
+// CARTO 的免費圖磚自 2026 年起需要 API key（回傳「API KEY REQUIRED」底圖），
+// 改用 EOX 的公開 WMTS：OSM 街道圖與 Sentinel-2 無雲影像，兩者皆免金鑰。
+function baseLayers(){
+  const att='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors '
+    +'｜ 圖磚服務 <a href="https://maps.eox.at/">EOX</a>';
+  const satt='<a href="https://s2maps.eu">Sentinel-2 cloudless</a> by EOX IT Services GmbH '
+    +'(CC BY 4.0)，含經處理的 Copernicus Sentinel 資料';
+  const o={};
+  o.osm=L.tileLayer('https://tiles.maps.eox.at/wmts/1.0.0/osm_3857/default/g/{z}/{y}/{x}.jpg',
+    {maxZoom:16,attribution:att});
+  o.sat=L.tileLayer('https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg',
+    {maxZoom:14,attribution:satt});
+  const r={};r[T('map_osm')]=o.osm;r[T('map_sat')]=o.sat;
+  return Object.assign(r,o);
+}
+
 function drawMap(){
   const el=document.getElementById('mapc'); if(!el||!window.L) return;
   if(_map){_map.remove();_map=null}
   _map=L.map(el,{worldCopyJump:true,scrollWheelZoom:true}).setView([12,20],2);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {maxZoom:14,attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd'}).addTo(_map);
+  baseLayers().osm.addTo(_map);
+  L.control.layers(baseLayers(),null,{position:'topright'}).addTo(_map);
   const q=S.q.toLowerCase();
   let rows=S.p.filter(p=>p.ll);
   if(S.fg!=='all') rows=rows.filter(p=>p.gp!=='country');
@@ -1317,12 +1429,13 @@ function render(){
   ['fr','fs','fc','fg','fcat','dkind'].forEach(id=>{const el=$('#'+id);
     if(el)el.onchange=e=>{S[id]=e.target.value;if(id==='fcat')S.fth=null;if(id==='dkind')S.dcat='';S.lim=60;render()}});
   if(S.view==='map') setTimeout(drawMap,30);
+  if(S.view==='country') setTimeout(drawCountryMap,30);
   document.querySelectorAll('th[data-s]').forEach(th=>th.onclick=()=>{
     const k=th.dataset.s;S.sort.d=(S.sort.k===k)?-S.sort.d:-1;S.sort.k=k;render()});
 }
 document.querySelectorAll('.dbnav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
 
-const DV='?v=20261012q';
+const DV='?v=20261012s';
 const getJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()});
 
 // ── 專案明細：延遲載入、顯示進度、失敗可重試 ──────────────────
