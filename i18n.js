@@ -4,7 +4,7 @@
 window.I18N = {
 zh:{
   lang:'中文', dir:'ltr',
-  title:'碳市場資料庫｜Clouding Media',
+  title:'碳市場資料庫｜Forest Air',
   eyebrow:'Carbon Market Database',
   h1:'碳市場資料庫',
   lead:'全球碳市場的登記處資料與每日情報。可依國家、專案類型、開發商翻閱，並檢視我們自行計算的交付率——事前預估與實際核發之間的落差。',
@@ -116,7 +116,7 @@ zh:{
 },
 en:{
   lang:'English', dir:'ltr',
-  title:'Carbon Market Database | Clouding Media',
+  title:'Carbon Market Database | Forest Air',
   eyebrow:'Carbon Market Database',
   h1:'Carbon Market Database',
   lead:'Registry data and daily intelligence for the global carbon market. Browse by country, project type and developer, and see our own delivery-rate calculation — the gap between ex-ante estimates and credits actually issued.',
@@ -228,7 +228,7 @@ en:{
 },
 my:{
   lang:'မြန်မာ', dir:'ltr',
-  title:'ကာဗွန်ဈေးကွက် ဒေတာဘေ့စ် | Clouding Media',
+  title:'ကာဗွန်ဈေးကွက် ဒေတာဘေ့စ် | Forest Air',
   eyebrow:'Carbon Market Database',
   h1:'ကာဗွန်ဈေးကွက် ဒေတာဘေ့စ်',
   lead:'ကမ္ဘာ့ကာဗွန်ဈေးကွက်အတွက် မှတ်ပုံတင်ဒေတာနှင့် နေ့စဉ်သတင်းများ။ နိုင်ငံ၊ စီမံကိန်းအမျိုးအစား၊ ဖွံ့ဖြိုးရေးလုပ်ငန်းအလိုက် ကြည့်ရှုနိုင်ပြီး ကျွန်ုပ်တို့ တွက်ချက်ထားသော ပေးအပ်မှုနှုန်း — ခန့်မှန်းချက်နှင့် အမှန်တကယ် ထုတ်ပေးမှုကြား ကွာဟချက် — ကိုလည်း ကြည့်ရှုနိုင်ပါသည်။',
