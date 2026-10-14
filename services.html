@@ -1,192 +1,214 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>服務項目｜Forest Air</title>
-<meta name="description" content="ESG 套組、合規減量輔導、專案可行性評估。">
+<title>服務｜Clouding Media</title>
+<meta name="description" content="企業 AI 應用（Agent 平台）、AI 影像產線、MaaS 模型服務。三條服務線可分別採用，亦可整合交付。">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600;700&family=Playfair+Display:wght@500;600;700&family=Open+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="icon" href="images/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="images/icon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="images/icon-180.png">
-<link rel="stylesheet" href="styles.css?v=20261012b">
-<script src="pages-i18n.js?v=20261012b"></script>
-<script src="lang.js?v=20261012b" defer></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Inter:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-<div class="wrap">
-  <nav class="nav" id="nav">
-    <a class="brand" href="index.html"><img src="images/logo-lockup-white.png" alt="FOREST AIR"></a>
-    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">選單</button>
-    <span class="sp"></span>
-    <a class="lk" href="index.html">首頁</a>
-    <a class="lk on" href="services.html">服務</a>
-    <a class="lk" href="data.html">資料庫</a>
-    <a class="lk" href="about.html">關於</a>
-    <a class="lk" href="contact.html">聯絡</a>
-    <a class="cta" href="contact.html">聯絡我們</a>
-    <span class="langbar" id="langbar"></span>
-  </nav>
-</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="images/logo-mark-64.png" alt=""><span>CLOUDING<b>MEDIA</b></span></a>
+    <button class="navtoggle" aria-label="選單" onclick="document.querySelector('.nav nav').classList.toggle('open')">≡</button>
+    <nav>
+      <a href="index.html">首頁</a>
+      <a class="on" href="services.html">服務</a>
+      <a href="models.html">模型</a>
+      <a href="plans.html">方案</a>
+      <a href="cases.html">案例</a>
+      <a class="btn" href="contact.html">聯絡我們</a>
+    </nav>
+  </div>
 </header>
 
-<div class="hero">
-<div class="wrap">
-  <div class="rule"></div>
-  <div class="eyebrow">Services</div>
-  <h1>服務項目<span class="en">Services</span></h1>
-  <p class="lead">三條服務線可單獨委任，亦可依專案階段組合運用。</p>
-</div>
+<div class="hero" style="padding:70px 0 58px">
+  <div class="wrap">
+    <div class="kicker">Our services</div>
+    <h1 style="font-size:clamp(27px,3.6vw,42px)">從模型供給到應用落地</h1>
+    <p>三條服務線可分別採用，亦可整合交付。同一帳號、同一控制台、同一個團隊。</p>
+  </div>
 </div>
 
-<!-- ───── 01 ───── -->
-<section id="esg">
+<!-- ───────── 01 AI 應用服務 ───────── -->
+<section id="agent">
 <div class="wrap">
   <div class="split">
     <div>
-      <div class="eyebrow">01</div>
-      <h2>ESG 套組<span class="en">ESG Package</span></h2>
-      <p>企業採購碳權時，風險往往不在額度本身，而在對外宣稱。本公司將採購與宣稱一併處理，避免標的無虞而揭露失當。</p>
-      <ul style="color:var(--muted);font-size:15.5px;padding-left:19px;line-height:1.9">
-        <li>標的篩選與風險分級</li>
-        <li>採購前的盡職調查與查核紀錄</li>
-        <li>對外文案與報告書用語審查</li>
-        <li>揭露內容草擬與合約條款建議</li>
+      <div class="eyebrow">01　AI 應用服務</div>
+      <h2>將業務流程交由 AI Agent 執行</h2>
+      <p class="lead" style="margin-top:14px">
+        依流程客製，關鍵決策由人員審核。Web 端即開即用，桌面端可自訂。</p>
+      <ul class="ticks">
+        <li><b>Web 端｜即開即用</b>　客製 Agent，開啟即用，員工零設定</li>
+        <li><b>桌面應用｜自訂流程</b>　自訂 Skill、編排工作流程，面向複雜而持續的工作任務</li>
+        <li><b>後台管理｜權限與用量</b>　客戶、群組、Agent、知識統一管理；
+            權限、審核、用量、資料留存、租戶隔離</li>
+        <li><b>企業知識庫</b>　讓 AI 先理解知識、再檢索，而不是硬塞一堆文件</li>
+        <li><b>資料回流</b>　每個 Agent 的用量與成本可見，按月檢討與成本最佳化</li>
       </ul>
-      <p class="small muted" style="margin-top:14px">適用對象：擬採購碳權，或已持有部位需檢視之企業。</p>
     </div>
-    <figure class="figure">
-      <img class="ratio-4x3" src="images/sample-bags.jpg" alt="樣品袋與標籤">
-      <figcaption>自然碳匯標的須逐案查核<span class="en">Every project is checked individually</span></figcaption>
-    </figure>
+    <div class="card hi">
+      <h3>這條線適合誰</h3>
+      <p>業務流程明確、而且<b>專業判斷目前綁在少數幾個人身上</b>的企業。</p>
+      <p>典型情況：資深顧問的判斷無法複製，於是案量卡在人數；
+         或是一份文件要靠幾個人手工拼十天。</p>
+      <p style="margin-bottom:0">把那段流程拆出來交給 Agent，人只保留關鍵決策點。</p>
+    </div>
   </div>
 </div>
 </section>
 
-<div class="band"><img src="images/planting-wide.jpg" alt="成列幼樹"></div>
-
-<!-- ───── 02 ───── -->
-<section id="compliance" class="alt">
+<!-- ───────── 02 AI 影像產線 ───────── -->
+<section class="soft" id="studio">
 <div class="wrap">
   <div class="split rev">
-    <figure class="figure">
-      <img class="ratio-4x3" src="images/bush-trail.jpg" alt="灌叢整理後的林地">
-      <figcaption>整理後的林地<span class="en">Cleared bushland</span></figcaption>
-    </figure>
+    <div class="card">
+      <h3>這條線適合誰</h3>
+      <p>電商、代理商、品牌行銷團隊 —— 需要<b>每天都要產出</b>影像內容的團隊。</p>
+      <p>重點不在做出一支漂亮的影片，而在讓團隊每個人都做得出來、
+         而且做得穩。</p>
+      <p style="margin-bottom:0">所以交付包含培訓與課件，不只是開一個帳號給你。</p>
+    </div>
     <div>
-      <div class="eyebrow">02</div>
-      <h2>合規減量輔導<span class="en">Compliance Advisory</span></h2>
-      <p>受碳費或減量規範之事業，首要確認的通常不是採購何種額度，而是何種額度得以適用、抵換比例上限為何、應備文件為何。</p>
-      <ul style="color:var(--muted);font-size:15.5px;padding-left:19px;line-height:1.9">
-        <li>抵換資格與比例限制判讀</li>
-        <li>自主減量路徑盤點與成本排序</li>
-        <li>主管機關文件備置</li>
-        <li>法規變動追蹤與通報</li>
+      <div class="eyebrow">02　AI 影像產線</div>
+      <h2>從一個想法，到一支專業級影片</h2>
+      <p class="lead" style="margin-top:14px">
+        腳本、分鏡、逐鏡影像與影片，在同一張畫布上完成。</p>
+      <ul class="ticks">
+        <li><b>無限畫布｜分鏡到成片</b>　腳本、分鏡、逐鏡影像與影片在同一處完成</li>
+        <li><b>多模型｜Agent 協作</b>　依情境切換影像與影片模型，AI 協助拆解與生成</li>
+        <li><b>培訓與課件</b>　團隊從零到每天產出，不是買了工具就沒人會用</li>
+        <li><b>適合群體作業</b>　多人在同一張畫布上接力，版本與素材不會散落</li>
       </ul>
-      <p class="small muted" style="margin-top:14px">適用對象：受碳費徵收或強制減量規範之事業。</p>
     </div>
   </div>
 </div>
 </section>
 
-<!-- ───── 03 ───── -->
-<section id="feasibility">
+<!-- ───────── 03 MaaS ───────── -->
+<section class="deep" id="maas">
 <div class="wrap">
-  <div class="split">
-    <div>
-      <div class="eyebrow">03</div>
-      <h2>專案可行性評估<span class="en">Project Feasibility</span></h2>
-      <p>碳專案的前期開發成本可觀。本公司的工作，在於該筆支出投入之前，先行確認該案場、該國法制與該套方法學是否具備可行性。</p>
-      <ul style="color:var(--muted);font-size:15.5px;padding-left:19px;line-height:1.9">
-        <li>方法學適用性比對</li>
-        <li>土地權利與所在國法規風險</li>
-        <li>碳量與開發成本初估</li>
-        <li>明確的推進或不推進建議</li>
-      </ul>
-      <p class="small muted" style="margin-top:14px">適用對象：土地持有方、專案開發方與投資評估單位。</p>
+  <div class="eyebrow">03　模型服務 MaaS</div>
+  <h2>像用電一樣使用模型<span class="en">Model as a Service</span></h2>
+  <p class="lead" style="margin-top:14px">
+    現有系統不需修改，接上即用；金鑰依專案分配，用量透明可查。</p>
+
+  <div class="grid g3" style="margin-top:34px">
+    <div class="card">
+      <div class="num">統一接入</div>
+      <h3 style="margin-top:7px">現有系統不需修改</h3>
+      <p>相容 OpenAI 及各廠商原生協定。模型更新、下架由平台處理，
+         應用端不需更動。</p>
     </div>
-    <figure class="figure">
-      <img class="ratio-4x3" src="images/mangrove-stand.jpg" alt="紅樹林林分">
-      <figcaption>紅樹林林分現況<span class="en">Mangrove stand</span></figcaption>
-    </figure>
+    <div class="card">
+      <div class="num">金鑰與額度</div>
+      <h3 style="margin-top:7px">單一帳號，多把金鑰</h3>
+      <p>依部門或專案分配額度，各設支出上限與存取 IP。
+         誰用了多少，一目了然。</p>
+    </div>
+    <div class="card">
+      <div class="num">用量與計費</div>
+      <h3 style="margin-top:7px">逐筆記錄，依官方定價</h3>
+      <p>時間、模型、用量、金額逐筆可查。依官方定價計量，
+         商務條件載於合約。</p>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    控制台提供：模型清單（依廠商與模態篩選）、金鑰與額度與存取規則、
+    餘額與用量紀錄。
   </div>
 </div>
 </section>
 
-<!-- ───── 流程 ───── -->
-<section class="alt">
+<!-- ───────── 我們負責什麼 ───────── -->
+<section>
 <div class="wrap">
-  <div class="eyebrow">Process</div>
-  <h2>合作流程<span class="en">How we engage</span></h2>
-  <div class="grid g4" style="margin-top:28px">
-    <div class="card">
-      <div class="no">一</div><h3>初步討論</h3>
-      <p class="small muted">了解需求與既有資料，確認是否屬本公司服務範圍。此階段不計費。</p>
-    </div>
-    <div class="card">
-      <div class="no">二</div><h3>範圍與報價</h3>
-      <p class="small muted">以書面載明服務內容、交付成果、時程與報酬。</p>
-    </div>
-    <div class="card">
-      <div class="no">三</div><h3>執行</h3>
-      <p class="small muted">依期程交付成果，重大發現即時回報。</p>
-    </div>
-    <div class="card">
-      <div class="no">四</div><h3>交付</h3>
-      <p class="small muted">交付報告與簡報摘要，並保留修訂期間。</p>
-    </div>
-  </div>
+  <div class="eyebrow">Our role</div>
+  <h2>平台是 WATTAIGE 的，導入是我們的</h2>
+  <p class="lead" style="margin-top:14px">
+    講清楚分工，你才知道自己買的是什麼、出事時該找誰。</p>
 
-  <p class="small muted" style="margin-top:26px">
-    本公司提供之服務為顧問意見，不含法律與稅務意見，亦不代為辦理第三方查證。涉及該等事項時，將建議另行委任專業人士。</p>
+  <div class="scrollx" style="margin-top:30px">
+  <table class="tbl" style="min-width:640px">
+    <tr><th>項目</th><th>WATTAIGE（原廠）</th><th class="now">Clouding Media（我們）</th></tr>
+    <tr>
+      <td><b>平台與模型</b></td>
+      <td>平台開發、模型接入、節點維運、型號更新</td>
+      <td class="now">帳號開通、配置建議、問題回報與追蹤</td>
+    </tr>
+    <tr>
+      <td><b>導入</b></td>
+      <td>—</td>
+      <td class="now">流程盤點、Agent 設計與建置、知識庫規劃、系統串接</td>
+    </tr>
+    <tr>
+      <td><b>人</b></td>
+      <td>—</td>
+      <td class="now">培訓、課件、上線陪跑</td>
+    </tr>
+    <tr>
+      <td><b>營運</b></td>
+      <td>平台可用性</td>
+      <td class="now">用量檢討、成本最佳化、按月追蹤</td>
+    </tr>
+    <tr>
+      <td><b>合約與付款</b></td>
+      <td>平台服務條款</td>
+      <td class="now">在地合約、台幣計價、發票與對帳</td>
+    </tr>
+  </table>
+  </div>
 </div>
 </section>
 
-<div class="band"><img src="images/braided-river.jpg" alt="旱季辮狀河"></div>
-
-<section class="tight">
+<section class="deep tight">
 <div class="wrap" style="text-align:center">
-  <h2>尚不確定適用何項服務？<span class="en">Not sure which one?</span></h2>
-  <p class="lead" style="margin:0 auto 24px">請說明貴公司現況，我們將建議適切的委任範圍與先後順序。</p>
-  <a class="cta" href="contact.html">聯絡我們</a>
+  <h2>先從一段流程開始</h2>
+  <p class="lead" style="margin:16px auto 0">
+    不必先決定要買哪一條線。把一段真實的流程講給我們聽，由我們評估。</p>
+  <div style="margin-top:26px"><a class="btn lt" href="contact.html">預約一次流程討論</a></div>
 </div>
 </section>
 
 <footer>
 <div class="wrap">
-  <div class="ft">
+  <div class="cols">
     <div>
-      <img class="ftlogo" src="images/logo-lockup-white.png" alt="FOREST AIR">
-      <p>碳權採購、合規減量與專案可行性評估。<br>
-        <span class="small">Carbon procurement, compliance and project feasibility.</span></p>
+      <div class="ftbrand"><img src="images/logo-mark-64.png" alt=""><span>CLOUDING<b>MEDIA</b></span></div>
+      <p style="margin:0;max-width:34ch">
+        為企業接通全球主流 AI 模型，並打造真正融入業務的 AI 應用。</p>
     </div>
     <div>
       <h4>服務</h4>
-      <ul>
-        <li><a href="services.html#esg">ESG 套組</a></li>
-        <li><a href="services.html#compliance">合規減量輔導</a></li>
-        <li><a href="services.html#feasibility">專案可行性評估</a></li>
-      </ul>
+      <a href="services.html#agent">AI 應用服務</a>
+      <a href="services.html#studio">AI 影像產線</a>
+      <a href="services.html#maas">模型服務 MaaS</a>
     </div>
     <div>
-      <h4>公司</h4>
-      <ul>
-        <li><a href="about.html">關於我們</a></li>
-        <li><a href="contact.html">聯絡我們</a></li>
-      </ul>
+      <h4>資源</h4>
+      <a href="models.html">模型矩陣</a>
+      <a href="plans.html">Token Plan</a>
+      <a href="cases.html">客戶案例</a>
     </div>
     <div>
       <h4>聯絡</h4>
-      <ul><li><a href="mailto:wilson@clouding-media.com">wilson@clouding-media.com</a></li></ul>
+      <a href="contact.html">聯絡我們</a>
+      <a href="mailto:wilson@clouding-media.com">wilson@clouding-media.com</a>
     </div>
   </div>
-  <div class="copy">
-    <span>© 2026 Forest Air</span><span class="sp"></span>
-    <span>本網站所載內容為一般性資訊，非法律、稅務或投資意見。</span>
+  <div class="bot">
+    <span>© 2026 Clouding Media</span>
+    <span class="sp"></span>
+    <span>平台技術由 WATTAIGE 提供，Clouding Media 為台灣地區服務夥伴</span>
   </div>
 </div>
 </footer>

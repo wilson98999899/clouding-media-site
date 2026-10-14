@@ -1,139 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>聯絡｜Forest Air</title>
-<meta name="description" content="聯絡方式與合作流程。初步諮詢不計費。">
+<title>關於與聯絡｜Clouding Media</title>
+<meta name="description" content="Clouding Media 為 WATTAIGE 平台的台灣地區服務夥伴。先談一段流程，或先開一把金鑰。">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600;700&family=Playfair+Display:wght@500;600;700&family=Open+Sans:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="icon" href="images/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="images/icon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="images/icon-180.png">
-<link rel="stylesheet" href="styles.css?v=20261012b">
-<script src="pages-i18n.js?v=20261012b"></script>
-<script src="lang.js?v=20261012b" defer></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Inter:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-<div class="wrap">
-  <nav class="nav" id="nav">
-    <a class="brand" href="index.html"><img src="images/logo-lockup-white.png" alt="FOREST AIR"></a>
-    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">選單</button>
-    <span class="sp"></span>
-    <a class="lk" href="index.html">首頁</a>
-    <a class="lk" href="services.html">服務</a>
-    <a class="lk" href="data.html">資料庫</a>
-    <a class="lk" href="about.html">關於</a>
-    <a class="lk on" href="contact.html">聯絡</a>
-    <a class="cta" href="mailto:wilson@clouding-media.com">來信洽詢</a>
-    <span class="langbar" id="langbar"></span>
-  </nav>
-</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="images/logo-mark-64.png" alt=""><span>CLOUDING<b>MEDIA</b></span></a>
+    <button class="navtoggle" aria-label="選單" onclick="document.querySelector('.nav nav').classList.toggle('open')">≡</button>
+    <nav>
+      <a href="index.html">首頁</a>
+      <a href="services.html">服務</a>
+      <a href="models.html">模型</a>
+      <a href="plans.html">方案</a>
+      <a href="cases.html">案例</a>
+      <a class="btn on" href="contact.html">聯絡我們</a>
+    </nav>
+  </div>
 </header>
 
-<div class="hero">
-<div class="wrap">
-  <div class="split">
-    <div>
-      <div class="rule"></div>
-      <div class="eyebrow">Contact</div>
-      <h1>聯絡我們<span class="en">Contact</span></h1>
-      <p class="lead">初步諮詢不計費，用於確認需求範圍與後續方向。</p>
-      <p style="font-size:20px;margin-top:6px">
-        <a href="mailto:wilson@clouding-media.com"
-           style="color:var(--accent);text-decoration:none;font-weight:700">wilson@clouding-media.com</a></p>
-    </div>
-    <figure class="figure">
-      <img class="ratio-4x3" src="images/acacia.jpg" alt="相思樹枝葉">
-      <figcaption>相思樹枝葉<span class="en">Acacia foliage</span></figcaption>
-    </figure>
+<div class="hero" style="padding:70px 0 58px">
+  <div class="wrap">
+    <div class="kicker">Next step</div>
+    <h1 style="font-size:clamp(27px,3.6vw,42px)">從一段業務流程<br>或者一把金鑰開始</h1>
+    <p>先談一段流程，由我們規劃 Agent 系統；或先開一把金鑰，以真實業務試用。</p>
   </div>
 </div>
-</div>
 
+<!-- ───────── 兩種開始方式 ───────── -->
 <section>
 <div class="wrap">
   <div class="grid g2">
-    <div class="card">
-      <h3>來信時建議一併提供<span class="en">Helpful to include</span></h3>
-      <ul style="color:var(--muted);font-size:15.5px;padding-left:19px;line-height:1.9">
-        <li>需求類型：採購、合規、或專案評估</li>
-        <li>所在國家或案場位置（概略範圍即可）</li>
-        <li>既有資料：報告、簡報、地圖或座標</li>
-        <li>時程或主管機關期限</li>
+    <div class="card hi">
+      <div class="num">路徑一</div>
+      <h3 style="margin-top:7px">先談一段流程</h3>
+      <p>挑一段你覺得最吃人力、或最卡產能的流程講給我們聽。
+         我們會回覆三件事：</p>
+      <ul class="ticks">
+        <li>這段流程適不適合交給 Agent，哪些步驟不適合</li>
+        <li>需要哪些資料與知識，你手上有沒有</li>
+        <li>大致的投入規模與時程</li>
       </ul>
-      <p class="small muted" style="margin-top:12px">具備上述資訊，我們通常得於首次回覆即提出初步判斷。</p>
+      <p class="small muted" style="margin-top:14px;margin-bottom:0">
+        初步討論不收費。評估結論若是「不建議做」，我們也會直說。</p>
     </div>
+
     <div class="card">
-      <h3>保密<span class="en">Confidentiality</span></h3>
-      <p class="small muted">台端提供之非公開資料，未經書面同意，不提供予與本案無關之第三人。案場位置、合約條件與交易對手資訊，自初步討論階段起即適用本項約定。</p>
-      <p class="small muted">如需先行簽署保密協議，請於來信中敘明。</p>
+      <div class="num">路徑二</div>
+      <h3 style="margin-top:7px">先開一把金鑰</h3>
+      <p>如果你有自己的研發團隊，與其看規格表，不如直接接上去跑。</p>
+      <ul class="ticks">
+        <li>單一帳號接入全球主流模型，相容既有協定</li>
+        <li>以真實流量測速率、品質與成本</li>
+        <li>試用後再決定方案形態</li>
+      </ul>
+      <p class="small muted" style="margin-top:14px;margin-bottom:0">
+        現有系統不需修改，接上即用。</p>
     </div>
   </div>
 </div>
 </section>
 
-<section class="alt">
+<!-- ───────── 聯絡方式 ───────── -->
+<section class="soft">
 <div class="wrap">
-  <div class="eyebrow">Process</div>
-  <h2>合作流程<span class="en">How we engage</span></h2>
-  <div class="grid g4" style="margin-top:26px">
-    <div class="card">
-      <div class="no">一</div><h3>初步討論</h3>
-      <p class="small muted">了解需求，確認是否屬本公司服務範圍。此階段不計費。</p>
+  <div class="split">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>聯絡我們</h2>
+      <p class="lead" style="margin-top:14px">
+        來信時若能附上一段具體的流程描述，我們的回覆會具體得多。</p>
+      <p style="margin-top:22px;font-size:19px">
+        <a href="mailto:wilson@clouding-media.com?subject=AI%20服務洽詢"
+           style="font-weight:700;text-decoration:none">wilson@clouding-media.com</a></p>
+      <div style="margin-top:24px">
+        <a class="btn" href="mailto:wilson@clouding-media.com?subject=AI%20服務洽詢&amp;body=我想討論的流程：%0D%0A%0D%0A目前由幾個人負責：%0D%0A%0D%0A一次大約要花多久：%0D%0A%0D%0A手上有哪些資料或文件：%0D%0A">來信洽詢</a>
+      </div>
     </div>
     <div class="card">
-      <div class="no">二</div><h3>範圍與報價</h3>
-      <p class="small muted">以書面載明內容、交付成果、時程與報酬。</p>
-    </div>
-    <div class="card">
-      <div class="no">三</div><h3>執行</h3>
-      <p class="small muted">依期程交付，重大發現即時回報。</p>
-    </div>
-    <div class="card">
-      <div class="no">四</div><h3>交付</h3>
-      <p class="small muted">交付報告與摘要，並保留修訂期間。</p>
+      <h3>我們會問的四個問題</h3>
+      <p class="small muted">先想過這四題，第一次談就能談到重點。</p>
+      <ul class="ticks">
+        <li>這段流程<b>目前由幾個人</b>負責？</li>
+        <li>一次大約要花<b>多久</b>？一個月做幾次？</li>
+        <li>哪一步最常<b>返工</b>？為什麼？</li>
+        <li>做完之後，<b>誰要為結果負責</b>？</li>
+      </ul>
+      <p class="small muted" style="margin-top:14px;margin-bottom:0">
+        第四題最重要。要負責的決定不會交給 Agent，
+        它決定了哪些步驟可以自動化、哪些必須保留人工審核。</p>
     </div>
   </div>
 </div>
 </section>
 
-<div class="band"><img src="images/stream.jpg" alt="場址旁溪流"></div>
+<!-- ───────── 關於我們 ───────── -->
+<section>
+<div class="wrap">
+  <div class="eyebrow">About us</div>
+  <h2>關於 Clouding Media</h2>
+
+  <div class="split" style="margin-top:34px">
+    <div>
+      <p class="lead">
+        我們為企業接通全球主流 AI 模型，並打造真正融入業務的 AI 應用。</p>
+      <p>兩條業務線 —— 企業 AI 應用與 AI 影像產線 —— 共用同一個模型底座。
+         模型用量走同一個帳號、同一個控制台管理，由同一個團隊設計、建置與維運。</p>
+      <p>我們不只交付系統。培訓、課件、上線陪跑、用量檢討與成本最佳化，
+         都在服務範圍內 —— 因為沒有人用的系統，效益是零。</p>
+    </div>
+    <div class="card hi">
+      <h3>與 WATTAIGE 的關係</h3>
+      <p><b>平台技術由 WATTAIGE 提供</b>，Clouding Media 為其
+         <b>台灣地區服務夥伴</b>。</p>
+      <p>這個分工對你的意義是：平台的穩定性、模型接入與型號更新由原廠負責；
+         而流程盤點、Agent 設計與建置、培訓、在地合約、台幣計價、
+         發票與對帳，由我們負責。</p>
+      <p style="margin-bottom:0">
+        出事的時候你找我們，不必跨時區跨語言去追原廠。</p>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:30px">
+    本網站所列之案例由 WATTAIGE 交付，Clouding Media 取得授權引用，
+    用以說明平台能力；所列數據由原廠提供。
+    <a href="cases.html">案例頁</a>另有完整說明。
+  </div>
+</div>
+</section>
 
 <footer>
 <div class="wrap">
-  <div class="ft">
+  <div class="cols">
     <div>
-      <img class="ftlogo" src="images/logo-lockup-white.png" alt="FOREST AIR">
-      <p>碳權採購、合規減量與專案可行性評估。<br>
-        <span class="small">Carbon procurement, compliance and project feasibility.</span></p>
+      <div class="ftbrand"><img src="images/logo-mark-64.png" alt=""><span>CLOUDING<b>MEDIA</b></span></div>
+      <p style="margin:0;max-width:34ch">
+        為企業接通全球主流 AI 模型，並打造真正融入業務的 AI 應用。</p>
     </div>
     <div>
       <h4>服務</h4>
-      <ul>
-        <li><a href="services.html#esg">ESG 套組</a></li>
-        <li><a href="services.html#compliance">合規減量輔導</a></li>
-        <li><a href="services.html#feasibility">專案可行性評估</a></li>
-      </ul>
+      <a href="services.html#agent">AI 應用服務</a>
+      <a href="services.html#studio">AI 影像產線</a>
+      <a href="services.html#maas">模型服務 MaaS</a>
     </div>
     <div>
-      <h4>公司</h4>
-      <ul>
-        <li><a href="about.html">關於我們</a></li>
-        <li><a href="contact.html">聯絡我們</a></li>
-      </ul>
+      <h4>資源</h4>
+      <a href="models.html">模型矩陣</a>
+      <a href="plans.html">Token Plan</a>
+      <a href="cases.html">客戶案例</a>
     </div>
     <div>
       <h4>聯絡</h4>
-      <ul><li><a href="mailto:wilson@clouding-media.com">wilson@clouding-media.com</a></li></ul>
+      <a href="contact.html">聯絡我們</a>
+      <a href="mailto:wilson@clouding-media.com">wilson@clouding-media.com</a>
     </div>
   </div>
-  <div class="copy">
-    <span>© 2026 Forest Air</span><span class="sp"></span>
-    <span>本網站所載內容為一般性資訊，非法律、稅務或投資意見。</span>
+  <div class="bot">
+    <span>© 2026 Clouding Media</span>
+    <span class="sp"></span>
+    <span>平台技術由 WATTAIGE 提供，Clouding Media 為台灣地區服務夥伴</span>
   </div>
 </div>
 </footer>
